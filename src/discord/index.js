@@ -6,7 +6,7 @@ const fs = require("fs");
 
 client.once("ready", () => {
     console.log('\x1b[33m%s\x1b[0m',"Bot is up");
-
+    client.user.setActivity("Climb", { type: "PLAYING" });
     let commands = client.application.commands;
 
     fs.readdirSync("./src/discord/commands").forEach(fileName => {
