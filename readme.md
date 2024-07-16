@@ -10,7 +10,7 @@
 - [ ] Battle Pass & Levelling Up
 - [ ] Challenges (Quests)
 - [x] Friends (broken not working)
-- [x] XMPP (broken)
+- [x] XMPP
 - [x] Parties (V1 & V2) (broken not working)
 - [x] Gifting (lawin need to change)
 - [x] Purchasing from item shop
