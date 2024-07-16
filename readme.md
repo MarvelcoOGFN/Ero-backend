@@ -22,3 +22,4 @@
 - [ ] Customizable Contentpages through database
 - [x] match maker (need to be improved)
 - [ ] Vbucks command
+- [ ] Implement API for launcher login
