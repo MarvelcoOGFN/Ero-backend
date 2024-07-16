@@ -1,0 +1,35 @@
+{
+    "//": "BR Item Shop Config",
+    "daily1": {
+        "itemGrants": ["AthenaCharacter:CID_174_Athena_Commando_F_CarbideWhite"],
+        "price": 2000
+    },
+    "daily2": {
+        "itemGrants": ["AthenaCharacter:CID_703_Athena_Commando_M_Cyclone"],
+        "price": 1500
+    },
+    "daily3": {
+        "itemGrants": ["AthenaCharacter:CID_761_Athena_Commando_M_CycloneSpace"],
+        "price": 0
+    },
+    "daily4": {
+        "itemGrants": ["AthenaPickaxe:Pickaxe_ID_015_HolidayCandyCane"],
+        "price": 1500
+    },
+    "daily5": {
+        "itemGrants": [""],
+        "price": 0
+    },
+    "daily6": {
+        "itemGrants": [""],
+        "price": 0
+    },
+    "featured1": {
+        "itemGrants": [""],
+        "price": 0
+    },
+    "featured2": {
+        "itemGrants": [""],
+        "price": 0
+    }
+}
