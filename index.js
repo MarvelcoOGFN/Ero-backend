@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 const error = require("./src/structs/errorModule.js");
 const functions = require("./src/structs/functions.js");
 
-dotenv.config(); // Loads variables from .env file
+dotenv.config(); 
 
 const PORT = 3551;
 
@@ -24,7 +24,7 @@ const initializeApp = () => {
 
 
 const setupDirectories = () => {
-    if (!fs.existsSync("./ClientSettings")) fs.mkdirSync("./ClientSettings");
+    if (!fs.existsSync("./src/ClientSettings")) fs.mkdirSync("./src/ClientSettings");
 };
 
 const initializeSecret = () => {
