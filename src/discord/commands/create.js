@@ -4,7 +4,7 @@ const functions = require("../../structs/functions.js");
 module.exports = {
     commandInfo: {
         name: "create",
-        description: "Creates an account on AgencyBackend.",
+        description: "Creates an account on Climb.",
         options: [
             {
                 name: "email",
