@@ -4,7 +4,7 @@ const functions = require("../../structs/functions.js");
 module.exports = {
     commandInfo: {
         name: "create",
-        description: "Creates an account on AgencyBackend.",
+        description: "Creates an account on Climb.",
         options: [
             {
                 name: "email",
@@ -38,7 +38,7 @@ module.exports = {
 
         await functions.registerUser(discordId, username, email, password).then(resp => {
             let embed = new MessageEmbed()
-            .setColor(resp.status >= 400 ? "#EE4B2B" : "#FFD700")
+            .setColor(resp.status >= 400 ? "#EE4B2B" : "#FF00FF")
             .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
             .setFields(
                 { name: 'Message', value: resp.message },
