@@ -108,7 +108,7 @@
       },
       "quantity": 1
     },
-    "Agency-loadout": {
+    "ClimbFN": {
       "templateId": "CosmeticLocker:cosmeticlocker_athena",
       "attributes": {
         "locker_slots_data": {
