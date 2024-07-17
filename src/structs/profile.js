@@ -1,10 +1,13 @@
 const fs = require("fs");
+const path = require("path");
 
 function createProfiles(accountId) {
     let profiles = {};
 
-    fs.readdirSync("./Config/DefaultProfiles").forEach(fileName => {
-        const profile = require(`../Config/DefaultProfiles/${fileName}`);
+    const profilesDir = path.join(__dirname, ".." , "Profiles");
+
+    fs.readdirSync(profilesDir).forEach(fileName => {
+        const profile = require(path.join(profilesDir, fileName));
 
         profile.accountId = accountId;
         profile.created = new Date().toISOString();
@@ -31,4 +34,4 @@ async function validateProfile(profileId, profiles) {
 module.exports = {
     createProfiles,
     validateProfile
-}
+};
