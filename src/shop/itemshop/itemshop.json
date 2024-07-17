@@ -1,35 +1,57 @@
 {
-    "//": "BR Item Shop Config",
-    "daily1": {
-        "itemGrants": ["AthenaCharacter:CID_174_Athena_Commando_F_CarbideWhite"],
-        "price": 2000
-    },
-    "daily2": {
-        "itemGrants": ["AthenaCharacter:CID_703_Athena_Commando_M_Cyclone"],
-        "price": 1500
-    },
-    "daily3": {
-        "itemGrants": ["AthenaCharacter:CID_761_Athena_Commando_M_CycloneSpace"],
-        "price": 0
-    },
-    "daily4": {
-        "itemGrants": ["AthenaPickaxe:Pickaxe_ID_015_HolidayCandyCane"],
-        "price": 1500
-    },
-    "daily5": {
-        "itemGrants": ["CID_605_Athena_Commando_M_TourBus"],
-        "price": 0
-    },
-    "daily6": {
-        "itemGrants": ["CID_527_Athena_Commando_F_StreetFashionRed"],
-        "price": 0
-    },
-    "featured1": {
-        "itemGrants": [""],
-        "price": 0
-    },
-    "featured2": {
-        "itemGrants": [""],
-        "price": 0
-    }
+  "//": "BR Item Shop Config",
+  "daily1": {
+    "itemGrants": [
+      "AthenaBackpack:BID_223_OrangeCamo"
+    ],
+    "price": 500
+  },
+  "daily2": {
+    "itemGrants": [
+      "AthenaBackpack:BID_504_Handyman"
+    ],
+    "price": 500
+  },
+  "daily3": {
+    "itemGrants": [
+      "AthenaPickaxe:BID_242_FurnaceFace"
+    ],
+    "price": 2000
+  },
+  "daily4": {
+    "itemGrants": [
+      "AthenaPickaxe:Pickaxe_ID_140_StreetGoth"
+    ],
+    "price": 500
+  },
+  "daily5": {
+    "itemGrants": [
+      "AthenaMusicPack:MusicPack_005_Disco"
+    ],
+    "price": 500
+  },
+  "daily6": {
+    "itemGrants": [
+      "AthenaItemWrap:Wrap_078_SlurpJuice"
+    ],
+    "price": 0
+  },
+  "featured1": {
+    "itemGrants": [
+      "AthenaCharacter:CID_685_Athena_Commando_M_TundraYellow"
+    ],
+    "price": 800
+  },
+  "featured2": {
+    "itemGrants": [
+      "AthenaCharacter:CID_669_Athena_Commando_M_ArcticCamo_Slate"
+    ],
+    "price": 800
+  },
+  "featured3": {
+    "itemGrants": [
+      "AthenaCharacter:CID_579_Athena_Commando_F_RedRidingRemix"
+    ],
+    "price": 1500
+  }
 }

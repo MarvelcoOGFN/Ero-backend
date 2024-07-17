@@ -7,21 +7,53 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const error = require("./src/structs/errorModule.js");
 const functions = require("./src/structs/functions.js");
+const path = require("path");
+const { spawn } = require('child_process');
 
-dotenv.config(); 
+dotenv.config();
 
 const PORT = 3551;
 
-const initializeApp = () => {
-    setupDirectories();
-    initializeSecret();
-    cleanExpiredTokens();
-    connectToMongoDB();
-    setupMiddleware();
-    loadRoutes();
-    startServer();
+const initializeApp = async () => {
+    try {
+        await generateItemshopConfig(); // Generate itemshop first
+        setupDirectories();
+        initializeSecret();
+        cleanExpiredTokens();
+        connectToMongoDB();
+        setupMiddleware();
+        loadRoutes();
+        startServer();
+    } catch (err) {
+        console.error('Error initializing app:', err);
+        process.exit(1); 
+    }
 };
 
+const generateItemshopConfig = async () => {
+    return new Promise((resolve, reject) => {
+        const scriptPath = path.join(__dirname, 'src' , "shop" ,'Itemshopgenerator.js');
+        const child = spawn('node', [scriptPath]);
+
+        child.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+        });
+
+        child.stderr.on('data', (data) => {
+            console.error(`stderr: ${data}`);
+        });
+
+        child.on('close', (code) => {
+            if (code === 0) {
+                console.log('\x1b[33m%s\x1b[0m','itemshop generated successfully');
+                resolve();
+            } else {
+                console.error(`Failed to generate itemshop.json (exit code ${code})`);
+                reject(new Error(`Failed to generate itemshop.json (exit code ${code})`));
+            }
+        });
+    });
+};
 
 const setupDirectories = () => {
     if (!fs.existsSync("./src/ClientSettings")) fs.mkdirSync("./src/ClientSettings");
@@ -68,8 +100,15 @@ const setupMiddleware = () => {
 };
 
 const loadRoutes = () => {
-    fs.readdirSync("./src/routes").forEach(fileName => {
-        app.use(require(`./src/routes/${fileName}`));
+    const routesDir = path.join(__dirname, 'src', 'routes');
+    fs.readdirSync(routesDir).forEach(fileName => {
+        const routePath = path.join(routesDir, fileName);
+        const routeModule = require(routePath);
+        if (typeof routeModule === 'function') {
+            app.use(routeModule);
+        } else {
+            console.error(`Error loading route ${fileName}: expected a middleware function but got ${typeof routeModule}`);
+        }
     });
 };
 
@@ -103,4 +142,3 @@ const DateAddHours = (pdate, number) => {
 
 // Initialize the app
 initializeApp();
-
