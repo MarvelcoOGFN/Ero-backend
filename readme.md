@@ -2,11 +2,11 @@
 
 ![Capture](https://d1lss44hh2trtw.cloudfront.net/assets/editorial/2020/02/fortnite-hideout.jpg)
 
-### This backend is made for Project climb 12.40
+### This backend is made for Project climb 12.41
 
 # road map:
 
-- [ ] Auto shop
+- [x] Auto shop
 - [ ] Battle Pass & Levelling Up
 - [ ] Challenges (Quests)
 - [x] Friends (broken not working)
