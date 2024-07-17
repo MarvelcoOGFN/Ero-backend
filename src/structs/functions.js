@@ -122,8 +122,8 @@ function getContentPages(req) {
 }
 
 function getItemShop() {
-    const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "shop", "itemshop" ,"itemshop.json")).toString());
-    const CatalogConfig = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "shop", "catalog.json").toString()));
+    const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "shop" ,"catalog.json")).toString());
+    const CatalogConfig = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "shop", "itemshop" ,"itemshop.json").toString()));
 
     try {
         for (let value in CatalogConfig) {
