@@ -17,7 +17,7 @@
         "price": 1500
     },
     "daily5": {
-        "itemGrants": [""],
+        "itemGrants": ["CID_605_Athena_Commando_M_TourBus"],
         "price": 0
     },
     "daily6": {
