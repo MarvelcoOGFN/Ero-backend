@@ -1,8 +1,16 @@
 const express = require("express");
 const app = express.Router();
-
 const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
 const functions = require("../structs/functions.js");
+
+const getNewItemshopTime = () => {
+    const now = new Date();
+    now.setUTCDate(now.getUTCDate() + 1);
+    now.setUTCHours(0, 0, 0, 0);
+    return now.toISOString();
+};
+
+const ItemshopTime = getNewItemshopTime();
 
 const createEvent = (eventType, activeUntil, activeSince) => ({
     eventType,
@@ -10,7 +18,9 @@ const createEvent = (eventType, activeUntil, activeSince) => ({
     activeSince
 });
 
+
 app.get("/fortnite/api/calendar/v1/timeline", (req, res) => {
+    
     const memory = functions.GetVersionInfo(req);
 
     const activeEvents = [
@@ -30,13 +40,13 @@ app.get("/fortnite/api/calendar/v1/timeline", (req, res) => {
             seasonBegin: "2020-01-01T00:00:00Z",
             seasonEnd: "9999-01-01T00:00:00Z",
             seasonDisplayedEnd: "9999-01-01T00:00:00Z",
-            weeklyStoreEnd: "9999-01-01T00:00:00Z", //this doesnt matter because my backend doesnt support stw just there to bypass error
-            stwEventStoreEnd: "9999-01-01T00:00:00.000Z", //this doesnt matter because my backend doesnt support stw just there to bypass error
-            stwWeeklyStoreEnd: "9999-01-01T00:00:00.000Z", //this doesnt matter because my backend doesnt support stw just there to bypass error
+            weeklyStoreEnd: ItemshopTime,
+            stwEventStoreEnd: "9999-01-01T00:00:00.000Z",
+            stwWeeklyStoreEnd: "9999-01-01T00:00:00.000Z",
             sectionStoreEnds: {
-                Featured: "9999-12-31T23:59:59.999Z"
+                Featured: ItemshopTime
             },
-            dailyStoreEnd: "9999-12-31T23:59:59.999Z"
+            dailyStoreEnd: ItemshopTime
         }
     };
 
@@ -48,12 +58,13 @@ app.get("/fortnite/api/calendar/v1/timeline", (req, res) => {
             },
             "client-events": {
                 states: [clientEventsState],
-                cacheExpire: "9999-01-01T00:00:00.000Z" //set to what you want
+                cacheExpire: "9999-01-01T00:00:00.000Z"
             }
         },
         eventsTimeOffsetHrs: 0,
         cacheIntervalMins: 10,
-        currentTime: new Date().toISOString()
+        currentTime: new Date().toISOString(),
+        ItemshopTime: ItemshopTime 
     });
 });
 
