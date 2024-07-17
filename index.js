@@ -52,7 +52,7 @@ const cleanExpiredTokens = () => {
 
 const connectToMongoDB = () => {
     mongoose.connect(process.env.MONGODB_DATABASE, () => {
-        console.log('\x1b[33m%s\x1b[0m',"Agency connected to MongoDB");
+        console.log('\x1b[33m%s\x1b[0m',"ClimbFn connected to MongoDB");
     });
 
     mongoose.connection.on("error", err => {
@@ -75,7 +75,7 @@ const loadRoutes = () => {
 
 const startServer = () => {
     app.listen(PORT, () => {
-        console.log('\x1b[33m%s\x1b[0m',"Agency started on port", PORT);
+        console.log('\x1b[33m%s\x1b[0m',"ClimbFn started on port", PORT);
         require("./src/connections/xmpp.js");
         require("./src/Discord");
     }).on("error", async (err) => {
