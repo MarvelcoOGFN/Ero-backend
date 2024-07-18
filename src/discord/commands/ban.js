@@ -3,10 +3,9 @@ const functions = require("../../structs/functions.js");
 const fs = require("fs");
 const dotenv = require("dotenv");
 
-// Load environment variables from .env file
+
 dotenv.config();
 
-// Access environment variables
 const moderators = process.env.MODERATORS.split(',');
 
 module.exports = {
@@ -18,7 +17,7 @@ module.exports = {
                 name: "username",
                 description: "Target username.",
                 required: true,
-                type: 3 // string
+                type: 3 
             }
         ]
     },

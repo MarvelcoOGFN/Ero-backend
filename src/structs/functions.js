@@ -9,6 +9,7 @@ const User = require('../model/user.js');
 const Profile = require('../model/profiles.js');
 const Friends = require('../model/friends.js');
 const profileManager = require('../structs/profile.js');
+const SaCCodes = require("../model/saccodes.js");
 
 const getNewItemshopTime = () => {
     const now = new Date();
@@ -246,6 +247,31 @@ function getPresenceFromUser(fromId, toId, offline) {
     ClientData.client.send(xml.toString());
 }
 
+async function createSAC(code, accountId, creator) {
+    if (!code || !accountId) return {message: "Code or Owner is required.", status: 400 };
+
+    if (await SaCCodes.findOne({ code })) return { message: "That Code already exist!", status: 400}; 
+
+    const accountIdprofile = (await User.findOne({ accountId }))
+    if (accountIdprofile === null) return { message: "That User dosent exist!", status: 400};
+
+    if (await SaCCodes.findOne({ owner: accountId })) return { message: "That User already has an Code!", status: 400};
+    const creatorprofile = (await User.findOne({ discordId: creator }))
+
+    const allowedCharacters = ("!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~").split("");
+    for (let character of allowedCharacters) {
+        if (!allowedCharacters.includes(character)) return { message: "The Code has special Characters!", status: 400 };
+    }
+
+    try {
+        await SaCCodes.create({ created: new Date().toISOString(), createdby: creatorprofile.accountId, owner: accountIdprofile.accountId , code, code_lower: code.toLowerCase()})
+    } catch (error) {
+        return { message: error, status: 400}
+    }
+
+    return { message: "You successfully created an Support-a-Creator Code!", status: 200}
+}
+
 async function registerUser(discordId, username, email, plainPassword) {
     email = email.toLowerCase();
 
@@ -321,5 +347,6 @@ module.exports = {
     getPresenceFromUser,
     registerUser,
     DecodeBase64,
+    createSAC,
     UpdateTokens
 }
