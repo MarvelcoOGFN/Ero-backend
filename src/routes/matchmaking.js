@@ -1,8 +1,13 @@
+require('dotenv').config();
+
 const express = require("express");
 const app = express.Router();
 const fs = require("fs");
 const functions = require("../structs/functions.js");
 const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
+
+
+dotenv.config();
 
 let buildUniqueId = {};
 
@@ -23,7 +28,7 @@ app.get("/fortnite/api/game/v2/matchmakingservice/ticket/player/*", verifyToken,
 
     buildUniqueId[req.user.accountId] = req.query.bucketId.split(":")[0];
 
-    const config = JSON.parse(fs.readFileSync("./Config/config.json").toString());
+    process.env.MATCHMAKER_IP
 
     res.json({
         serviceUrl: `ws://${config.matchmakerIP}`,
@@ -45,7 +50,7 @@ app.get("/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId
 
 // Route for getting matchmaking session details
 app.get("/fortnite/api/matchmaking/session/:sessionId", verifyToken, (req, res) => {
-    const config = JSON.parse(fs.readFileSync("./Config/config.json").toString());
+    process.env.MATCHMAKER_IP
 
     let gameServerInfo = {
         serverAddress: "127.0.0.1",
