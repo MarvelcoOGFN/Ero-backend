@@ -5,6 +5,7 @@ const app = express.Router();
 const fs = require("fs");
 const functions = require("../structs/functions.js");
 const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
+const dotenv = require("dotenv");
 
 
 dotenv.config();
