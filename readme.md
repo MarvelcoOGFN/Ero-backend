@@ -21,5 +21,5 @@
 - [ ] Proper Gamesessions
 - [ ] Seasonal Rewards
 - [x] match maker (need to be improved)
-- [ ] Vbucks command
+- [x] Vbucks command
 - [ ] Implement API for launcher login
