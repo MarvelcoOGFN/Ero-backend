@@ -1,13 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const functions = require("./functions.js");
-const itemsFilePath = path.join(__dirname, '..', "shop" , 'items.json');
-const itemshopFilePath = path.join(__dirname, '..', "shop" ,'itemshop', 'itemshop.json');
+const itemsFilePath = path.join(__dirname, '..', 'shop', 'items.json');
+const itemshopFilePath = path.join(__dirname, '..', 'shop', 'itemshop', 'itemshop.json');
 
 const rawData = fs.readFileSync(itemsFilePath);
 const items = JSON.parse(rawData);
-
 
 const excludedItemIds = [ //remove s12 bp stuff going into itemshop
     "lsid_213_skulldude",
@@ -79,9 +77,9 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop
     "emoji_s12_midas",
     "wrap_201_catburglar",
     "eid_jumpstyledance",
+    "CID_762_Athena_Commando_M_BrightGunnerSpy",
     "cid_694_athena_commando_m_catburglar"
 ];
-
 
 const filterExcludedItems = (itemsList) => {
     return itemsList.filter(item => !excludedItemIds.includes(item.id));
@@ -96,14 +94,16 @@ const dances = filterExcludedItems(items.filter(item => item.type === 'AthenaDan
 const gliders = filterExcludedItems(items.filter(item => item.type === 'AthenaGlider'));
 
 
-const getRandomItem = (itemsList) => {
-    const filteredItems = filterExcludedItems(itemsList);
-    if (filteredItems.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * filteredItems.length);
-    return filteredItems[randomIndex];
+const usedItemIds = new Set();
+
+const getUniqueItem = (itemsList) => {
+    const availableItems = itemsList.filter(item => !usedItemIds.has(item.id));
+    if (availableItems.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * availableItems.length);
+    const item = availableItems[randomIndex];
+    usedItemIds.add(item.id);
+    return item;
 };
-
-
 
 const getPrice = (item) => {
     const prices = {
@@ -226,78 +226,78 @@ const getPrice = (item) => {
 const config = {
     "//": "BR Item Shop Config",
     "daily1": (() => {
-        const item = getRandomItem(gliders);
-        return {
+        const item = getUniqueItem(gliders);
+        return item ? {
             "itemGrants": [`AthenaGlider:${item.id}`],
             "price": getPrice(item)
-        };
+        } : null;
     })(),
     "daily2": (() => {
-        const item = getRandomItem(pickaxes);
-        return {
+        const item = getUniqueItem(pickaxes);
+        return item ? {
             "itemGrants": [`AthenaPickaxe:${item.id}`],
             "price": getPrice(item)
-        };
+        } : null;
     })(),
     "daily3": (() => {
-        const item = getRandomItem(itemWraps);
-        return {
+        const item = getUniqueItem(itemWraps);
+        return item ? {
             "itemGrants": [`AthenaItemWrap:${item.id}`],
             "price": getPrice(item)
-        };
+        } : null;
     })(),
     "daily4": (() => {
-        const item = getRandomItem(gliders);
-        return {
+        const item = getUniqueItem(gliders);
+        return item ? {
             "itemGrants": [`AthenaGlider:${item.id}`],
             "price": getPrice(item)
-        };
+        } : null;
     })(),
     "daily5": (() => {
-        const item = getRandomItem(pickaxes);
-        return {
+        const item = getUniqueItem(pickaxes);
+        return item ? {
             "itemGrants": [`AthenaPickaxe:${item.id}`],
             "price": getPrice(item)
-        };
+        } : null;
     })(),
     "daily6": (() => {
         const isDance = Math.random() < 0.5;
-        const item = isDance ? getRandomItem(dances) : getRandomItem(musicPacks);
-        
-        if (item.type === 'AthenaDance') {
-            return {
-                "itemGrants": [`AthenaDance:${item.id}`],
-                "price": getPrice(item)
-            };
-        } else if (item.type === 'AthenaMusicPack') {
-            return {
-                "itemGrants": [`AthenaMusicPack:${item.id}`],
-                "price": getPrice(item)
-            };
-        } else {
-            return null;
+        const item = isDance ? getUniqueItem(dances) : getUniqueItem(musicPacks);     
+        if (item) {
+            if (item.type === 'AthenaDance') {
+                return {
+                    "itemGrants": [`AthenaDance:${item.id}`],
+                    "price": getPrice(item)
+                };
+            } else if (item.type === 'AthenaMusicPack') {
+                return {
+                    "itemGrants": [`AthenaMusicPack:${item.id}`],
+                    "price": getPrice(item)
+                };
+            }
         }
+        return null;
     })(),
     "featured1": (() => {
-        const item = getRandomItem(characters);
-        return {
+        const item = getUniqueItem(characters);
+        return item ? {
             "itemGrants": [`AthenaCharacter:${item.id}`],
             "price": getPrice(item)
-        };
+        } : null;
     })(),
     "featured2": (() => {
-        const item = getRandomItem(characters);
-        return {
+        const item = getUniqueItem(characters);
+        return item ? {
             "itemGrants": [`AthenaCharacter:${item.id}`],
             "price": getPrice(item)
-        };
+        } : null;
     })(),
     "featured3": (() => {
-        const item = getRandomItem(characters);
-        return {
+        const item = getUniqueItem(characters);
+        return item ? {
             "itemGrants": [`AthenaCharacter:${item.id}`],
             "price": getPrice(item)
-        };
+        } : null;
     })()
 };
 
