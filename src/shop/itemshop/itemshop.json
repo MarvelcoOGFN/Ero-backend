@@ -2,55 +2,55 @@
   "//": "BR Item Shop Config",
   "daily1": {
     "itemGrants": [
-      "AthenaBackpack:BID_488_LuckyHero"
+      "AthenaGlider:Umbrella_Season_04"
     ],
-    "price": 400
+    "price": 100
   },
   "daily2": {
     "itemGrants": [
-      "AthenaBackpack:BID_143_MadCommanderMale"
+      "AthenaPickaxe:Pickaxe_ID_057_Jailbird"
     ],
-    "price": 600
+    "price": 800
   },
   "daily3": {
     "itemGrants": [
-      "AthenaPickaxe:BID_341_AngelEclipse"
+      "AthenaItemWrap:Wrap_074_TeriyakiFishVR"
     ],
-    "price": 0
+    "price": 300
   },
   "daily4": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_358_CuteDuoMale"
+      "AthenaGlider:Glider_ID_122_Valentines"
     ],
     "price": 800
   },
   "daily5": {
     "itemGrants": [
-      "AthenaMusicPack:MusicPack_013_RoboTrack"
+      "AthenaPickaxe:Pickaxe_ID_163_PirateOctopus"
     ],
-    "price": 500
+    "price": 1200
   },
   "daily6": {
     "itemGrants": [
-      "AthenaItemWrap:Wrap_146_BulletBlue"
+      "AthenaMusicPack:MusicPack_017_PhoneItIn"
     ],
     "price": 300
   },
   "featured1": {
     "itemGrants": [
-      "AthenaCharacter:CID_641_Athena_Commando_M_SweaterWeather"
-    ],
-    "price": 1200
-  },
-  "featured2": {
-    "itemGrants": [
-      "AthenaCharacter:CID_185_Athena_Commando_M_DurrburgerHero"
+      "AthenaCharacter:CID_190_Athena_Commando_M_StreetRacerWhite"
     ],
     "price": 1500
   },
+  "featured2": {
+    "itemGrants": [
+      "AthenaCharacter:CID_422_Athena_Commando_F_MaskedWarrior"
+    ],
+    "price": 1200
+  },
   "featured3": {
     "itemGrants": [
-      "AthenaCharacter:CID_617_Athena_Commando_F_ForestQueen"
+      "AthenaCharacter:CID_457_Athena_Commando_F_SpaceGirl"
     ],
     "price": 1200
   }

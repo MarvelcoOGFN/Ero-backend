@@ -30,9 +30,9 @@ const initializeApp = async () => {
     }
 };
 
-const generateItemshopConfig = async () => {
+  const generateItemshopConfig = async () => {
     return new Promise((resolve, reject) => {
-        const scriptPath = path.join(__dirname, 'src' , "shop" ,'Itemshopgenerator.js');
+        const scriptPath = path.join(__dirname, 'src' , "structs" ,'Itemshopgenerator.js');
         const child = spawn('node', [scriptPath]);
 
         child.stdout.on('data', (data) => {
@@ -53,7 +53,7 @@ const generateItemshopConfig = async () => {
             }
         });
     });
-};
+}; 
 
 const setupDirectories = () => {
     if (!fs.existsSync("./src/ClientSettings")) fs.mkdirSync("./src/ClientSettings");
