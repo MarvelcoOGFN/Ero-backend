@@ -1,5 +1,4 @@
 const User = require("../../model/user.js");
-const functions = require("../../structs/functions.js");
 const Profiles = require("../../model/profiles.js");
 const fs = require("fs");
 require("dotenv").config();
@@ -10,10 +9,10 @@ module.exports = {
         description: "Give a user vbucks",
         options: [
             {
-                name: "username",
-                description: "Username of the person you want to give vbucks to",
+                name: "user",
+                description: "Mention the user you want to give vbucks to",
                 required: true,
-                type: 3 // string
+                type: 6 // user mention
             },
             {
                 name: "vbucks",
@@ -32,9 +31,10 @@ module.exports = {
         }
 
         const { options } = interaction;
-        const targetUser = await User.findOne({ username_lower: options.get("username").value.toLowerCase() });
+        const discordUser = options.getUser("user");
+        const targetUser = await User.findOne({ discordId: discordUser.id });
         if (!targetUser) {
-            return interaction.editReply({ content: "The account username you entered does not exist.", ephemeral: true });
+            return interaction.editReply({ content: "The account associated with this Discord user does not exist.", ephemeral: true });
         }
         
         const vbucks = parseInt(options.get("vbucks").value);
@@ -47,6 +47,6 @@ module.exports = {
             return interaction.editReply({ content: "The user does not have an account registered", ephemeral: true });
         }
 
-        interaction.editReply({ content: `Successfully gave ${targetUser.username} ${vbucks} Vbucks`, ephemeral: true });
+        interaction.editReply({ content: `Successfully gave ${discordUser.username} ${vbucks} Vbucks`, ephemeral: true });
     }
 }
