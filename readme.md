@@ -7,7 +7,8 @@
 # road map:
 
 - [x] Auto shop
-- [x] Battle Pass & Levelling Up (book level works fine still have to fix acc level)
+- [x] Battle Pass & Leveling Up
+- [ ] Leveling Up (backend side so you can complete quests on gs)
 - [ ] Challenges (Quests)
 - [x] Friends (broken not working)
 - [x] XMPP
