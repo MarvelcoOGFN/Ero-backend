@@ -529,11 +529,15 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
             athena.stats.attributes.book_purchased = true;
 
             if (BattlePass.battleBundleOfferId == offerId) {
-                athena.stats.attributes.book_level += 25;
-                if (athena.stats.attributes.book_level > 100) athena.stats.attributes.book_level = 100;
-                EndingTier = athena.stats.attributes.book_level;
-            }
 
+                athena.stats.attributes.book_level += 25;
+                if (athena.stats.attributes.book_level > 100) {
+                    athena.stats.attributes.book_level = 100;
+                }
+                EndingTier = athena.stats.attributes.book_level;
+            
+                athena.stats.attributes.level = athena.stats.attributes.book_level;
+            }
             for (var i = 0; i < EndingTier; i++) {
                 var FreeTier = BattlePass.freeRewards[i] || {};
                 var PaidTier = BattlePass.paidRewards[i] || {};
@@ -758,6 +762,11 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                 "name": "book_purchased",
                 "value": athena.stats.attributes.book_purchased
             })
+            MultiUpdate[0].profileChanges.push({
+                "changeType": "statModified",
+                "name": "level",
+                "value": athena.stats.attributes.level
+            })
 
             MultiUpdate[0].profileChanges.push({
                 "changeType": "statModified",
@@ -770,8 +779,16 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
             var lootList = [];
             var StartingTier = athena.stats.attributes.book_level;
             var EndingTier;
+        
+
             athena.stats.attributes.book_level += req.body.purchaseQuantity || 1;
+            if (athena.stats.attributes.book_level > 100) {
+                athena.stats.attributes.book_level = 100;
+            }
             EndingTier = athena.stats.attributes.book_level;
+        
+
+            athena.stats.attributes.level = athena.stats.attributes.book_level;
 
             for (let i = StartingTier; i < EndingTier; i++) {
                 var FreeTier = BattlePass.freeRewards[i] || {};
@@ -992,6 +1009,11 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                     "item": GiftBox
                 })
             }
+            MultiUpdate[0].profileChanges.push({
+                "changeType": "statModified",
+                "name": "level",
+                "value": athena.stats.attributes.level
+            })
 
             MultiUpdate[0].profileChanges.push({
                 "changeType": "statModified",
