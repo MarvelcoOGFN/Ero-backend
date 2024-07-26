@@ -2,56 +2,56 @@
   "//": "BR Item Shop Config",
   "daily1": {
     "itemGrants": [
-      "AthenaBackpack:BID_030_TacticalRogue"
+      "AthenaBackpack:BID_488_LuckyHero"
     ],
-    "price": 1500
+    "price": 400
   },
   "daily2": {
     "itemGrants": [
-      "AthenaBackpack:BID_162_YetiMale"
+      "AthenaBackpack:BID_143_MadCommanderMale"
     ],
-    "price": 1500
+    "price": 600
   },
   "daily3": {
     "itemGrants": [
-      "AthenaPickaxe:BID_275_Geisha"
+      "AthenaPickaxe:BID_341_AngelEclipse"
     ],
-    "price": 1500
+    "price": 0
   },
   "daily4": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_330_HolidayTimeMale"
+      "AthenaPickaxe:Pickaxe_ID_358_CuteDuoMale"
     ],
-    "price": 1500
+    "price": 800
   },
   "daily5": {
     "itemGrants": [
-      "AthenaMusicPack:MusicPack_032_GrooveJam"
+      "AthenaMusicPack:MusicPack_013_RoboTrack"
     ],
     "price": 500
   },
   "daily6": {
     "itemGrants": [
-      "AthenaItemWrap:Wrap_187_SnowStreak"
+      "AthenaItemWrap:Wrap_146_BulletBlue"
     ],
-    "price": 400
+    "price": 300
   },
   "featured1": {
     "itemGrants": [
-      "AthenaCharacter:CID_248_Athena_Commando_M_BlackWidow"
+      "AthenaCharacter:CID_641_Athena_Commando_M_SweaterWeather"
     ],
-    "price": 2000
+    "price": 1200
   },
   "featured2": {
     "itemGrants": [
-      "AthenaCharacter:CID_433_Athena_Commando_F_TacticalDesert"
+      "AthenaCharacter:CID_185_Athena_Commando_M_DurrburgerHero"
     ],
-    "price": 800
+    "price": 1500
   },
   "featured3": {
     "itemGrants": [
-      "AthenaCharacter:CID_093_Athena_Commando_M_Dinosaur"
+      "AthenaCharacter:CID_617_Athena_Commando_F_ForestQueen"
     ],
-    "price": 2000
+    "price": 1200
   }
 }
