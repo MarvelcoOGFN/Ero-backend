@@ -44,6 +44,24 @@ router.get('/content/api/pages/*', async (req, res) => {
         lastModified: date.toISOString(),
         _locale: "en-US"
     },
+    dynamicbackgrounds: {
+      backgrounds: {
+        backgrounds: [
+          {
+            stage: `season12`,
+            _type: "DynamicBackground",
+            key: "lobby",
+          },
+        ],
+        _type: "DynamicBackgroundList",
+      },
+      _title: "dynamicbackgrounds",
+      _noIndex: false,
+      _activeDate: "date.toISOString()",
+      lastModified: "date.toISOString()",
+      _locale: "en-US",
+      _templateName: "FortniteGameDynamicBackgrounds",
+    },
     emergencynotice: {
         news: {
             platform_messages: [],
@@ -105,7 +123,8 @@ router.get('/content/api/pages/*', async (req, res) => {
                     hidden: false,
                     special_border: "None",
                     _type: "FortPlaylistInfo"
-                }
+                },
+                
             ]
         },
         _noIndex: false,

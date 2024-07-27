@@ -273,46 +273,6 @@
     "lastModified": "2019-10-14T20:42:20.253Z",
     "_locale": "en-US"
   },
-
-  "tournamentinformation": {
-    "tournament_info": {
-      "tournaments": [
-        {
-          "title_color": "FFFFFF",
-          "loading_screen_image": "https://cdn.discordapp.com/attachments/927739901540188200/930882658546876506/lawin.jpg",
-          "background_text_color": "1B1B1B",
-          "background_right_color": "DD091A",
-          "poster_back_image": "https://cdn.discordapp.com/attachments/927739901540188200/930882658546876506/lawin.jpg",
-          "_type": "Tournament Display Info",
-          "pin_earned_text": "lawin is the winner!",
-          "tournament_display_id": "s11_switchcup",
-          "highlight_color": "FFFFFF",
-          "schedule_info": "November 2nd & 3rd: 2pm - 5pm JST",
-          "primary_color": "FFFFFF",
-          "flavor_description": "cool",
-          "poster_front_image": "https://cdn.discordapp.com/attachments/927739901540188200/930882658546876506/lawin.jpg",
-          "short_format_title": "Event Sessions",
-          "title_line_2": "boomer",
-          "title_line_1": "Solo",
-          "shadow_color": "1B1B1B",
-          "details_description": "ok",
-          "background_left_color": "F81B2D",
-          "long_format_title": "nice",
-          "poster_fade_color": "DD091A",
-          "secondary_color": "1B1B1B",
-          "playlist_tile_image": "https://cdn.discordapp.com/attachments/927739901540188200/930882658546876506/lawin.jpg",
-          "base_color": "FFFFFF"
-        }
-      ],
-      "_type": "Tournaments Info"
-    },
-    "_title": "tournamentinformation",
-    "_noIndex": false,
-    "_activeDate": "2018-11-13T22:32:47.734Z",
-    "lastModified": "2019-11-01T17:33:35.346Z",
-    "_locale": "en-US"
-  },
- 
   "koreancafe": {
     "_title": "KoreanCafe",
     "cafe_info": {
