@@ -16,17 +16,16 @@ module.exports = async (ws) => {
     await functions.sleep(2000);
     Join();
 
-    async function Connecting() {
+    function Connecting() {
         ws.send(JSON.stringify({
             "payload": {
                 "state": "Connecting"
             },
             "name": "StatusUpdate"
         }));
-        await functions.sleep(2000); 
     }
 
-    async function Waiting() {
+    function Waiting() {
         ws.send(JSON.stringify({
             "payload": {
                 "totalPlayers": 1,
@@ -35,10 +34,9 @@ module.exports = async (ws) => {
             },
             "name": "StatusUpdate"
         }));
-        await functions.sleep(2000); 
     }
 
-    async function Queued() {
+    function Queued() {
         ws.send(JSON.stringify({
             "payload": {
                 "ticketId": ticketId,
@@ -49,10 +47,9 @@ module.exports = async (ws) => {
             },
             "name": "StatusUpdate"
         }));
-        await functions.sleep(2000); 
     }
 
-    async function SessionAssignment() {
+    function SessionAssignment() {
         ws.send(JSON.stringify({
             "payload": {
                 "matchId": matchId,
@@ -60,7 +57,6 @@ module.exports = async (ws) => {
             },
             "name": "StatusUpdate"
         }));
-        await functions.sleep(2000); 
     }
 
     function Join() {
