@@ -17,7 +17,6 @@
 - [x] Purchasing from item shop
 - [x] support a creator
 - [ ] Refunding
-- [ ] Arena
 - [ ] Tournaments
 - [ ] Proper Gamesessions
 - [ ] Seasonal Rewards
