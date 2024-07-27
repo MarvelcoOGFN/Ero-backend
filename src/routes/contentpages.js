@@ -63,6 +63,55 @@ router.get('/content/api/pages/*', async (req, res) => {
         _activeDate: date.toISOString(),
         lastModified: date.toISOString(),
         _locale: 'en-US'
+    },
+    playlistinformation: {
+        frontend_matchmaking_header_style: "None",
+        _title: "playlistinformation",
+        frontend_matchmaking_header_text: "",
+        playlist_info: {
+            _type: "Playlist Information",
+            playlists: [
+                {
+                    image: "https://cdn.discordapp.com/attachments/1266512692965806192/1266867522062385213/solo.png?ex=66a6b5d2&is=66a56452&hm=c8d3ebebec593d05ee33c01cd9a2695610d377c8c1121fdbfbe948a85753ee3f&",
+                    playlist_name: "Playlist_DefaultSolo",
+                    hidden: false,
+                    special_border: "None",
+                    _type: "FortPlaylistInfo"
+                },
+                {
+                    image: "https://cdn.discordapp.com/attachments/1266512692965806192/1266868359425822780/duo.jpg?ex=66a6b69a&is=66a5651a&hm=b925287629caf31de769ee3477cfb3880f82bf4cbfbfbc828ed880d0b0dd85de&",
+                    playlist_name: "Playlist_DefaultDuo",
+                    hidden: false,
+                    special_border: "None",
+                    _type: "FortPlaylistInfo"
+                },
+                {
+                    image: "https://cdn.discordapp.com/attachments/1266512692965806192/1266874720922632202/teamrumble.jpg?ex=66a6bc86&is=66a56b06&hm=2583f1009517f03c39df1dd3a3000795a6e61afe917fed1b99ec7eb31c09b4e0&",
+                    playlist_name: "Playlist_Respawn_24",
+                    hidden: false,
+                    special_border: "None",
+                    _type: "FortPlaylistInfo"
+                },
+                {
+                    image: "https://cdn.discordapp.com/attachments/1266512692965806192/1266874428680179823/Creative.png?ex=66a6bc41&is=66a56ac1&hm=4069ef1dd70fda36301e328bba1c934a87450fc33c6e1b91364e10f4f5103203&",
+                    playlist_name: "Playlist_PlaygroundV2",
+                    hidden: false,
+                    special_border: "None",
+                    _type: "FortPlaylistInfo"
+                },
+                {
+                    image: "https://cdn.discordapp.com/attachments/1266512692965806192/1266866440900710420/squads.png?ex=66a6b4d0&is=66a56350&hm=32541133a531584321e89f83c385f1ecf90d1b7b1898e64fda4a6158f5e37b01&",
+                    playlist_name: "Playlist_DefaultSquad",
+                    hidden: false,
+                    special_border: "None",
+                    _type: "FortPlaylistInfo"
+                }
+            ]
+        },
+        _noIndex: false,
+        _activeDate: "2018-04-25T15:05:39.956Z",
+        lastModified: "2019-10-29T14:05:17.030Z",
+        _locale: "en-US"
     }
   });
 });

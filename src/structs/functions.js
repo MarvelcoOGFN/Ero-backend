@@ -115,8 +115,8 @@ function getContentPages(req) {
     try {
         if (memory.build = 12.41) { 
             news.forEach(mode => {
-                contentpages[mode].news.messages[0].image = "wee add dis later";
-                contentpages[mode].news.messages[1].image = "wee add dis later";
+                contentpages[mode].news.messages[0].image = "i did smth diff so no need";
+                contentpages[mode].news.messages[1].image = "i did smth diff so no need";
             });
         }
     } catch {}
