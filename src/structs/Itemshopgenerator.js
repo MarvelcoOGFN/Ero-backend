@@ -18,6 +18,7 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop
     "CID_758_Athena_Commando_M_TechExplorer",
     'CID_759_Athena_Commando_F_RapVillainess',
     'CID_754_Athena_Commando_F_RaveNinja',
+    "CID_756_Athena_Commando_M_JonesyAgent",
     "CID_751_Athena_Commando_F_NeonCatSpy",
     "CID_751_Athena_Commando_F_NeonCatSpy",
     "Pickaxe_ID_366_SpyMale1H",

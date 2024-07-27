@@ -2,56 +2,56 @@
   "//": "BR Item Shop Config",
   "daily1": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_140_ShatterFly"
+      "AthenaGlider:Umbrella_Season_08"
     ],
-    "price": 1200
+    "price": 100
   },
   "daily2": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_105_Scarecrow"
+      "AthenaPickaxe:Pickaxe_ID_363_LollipopTricksterFemale"
     ],
-    "price": 800
+    "price": 1800
   },
   "daily3": {
     "itemGrants": [
-      "AthenaItemWrap:Wrap_063_StrawberryPilot"
+      "AthenaItemWrap:Wrap_056_BlackWidow"
     ],
-    "price": 300
+    "price": 500
   },
   "daily4": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_105_SnowBoard"
+      "AthenaGlider:Glider_ID_002_Medieval"
     ],
     "price": 500
   },
   "daily5": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_088_PSBurnout"
+      "AthenaPickaxe:Pickaxe_ID_048_CarbideBlack"
     ],
     "price": 1200
   },
   "daily6": {
     "itemGrants": [
-      "AthenaDance:EID_Octopus"
+      "AthenaDance:EID_MartialArts"
     ],
-    "price": 500
+    "price": 200
   },
   "featured1": {
     "itemGrants": [
-      "AthenaCharacter:CID_194_Athena_Commando_F_RavenQuill"
+      "AthenaCharacter:CID_718_Athena_Commando_F_LuckyHero"
     ],
-    "price": 2000
+    "price": 800
   },
   "featured2": {
     "itemGrants": [
-      "AthenaCharacter:CID_228_Athena_Commando_M_Vampire"
+      "AthenaCharacter:CID_063_Athena_Commando_F_SkiGirl_CAN"
     ],
     "price": 1500
   },
   "featured3": {
     "itemGrants": [
-      "AthenaCharacter:CID_263_Athena_Commando_F_MadCommander"
+      "AthenaCharacter:CID_613_Athena_Commando_M_Columbus_7Y4QE"
     ],
-    "price": 1200
+    "price": 2000
   }
 }
