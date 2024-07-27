@@ -1,124 +1,101 @@
-require('dotenv').config();
-
 const express = require("express");
 const app = express.Router();
 const fs = require("fs");
 const functions = require("../structs/functions.js");
 const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
-const dotenv = require("dotenv");
-
-
-dotenv.config();
 
 let buildUniqueId = {};
 
-// Route for finding a player in matchmaking session
 app.get("/fortnite/api/matchmaking/session/findPlayer/*", (req, res) => {
     res.status(200).end();
 });
 
-// Route for getting matchmaking ticket for a player
 app.get("/fortnite/api/game/v2/matchmakingservice/ticket/player/*", verifyToken, (req, res) => {
-    if (typeof req.query.bucketId !== "string") {
-        return res.status(400).end();
-    }
-
-    if (req.query.bucketId.split(":").length !== 4) {
-        return res.status(400).end();
-    }
+    if (typeof req.query.bucketId != "string") return res.status(400).end();
+    if (req.query.bucketId.split(":").length != 4) return res.status(400).end();
 
     buildUniqueId[req.user.accountId] = req.query.bucketId.split(":")[0];
 
-    process.env.MATCHMAKER_IP
+    const matchmakerIP = process.env.MATCHMAKER_IP;
 
     res.json({
-        serviceUrl: `ws://${config.matchmakerIP}`,
-        ticketType: "mms-player",
-        payload: "69=",
-        signature: "420="
+        "serviceUrl": `ws://${matchmakerIP}`,
+        "ticketType": "mms-player",
+        "payload": "69=",
+        "signature": "420="
     });
     res.end();
 });
 
-// Route for getting matchmaking account session
 app.get("/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId", (req, res) => {
     res.json({
-        accountId: req.params.accountId,
-        sessionId: req.params.sessionId,
-        key: "none"
+        "accountId": req.params.accountId,
+        "sessionId": req.params.sessionId,
+        "key": "none"
     });
 });
 
-// Route for getting matchmaking session details
 app.get("/fortnite/api/matchmaking/session/:sessionId", verifyToken, (req, res) => {
-    process.env.MATCHMAKER_IP
+    const gameServerIP = process.env.GAME_SERVER_IP || "127.0.0.1:7777";
 
     let gameServerInfo = {
         serverAddress: "127.0.0.1",
         serverPort: 7777
-    };
+    }
 
     try {
-        let calculateIp = config.gameServerIP.split(":")[0];
-        let calculatePort = Number(config.gameServerIP.split(":")[1]);
+        let calculateIp = gameServerIP.split(":")[0];
+        let calculatePort = Number(gameServerIP.split(":")[1]);
 
-        if (calculateIp) {
-            gameServerInfo.serverAddress = calculateIp;
-        }
-
-        if (Number.isNaN(calculatePort) || !calculatePort) {
-            throw new Error("Invalid port.");
-        }
+        if (calculateIp) gameServerInfo.serverAddress = calculateIp;
+        if (Number.isNaN(calculatePort) || !calculatePort) throw new Error("Invalid port.");
 
         gameServerInfo.serverPort = calculatePort;
     } catch {}
 
-    const sessionDetails = {
-        id: req.params.sessionId,
-        ownerId: functions.MakeID().replace(/-/ig, "").toUpperCase(),
-        ownerName: "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
-        serverName: "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
-        serverAddress: gameServerInfo.serverAddress,
-        serverPort: gameServerInfo.serverPort,
-        maxPublicPlayers: 220,
-        openPublicPlayers: 175,
-        maxPrivatePlayers: 0,
-        openPrivatePlayers: 0,
-        attributes: {
-            REGION_s: "EU",
-            GAMEMODE_s: "FORTATHENA",
-            ALLOWBROADCASTING_b: true,
-            SUBREGION_s: "GB",
-            DCID_s: "FORTNITE-LIVEEUGCEC1C2E30UBRCORE0A-14840880",
-            tenant_s: "Fortnite",
-            MATCHMAKINGPOOL_s: "Any",
-            STORMSHIELDDEFENSETYPE_i: 0,
-            HOTFIXVERSION_i: 0,
-            PLAYLISTNAME_s: "Playlist_DefaultSolo",
-            SESSIONKEY_s: functions.MakeID().replace(/-/ig, "").toUpperCase(),
-            TENANT_s: "Fortnite",
-            BEACONPORT_i: 15009
+    res.json({
+        "id": req.params.sessionId,
+        "ownerId": functions.MakeID().replace(/-/ig, "").toUpperCase(),
+        "ownerName": "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
+        "serverName": "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
+        "serverAddress": gameServerInfo.serverAddress,
+        "serverPort": gameServerInfo.serverPort,
+        "maxPublicPlayers": 220,
+        "openPublicPlayers": 175,
+        "maxPrivatePlayers": 0,
+        "openPrivatePlayers": 0,
+        "attributes": {
+          "REGION_s": "EU",
+          "GAMEMODE_s": "FORTATHENA",
+          "ALLOWBROADCASTING_b": true,
+          "SUBREGION_s": "GB",
+          "DCID_s": "FORTNITE-LIVEEUGCEC1C2E30UBRCORE0A-14840880",
+          "tenant_s": "Fortnite",
+          "MATCHMAKINGPOOL_s": "Any",
+          "STORMSHIELDDEFENSETYPE_i": 0,
+          "HOTFIXVERSION_i": 0,
+          "PLAYLISTNAME_s": "Playlist_DefaultSolo",
+          "SESSIONKEY_s": functions.MakeID().replace(/-/ig, "").toUpperCase(),
+          "TENANT_s": "Fortnite",
+          "BEACONPORT_i": 15009
         },
-        publicPlayers: [],
-        privatePlayers: [],
-        totalPlayers: 45,
-        allowJoinInProgress: false,
-        shouldAdvertise: false,
-        isDedicated: false,
-        usesStats: false,
-        allowInvites: false,
-        usesPresence: false,
-        allowJoinViaPresence: true,
-        allowJoinViaPresenceFriendsOnly: false,
-        buildUniqueId: buildUniqueId[req.user.accountId] || "0",
-        lastUpdated: new Date().toISOString(),
-        started: false
-    };
-
-    res.json(sessionDetails);
+        "publicPlayers": [],
+        "privatePlayers": [],
+        "totalPlayers": 45,
+        "allowJoinInProgress": false,
+        "shouldAdvertise": false,
+        "isDedicated": false,
+        "usesStats": false,
+        "allowInvites": false,
+        "usesPresence": false,
+        "allowJoinViaPresence": true,
+        "allowJoinViaPresenceFriendsOnly": false,
+        "buildUniqueId": buildUniqueId[req.user.accountId] || "0",
+        "lastUpdated": new Date().toISOString(),
+        "started": false
+      });
 });
 
-// Routes for joining a matchmaking session
 app.post("/fortnite/api/matchmaking/session/*/join", (req, res) => {
     res.status(204).end();
 });
