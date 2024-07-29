@@ -85,50 +85,6 @@ function GetVersionInfo(req) {
     return memory;
 }
 
-function getContentPages(req) {
-    const memory = GetVersionInfo(req);
-
-    const contentpages = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "content", "contentpages.json")).toString());
-
-    let Language = "en";
-
-    try {
-        if (req.headers["accept-language"]) {
-            if (req.headers["accept-language"].includes("-") && req.headers["accept-language"] != "es-419") {
-                Language = req.headers["accept-language"].split("-")[0];
-            } else {
-                Language = req.headers["accept-language"];
-            }
-        }
-    } catch {}
-
-    const modes = ["saveTheWorldUnowned", "battleRoyale", "creative", "saveTheWorld"];
-    const news = ["savetheworldnews", "battleroyalenews"];
-
-    try {
-        modes.forEach(mode => {
-            contentpages.subgameselectdata[mode].message.title = contentpages.subgameselectdata[mode].message.title[Language]
-            contentpages.subgameselectdata[mode].message.body = contentpages.subgameselectdata[mode].message.body[Language]
-        })
-    } catch {}
-
-    try {
-        if (memory.build = 12.41) { 
-            news.forEach(mode => {
-                contentpages[mode].news.messages[0].image = "i did smth diff so no need";
-                contentpages[mode].news.messages[1].image = "i did smth diff so no need";
-            });
-        }
-    } catch {}
-
-    try {
-        contentpages.dynamicbackgrounds.backgrounds.backgrounds[0].stage = `season12`;
-        contentpages.dynamicbackgrounds.backgrounds.backgrounds[1].stage = `season12`;
-
-    } catch {}
-
-    return contentpages;
-}
 
 function getItemShop() { 
     const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "shop" ,"catalog.json")).toString());
@@ -338,7 +294,6 @@ function UpdateTokens() {
 module.exports = {
     sleep,
     GetVersionInfo,
-    getContentPages,
     getItemShop,
     getOfferID,
     MakeID,

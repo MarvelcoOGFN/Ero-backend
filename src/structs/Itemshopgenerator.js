@@ -12,6 +12,7 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop
     "trails_id_084_briefcase",
     "bid_485_bananaagent",
     "wrap_203_henchman",
+    "MusicPack_042_BunnyHop",
     "Wrap_240_PlasmaSpectrum",
     "CID_712_Athena_Commando_M_Spy",
     "CID_760_Athena_Commando_F_NeonTightSuit",
