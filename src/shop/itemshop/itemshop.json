@@ -2,56 +2,56 @@
   "//": "BR Item Shop Config",
   "daily1": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_129_FireElf"
+      "AthenaGlider:Glider_ID_126_Farmer"
     ],
-    "price": 500
+    "price": 800
   },
   "daily2": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_095_FootballTrophy"
+      "AthenaPickaxe:Pickaxe_ID_373_TeriyakiFishAssassin1H"
     ],
-    "price": 500
+    "price": 800
   },
   "daily3": {
     "itemGrants": [
-      "AthenaItemWrap:Wrap_040_PilotFalcon"
-    ],
-    "price": 300
-  },
-  "daily4": {
-    "itemGrants": [
-      "AthenaGlider:Glider_ID_011_JollyRoger"
+      "AthenaItemWrap:Wrap_001_ArcticCamo"
     ],
     "price": 500
   },
+  "daily4": {
+    "itemGrants": [
+      "AthenaGlider:Glider_ID_179_CrazyEight"
+    ],
+    "price": 1200
+  },
   "daily5": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_102_RedRiding"
+      "AthenaPickaxe:Pickaxe_ID_228_MaleGlowBro"
     ],
-    "price": 800
+    "price": 500
   },
   "daily6": {
     "itemGrants": [
-      "AthenaMusicPack:MusicPack_007_Pirate"
+      "AthenaDance:EID_SwimDance"
     ],
-    "price": 300
+    "price": 500
   },
   "featured1": {
     "itemGrants": [
-      "AthenaCharacter:CID_574_Athena_Commando_F_CubeRockerPunk"
+      "AthenaCharacter:CID_171_Athena_Commando_M_SharpDresser"
     ],
-    "price": 800
+    "price": 1200
   },
   "featured2": {
     "itemGrants": [
-      "AthenaCharacter:CID_163_Athena_Commando_F_Viking"
+      "AthenaCharacter:CID_104_Athena_Commando_F_Bunny"
     ],
     "price": 1500
   },
   "featured3": {
     "itemGrants": [
-      "AthenaCharacter:CID_652_Athena_Commando_F_HolidayPJ_D"
+      "AthenaCharacter:CID_211_Athena_Commando_F_FootballGirlB"
     ],
-    "price": 800
+    "price": 1500
   }
 }

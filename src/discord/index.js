@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { Client, Intents } = require("discord.js");
+const { Client, Intents, MessageEmbed } = require("discord.js");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const fs = require("fs");
 
@@ -11,9 +11,42 @@ client.once("ready", () => {
 
     fs.readdirSync("./src/discord/commands").forEach(fileName => {
         const command = require(`./commands/${fileName}`);
-
         commands.create(command.commandInfo);
     });
+
+    // Send embed message to the specified channel after deleting the last message
+    const channelId = '1267602632034222292'; // Replace with your channel ID
+    const channel = client.channels.cache.get(channelId);
+
+    if (channel) {
+        // Fetch the last message and delete it
+        channel.messages.fetch({ limit: 1 }).then(messages => {
+            const lastMessage = messages.first();
+            if (lastMessage) {
+                lastMessage.delete()
+                    .then(() => {
+                        // Send the embed after deleting the last message
+                        const embed = new MessageEmbed()
+                            .setTitle("Backend Status")
+                            .setDescription("The ClimbFN Backend has restarted! Please restart your games to continue playing as usual.")
+                            .setColor("ORANGE");
+
+                        channel.send({ embeds: [embed] });
+                    })
+                    .catch(err => console.error("Failed to delete the last message:", err));
+            } else {
+                // If there's no last message, send the embed directly
+                const embed = new MessageEmbed()
+                    .setTitle("Backend Status")
+                    .setDescription("The ClimbFN Backend has restarted! Please restart your games to continue playing as usual.")
+                    .setColor("ORANGE");
+
+                channel.send({ embeds: [embed] });
+            }
+        }).catch(err => console.error("Failed to fetch the last message:", err));
+    } else {
+        console.error("Channel not found!");
+    }
 });
 
 client.on("interactionCreate", interaction => {
