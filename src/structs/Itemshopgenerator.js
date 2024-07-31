@@ -14,6 +14,8 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop
     "wrap_203_henchman",
     "MusicPack_042_BunnyHop",
     "Wrap_240_PlasmaSpectrum",
+    "Glider_ID_197_HenchmanMale",
+    "CID_VIP_Athena_Commando_M_GalileoFerry_SG",
     "CID_712_Athena_Commando_M_Spy",
     "CID_760_Athena_Commando_F_NeonTightSuit",
     "CID_758_Athena_Commando_M_TechExplorer",

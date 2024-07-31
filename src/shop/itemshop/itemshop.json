@@ -2,55 +2,55 @@
   "//": "BR Item Shop Config",
   "daily1": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_100_Yeti"
+      "AthenaGlider:Umbrella_Season_08"
     ],
-    "price": 1200
+    "price": 100
   },
   "daily2": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_Deathvalley"
+      "AthenaPickaxe:Pickaxe_ID_068_Drift"
     ],
     "price": 1200
   },
   "daily3": {
     "itemGrants": [
-      "AthenaItemWrap:Wrap_032_HeistSpade"
+      "AthenaItemWrap:Wrap_169_JetSki"
     ],
     "price": 300
   },
   "daily4": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_049_Lifeguard"
+      "AthenaGlider:Glider_ID_128_BootyBuoy"
     ],
     "price": 1200
   },
   "daily5": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_167_Medusa"
+      "AthenaPickaxe:Pickaxe_ID_208_Masako"
     ],
     "price": 800
   },
   "daily6": {
     "itemGrants": [
-      "AthenaDance:EID_ArmWave"
+      "AthenaDance:EID_BalletSpin"
     ],
     "price": 200
   },
   "featured1": {
     "itemGrants": [
-      "AthenaCharacter:CID_336_Athena_Commando_M_DragonMask"
+      "AthenaCharacter:CID_VIP_Athena_Commando_M_GalileoFerry_SG"
     ],
-    "price": 1200
+    "price": 2000
   },
   "featured2": {
     "itemGrants": [
-      "AthenaCharacter:CID_323_Athena_Commando_M_Barbarian"
+      "AthenaCharacter:CID_190_Athena_Commando_M_StreetRacerWhite"
     ],
     "price": 1500
   },
   "featured3": {
     "itemGrants": [
-      "AthenaCharacter:CID_693_Athena_Commando_M_BuffCat"
+      "AthenaCharacter:CID_182_Athena_Commando_M_ModernMilitary"
     ],
     "price": 1500
   }

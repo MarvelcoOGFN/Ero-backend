@@ -111,7 +111,7 @@ const loadRoutes = () => {
         }
     });
 };
-
+app.use(require("./src/api/vbucksapi.js"));
 const startServer = () => {
     app.listen(PORT, () => {
         console.log('\x1b[33m%s\x1b[0m',"ClimbFn started on port", PORT);
