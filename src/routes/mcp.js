@@ -487,32 +487,40 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
 
     if (req.body.offerId == BattlePass.battlePassOfferId || req.body.offerId == BattlePass.battleBundleOfferId || req.body.offerId == BattlePass.tierOfferId) {
         let offerId = req.body.offerId;
-
+    
+        const levelsToPurchase = req.body.purchaseQuantity || 1;
+        const costPerLevel = 150;
+        const totalCost = costPerLevel * levelsToPurchase;
+    
         if (findOfferId.offerId.prices[0].currencyType.toLowerCase() == "mtxcurrency") {
             let paid = false;
-
+    
             for (let key in profile.items) {
                 if (!profile.items[key].templateId.toLowerCase().startsWith("currency:mtx")) continue;
-
+    
                 let currencyPlatform = profile.items[key].attributes.platform;
                 if ((currencyPlatform.toLowerCase() != profile.stats.attributes.current_mtx_platform.toLowerCase()) && (currencyPlatform.toLowerCase() != "shared")) continue;
-
-                if (profile.items[key].quantity < findOfferId.offerId.prices[0].finalPrice) return error.createError(
-                    "errors.com.epicgames.currency.mtx.insufficient",
-                    `You can not afford this item (${findOfferId.offerId.prices[0].finalPrice}), you only have ${profile.items[key].quantity}.`,
-                    [`${findOfferId.offerId.prices[0].finalPrice}`, `${profile.items[key].quantity}`], 1040, undefined, 400, res
-                );
-
-                profile.items[key].quantity -= findOfferId.offerId.prices[0].finalPrice;
-
+    
+                
+                if (profile.items[key].quantity < totalCost) {
+                    return error.createError(
+                        "errors.com.epicgames.currency.mtx.insufficient",
+                        `You cannot afford this item (${totalCost}), you only have ${profile.items[key].quantity}.`,
+                        [`${totalCost}`, `${profile.items[key].quantity}`], 1040, undefined, 400, res
+                    );
+                }
+    
+                
+                profile.items[key].quantity -= totalCost;
+    
                 ApplyProfileChanges.push({
                     "changeType": "itemQuantityChanged",
                     "itemId": key,
                     "quantity": profile.items[key].quantity
                 });
-
+    
                 paid = true;
-
+    
                 break;
             }
 
