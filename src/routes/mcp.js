@@ -487,10 +487,13 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
 
     if (req.body.offerId == BattlePass.battlePassOfferId || req.body.offerId == BattlePass.battleBundleOfferId || req.body.offerId == BattlePass.tierOfferId) {
         let offerId = req.body.offerId;
+        let totalCost = findOfferId.offerId.prices[0].finalPrice;
     
-        const levelsToPurchase = req.body.purchaseQuantity || 1;
-        const costPerLevel = 150;
-        const totalCost = costPerLevel * levelsToPurchase;
+        if (offerId == BattlePass.tierOfferId) {
+            const levelsToPurchase = req.body.purchaseQuantity || 1;
+            const costPerLevel = 150;
+            totalCost = costPerLevel * levelsToPurchase;
+        }
     
         if (findOfferId.offerId.prices[0].currencyType.toLowerCase() == "mtxcurrency") {
             let paid = false;
@@ -501,7 +504,6 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                 let currencyPlatform = profile.items[key].attributes.platform;
                 if ((currencyPlatform.toLowerCase() != profile.stats.attributes.current_mtx_platform.toLowerCase()) && (currencyPlatform.toLowerCase() != "shared")) continue;
     
-                
                 if (profile.items[key].quantity < totalCost) {
                     return error.createError(
                         "errors.com.epicgames.currency.mtx.insufficient",
@@ -510,26 +512,27 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                     );
                 }
     
-                
                 profile.items[key].quantity -= totalCost;
+                paid = true;         
+                        ApplyProfileChanges.push({
+                            "changeType": "itemQuantityChanged",
+                            "itemId": key,
+                            "quantity": profile.items[key].quantity
+                        });
     
-                ApplyProfileChanges.push({
-                    "changeType": "itemQuantityChanged",
-                    "itemId": key,
-                    "quantity": profile.items[key].quantity
-                });
+                        paid = true;
+                        break; 
+                    }
     
-                paid = true;
-    
-                break;
-            }
-
-            if (!paid && findOfferId.offerId.prices[0].finalPrice > 0) return error.createError(
-                "errors.com.epicgames.currency.mtx.insufficient",
-                `You can not afford this item (${findOfferId.offerId.prices[0].finalPrice}).`,
-                [`${findOfferId.offerId.prices[0].finalPrice}`], 1040, undefined, 400, res
-            );
-        }
+                    if (!paid && findOfferId.offerId.prices[0].finalPrice > 0) {
+                        return error.createError(
+                            "errors.com.epicgames.currency.mtx.insufficient",
+                            `You cannot afford this item (${findOfferId.offerId.prices[0].finalPrice}).`,
+                            [`${findOfferId.offerId.prices[0].finalPrice}`], 1040, undefined, 400, res
+                        );
+                    }
+                }
+            
 
         if (BattlePass.battlePassOfferId == offerId || BattlePass.battleBundleOfferId == offerId) {
             var lootList = [];
