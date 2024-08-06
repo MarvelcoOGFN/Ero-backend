@@ -13,7 +13,7 @@
 - [x] Friends (broken not working)
 - [x] XMPP
 - [x] Parties (V1 & V2) (broken not working)
-- [x] Gifting (lawin need to change)
+- [x] Gifting
 - [x] Purchasing from item shop
 - [x] support a creator
 - [x] Refunding
