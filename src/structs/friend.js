@@ -43,6 +43,48 @@ async function validateFriendBlock(accountId, friendId) {
 
     return true;
 }
+async function sendFriendReq(fromId, toId) {
+    if (!await validateFriendAdd(fromId, toId)) return false;
+
+    let from = await Friends.findOne({ accountId: fromId });
+    let fromFriends = from.list;
+
+    let to = await Friends.findOne({ accountId: toId });
+    let toFriends = to.list;
+
+    fromFriends.outgoing.push({ accountId: to.accountId, created: new Date().toISOString() });
+
+    Xmpp.sendXmppMessageToId({
+        "payload": {
+            "accountId": to.accountId,
+            "status": "PENDING",
+            "direction": "OUTBOUND",
+            "created": new Date().toISOString(),
+            "favorite": false
+        },
+        "type": "com.epicgames.friends.core.apiobjects.Friend",
+        "timestamp": new Date().toISOString()
+    }, from.accountId);
+
+    toFriends.incoming.push({ accountId: from.accountId, created: new Date().toISOString() });
+
+    Xmpp.sendXmppMessageToId({
+        "payload": {
+            "accountId": from.accountId,
+            "status": "PENDING",
+            "direction": "INBOUND",
+            "created": new Date().toISOString(),
+            "favorite": false
+        },
+        "type": "com.epicgames.friends.core.apiobjects.Friend",
+        "timestamp": new Date().toISOString()
+    }, to.accountId);
+
+    await from.updateOne({ $set: { list: fromFriends } });
+    await to.updateOne({ $set: { list: toFriends } });
+
+    return true;
+}
 
 async function sendFriendRequest(fromId, toId) {
     if (!await validateFriendAdd(fromId, toId)) return false;
@@ -175,6 +217,7 @@ async function updateFriendsLists(...friends) {
 module.exports = {
     validateFriendAdd,
     validateFriendDelete,
+    sendFriendReq,
     sendFriendRequest,
     acceptFriendRequest,
     blockFriend,
