@@ -6,6 +6,7 @@ const Profile = require("../model/profiles.js");
 const profileManager = require("../structs/profile.js");
 const error = require("../structs/errorModule.js");
 const functions = require("../structs/functions.js");
+const items = require("../structs/shop.js");
 const fs = require("fs");
 const path = require("path");
 
@@ -159,7 +160,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/GiftCatalogEntry", verifyToken,
 
     if (!profile.items) profile.items = {};
 
-    let findOfferId = functions.getOfferID(req.body.offerId);
+    let findOfferId = items.getOfferID(req.body.offerId);
     if (!findOfferId) return error.createError(
         "errors.com.epicgames.fortnite.id_invalid",
         `Offer ID (id: '${req.body.offerId}') not found`, 
@@ -574,7 +575,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
     if (!profile.items) profile.items = {};
     if (!athena.items) athena.items = {};
 
-    let findOfferId = functions.getOfferID(req.body.offerId);
+    let findOfferId = items.getOfferID(req.body.offerId);
     if (!findOfferId) return error.createError(
         "errors.com.epicgames.fortnite.id_invalid",
         `Offer ID (id: '${req.body.offerId}') not found`, 
