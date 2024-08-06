@@ -1,5 +1,5 @@
 const Friends = require("../model/friends.js");
-const functions = require("../structs/functions.js");
+const Xmpp = require("../structs/XmppMessage.js");
 
 async function getFriends(accountId) {
     return await Friends.findOne({ accountId: accountId }).lean();
@@ -54,8 +54,8 @@ async function sendFriendRequest(fromId, toId) {
     from.list.outgoing.push({ accountId: to.accountId, created: currentTime });
     to.list.incoming.push({ accountId: from.accountId, created: currentTime });
 
-    functions.sendXmppMessageToId(createFriendPayload(to.accountId, "PENDING", "OUTBOUND", currentTime), from.accountId);
-    functions.sendXmppMessageToId(createFriendPayload(from.accountId, "PENDING", "INBOUND", currentTime), to.accountId);
+    Xmpp.sendXmppMessageToId(createFriendPayload(to.accountId, "PENDING", "OUTBOUND", currentTime), from.accountId);
+    Xmpp.sendXmppMessageToId(createFriendPayload(from.accountId, "PENDING", "INBOUND", currentTime), to.accountId);
 
     await updateFriendsLists(from, to);
 
@@ -76,7 +76,7 @@ async function acceptFriendRequest(fromId, toId) {
         from.list.incoming.splice(incomingIndex, 1);
         from.list.accepted.push({ accountId: to.accountId, created: currentTime });
 
-        functions.sendXmppMessageToId(createFriendPayload(to.accountId, "ACCEPTED", "OUTBOUND", currentTime), from.accountId);
+        Xmpp.sendXmppMessageToId(createFriendPayload(to.accountId, "ACCEPTED", "OUTBOUND", currentTime), from.accountId);
 
         const outgoingIndex = to.list.outgoing.findIndex(i => i.accountId === from.accountId);
 
@@ -84,7 +84,7 @@ async function acceptFriendRequest(fromId, toId) {
             to.list.outgoing.splice(outgoingIndex, 1);
             to.list.accepted.push({ accountId: from.accountId, created: currentTime });
 
-            functions.sendXmppMessageToId(createFriendPayload(from.accountId, "ACCEPTED", "OUTBOUND", currentTime), to.accountId);
+            Xmpp.sendXmppMessageToId(createFriendPayload(from.accountId, "ACCEPTED", "OUTBOUND", currentTime), to.accountId);
 
             await updateFriendsLists(from, to);
         }
@@ -117,8 +117,8 @@ async function deleteFriend(fromId, toId) {
     }
 
     if (removed) {
-        functions.sendXmppMessageToId(createFriendRemovalPayload(to.accountId, "DELETED"), from.accountId);
-        functions.sendXmppMessageToId(createFriendRemovalPayload(from.accountId, "DELETED"), to.accountId);
+        Xmpp.sendXmppMessageToId(createFriendRemovalPayload(to.accountId, "DELETED"), from.accountId);
+        Xmpp.sendXmppMessageToId(createFriendRemovalPayload(from.accountId, "DELETED"), to.accountId);
 
         await updateFriendsLists(from, to);
     }

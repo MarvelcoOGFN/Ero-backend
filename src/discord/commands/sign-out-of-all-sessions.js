@@ -1,5 +1,5 @@
 const User = require("../../model/user.js");
-const functions = require("../../structs/functions.js");
+const Token = require("../../structs/Tokenupdater.js");
 
 module.exports = {
     commandInfo: {
@@ -24,7 +24,7 @@ module.exports = {
         }
 
         if (accessToken != -1 || refreshToken != -1) {
-            functions.UpdateTokens();
+            Token.UpdateTokens();
 
             return interaction.editReply({ content: `Successfully signed out of all sessions!`, ephemeral: true });
         }

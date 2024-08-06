@@ -1,5 +1,5 @@
 const User = require("../../model/user.js");
-const functions = require("../../structs/functions.js");
+const token = require("../../structs/Tokenupdater.js");
 const fs = require("fs");
 const dotenv = require("dotenv");
 
@@ -45,7 +45,7 @@ module.exports = {
             if (xmppClient) xmppClient.client.close();
         }
 
-        if (accessToken != -1 || refreshToken != -1) functions.UpdateTokens();
+        if (accessToken != -1 || refreshToken != -1) Token.UpdateTokens();
 
         interaction.editReply({ content: `Successfully banned ${targetUser.username}`, ephemeral: true });
     }

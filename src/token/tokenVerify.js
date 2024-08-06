@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/user.js");
-const functions = require("../structs/functions.js");
+const Token = require("../structs/Tokenupdater.js");
 const error = require("../structs/errorModule.js");
 
 // verify access tokens
@@ -106,7 +106,7 @@ function handleTokenRemovalAndRefresh(token, accessIndex, clientIndex) {
         global.clientTokens.splice(clientIndex, 1);
     }
 
-    functions.UpdateTokens();
+    Token.UpdateTokens();
 }
 
 // function to add hours to a date

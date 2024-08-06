@@ -1,10 +1,10 @@
-const functions = require("../structs/functions.js");
+const id = require("../structs/uuid.js");
 
 module.exports = async (ws) => {
     // create hashes
-    const ticketId = functions.MakeID().replace(/-/ig, "");
-    const matchId = functions.MakeID().replace(/-/ig, "");
-    const sessionId = functions.MakeID().replace(/-/ig, "");
+    const ticketId = id.MakeID().replace(/-/ig, "");
+    const matchId = id.MakeID().replace(/-/ig, "");
+    const sessionId = id.MakeID().replace(/-/ig, "");
 
     Connecting();
     await functions.sleep(800);

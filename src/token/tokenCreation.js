@@ -1,10 +1,10 @@
-const functions = require("../structs/functions.js");
+const id = require("../structs/uuid.js");
 const jwt = require("jsonwebtoken");
 
 function createToken(payload, secret, expiresIn, tokenType) {
     const token = jwt.sign({
         ...payload,
-        "jti": functions.MakeID().replace(/-/ig, ""),
+        "jti": id.MakeID().replace(/-/ig, ""),
         "creation_date": new Date(),
         "hours_expire": expiresIn
     }, secret, { expiresIn: `${expiresIn}h` });
@@ -28,7 +28,7 @@ function createToken(payload, secret, expiresIn, tokenType) {
 
 function createClient(clientId, grant_type, ip, expiresIn) {
     return createToken({
-        "p": Buffer.from(functions.MakeID()).toString("base64"),
+        "p": Buffer.from(id.MakeID()).toString("base64"),
         "clsvc": "fortnite",
         "t": "s",
         "mver": false,
@@ -48,7 +48,7 @@ function createAccess(user, clientId, grant_type, deviceId, expiresIn) {
         "clid": clientId,
         "dn": user.username,
         "am": grant_type,
-        "p": Buffer.from(functions.MakeID()).toString("base64"),
+        "p": Buffer.from( id.MakeID()).toString("base64"),
         "iai": user.accountId,
         "sec": 1,
         "clsvc": "fortnite",

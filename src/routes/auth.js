@@ -4,7 +4,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const error = require("../structs/errorModule.js");
-const functions = require("../structs/functions.js");
+const id = require("../structs/uuid.js");
+const Decode = require("../structs/Decodebase.js");
+const Token = require("../structs/Tokenupdater.js");
 
 const tokenCreation = require("../token/tokenCreation.js");
 const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
@@ -14,7 +16,7 @@ app.post("/account/api/oauth/token", async (req, res) => {
     let clientId; // Declare clientId in a wider scope
 
     try {
-        clientId = functions.DecodeBase64(req.headers["authorization"].split(" ")[1]).split(":");
+        clientId = Decode.DecodeBase64(req.headers["authorization"].split(" ")[1]).split(":");
         
         if (!clientId[1]) throw new Error("invalid client id");
         
@@ -40,7 +42,7 @@ app.post("/account/api/oauth/token", async (req, res) => {
 
             const token = tokenCreation.createClient(clientId, req.body.grant_type, ip, 4); // expires in 4 hours
 
-            functions.UpdateTokens();
+            Token.UpdateTokens();
 
             const decodedClient = jwt.decode(token);
 
@@ -122,7 +124,7 @@ app.post("/account/api/oauth/token", async (req, res) => {
                 if (refreshToken != -1) {
                     global.refreshTokens.splice(refreshToken, 1);
 
-                    functions.UpdateTokens();
+                    Token.UpdateTokens();
                 }
 
                 error.createError(
@@ -209,11 +211,11 @@ app.post("/account/api/oauth/token", async (req, res) => {
         if (xmppClient) xmppClient.client.close();
     }
 
-    const deviceId = functions.MakeID().replace(/-/ig, "");
+    const deviceId = id.MakeID().replace(/-/ig, "");
     const accessToken = tokenCreation.createAccess(req.user, clientId, req.body.grant_type, deviceId, 8); // expires in 8 hours
     const refreshToken = tokenCreation.createRefresh(req.user, clientId, req.body.grant_type, deviceId, 24); // expires in 24 hours
 
-    functions.UpdateTokens();
+   Token.UpdateTokens();
 
     const decodedAccess = jwt.decode(accessToken);
     const decodedRefresh = jwt.decode(refreshToken);
@@ -273,31 +275,7 @@ app.get("/account/api/oauth/verify", verifyToken, (req, res) => {
 
 app.get("/account/api/oauth/exchange", verifyToken, (req, res) => {
     return res.status(400).json({
-        error: "This endpoint is deprecated, please use the discord bot to generate an exchange code."
-    });
-    // remove the return code above if you still want to make use of this endpoint
-
-    let token = req.headers["authorization"].replace("bearer ", "");
-    const exchange_code = functions.MakeID().replace(/-/ig, "");
-
-    const decodedToken = jwt.decode(token.replace("eg1~", ""));
-
-    global.exchangeCodes.push({
-        accountId: req.user.accountId,
-        exchange_code: exchange_code,
-        creatingClientId: decodedToken.clid
-    });
-
-    setTimeout(() => {
-        let exchangeCode = global.exchangeCodes.findIndex(i => i.exchange_code == exchange_code);
-
-        if (exchangeCode != -1) global.exchangeCodes.splice(exchangeCode, 1);
-    }, 300000); // remove exchange code in 5 minutes if unused
-
-    res.json({
-        expiresInSeconds: 300,
-        code: exchange_code,
-        creatingClientId: decodedToken.clid
+        error: "This endpoint is deprecated."
     });
 });
 
@@ -325,7 +303,7 @@ app.delete("/account/api/oauth/sessions/kill/:token", (req, res) => {
     let clientIndex = global.clientTokens.findIndex(i => i.token == token);
     if (clientIndex != -1) global.clientTokens.splice(clientIndex, 1);
 
-    if (accessIndex != -1 || clientIndex != -1) functions.UpdateTokens();
+    if (accessIndex != -1 || clientIndex != -1) Token.UpdateTokens();
 
     res.status(204).end();
 });

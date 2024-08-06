@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const functions = require("../../structs/functions.js");
+const Sac = require("../../structs/sac.js");
 const fs = require("fs");
 require("dotenv").config();
 
@@ -34,7 +34,7 @@ module.exports = {
         const code = options.get("code").value;
         const accountId = options.get("owner-id").value;
         const creator = interaction.user.id;
-        await functions.createSAC(code, accountId, creator).then(resp => {
+        await Sac.createSAC(code, accountId, creator).then(resp => {
 
             if (resp.message == undefined) return interaction.editReply({ content: "There was an unknown error!", ephemeral: true})
 

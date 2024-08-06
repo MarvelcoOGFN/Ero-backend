@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express.Router();
 const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
-const functions = require("../structs/functions.js");
+const Version = require("../structs/Versioninfo.js");
 
 const getNewItemshopTime = () => {
     const now = new Date();
@@ -21,7 +21,7 @@ const createEvent = (eventType, activeUntil, activeSince) => ({
 
 app.get("/fortnite/api/calendar/v1/timeline", (req, res) => {
     
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     const activeEvents = [
         createEvent(`EventFlag.Season${memory.season}`, "9999-01-01T00:00:00.000Z", "2020-01-01T00:00:00.000Z"),

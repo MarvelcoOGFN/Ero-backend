@@ -7,20 +7,6 @@ const itemshopFilePath = path.join(__dirname, '..', 'shop', 'itemshop', 'itemsho
 const rawData = fs.readFileSync(itemsFilePath);
 const items = JSON.parse(rawData);
 
-const getNewItemshopTime = () => {
-    const now = new Date();
-    now.setUTCDate(now.getUTCDate() + 1);
-    now.setUTCHours(0, 0, 0, 0); 
-    return now.toISOString();
-};
-
-const ItemshopTime = getNewItemshopTime();
-async function sleep(ms) {
-    await new Promise((resolve, reject) => {
-        setTimeout(resolve, ms);
-    })
-}
-
 
 const excludedItemIds = [ //remove s12 bp stuff going into itemshop also somestuff that where added in 12.61 or random TBD items
     "lsid_213_skulldude",
@@ -273,6 +259,7 @@ const getPrice = (item) => {
             lava: 1200,
             marvel: 1500,
             starwars: 2000,
+            slurp: 1800,
             shadow: 1200,
             icon: 1500
         },
@@ -300,6 +287,7 @@ const getPrice = (item) => {
             dark: 500,
             frozen: 1000,
             shadow: 1000,
+            slurp: 1000,
             starwars: 1000,
             marvel: 1000, 
             lava: 1200
@@ -314,6 +302,7 @@ const getPrice = (item) => {
             dc: 1000,
             dark: 750,
             shadow: 750,
+            slurp: 750,
             frozen: 1000,
             starwars: 1000,
             marvel: 1000, 
@@ -328,6 +317,7 @@ const getPrice = (item) => {
             starwars: 500,
             dc: 300,
             dark: 800,
+            slurp: 750,
             frozen: 800,
             shadow: 500,
             starwars: 800,
@@ -359,6 +349,7 @@ const getPrice = (item) => {
             starwars: 500,
             dc: 1200,
             dark: 800,
+            slurp: 1000,
             shadow: 1000,
             frozen: 1200,
             lava: 800
@@ -372,6 +363,7 @@ const getPrice = (item) => {
             icon: 750,
             dc: 1000,
             dark: 750,
+            slurp: 500,
             frozen: 1000,
             starwars: 1000,
             marvel: 1000, 

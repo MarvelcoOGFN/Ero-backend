@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const path = require("path");
 
 const { verifyToken } = require("../token/tokenVerify.js");
-const functions = require("../structs/functions.js");
+const Version = require("../structs/Versioninfo.js");
 
 let seasons = [12];
 
@@ -37,7 +37,7 @@ function handleUserFile(req, res) {
         return res.status(200).end();
     }
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (!seasons.includes(memory.season)) {
         return res.status(200).end();
@@ -49,7 +49,7 @@ function handleUserFile(req, res) {
 
 function handleUserAccount(req, res) {
     const clientSettingsPath = getClientSettingsPath(req);
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (!seasons.includes(memory.season)) {
         return res.json([]);
@@ -70,7 +70,7 @@ function handlePutUserFile(req, res) {
         return res.status(204).end();
     }
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (!seasons.includes(memory.season)) {
         return res.status(204).end();

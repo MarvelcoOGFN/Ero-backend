@@ -6,7 +6,7 @@ const rateLimit = require("express-rate-limit");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const error = require("./src/structs/errorModule.js");
-const functions = require("./src/structs/functions.js");
+const id = require("./src/structs/uuid.js");
 const path = require("path");
 const { spawn } = require('child_process');
 
@@ -60,7 +60,7 @@ const setupDirectories = () => {
 };
 
 const initializeSecret = () => {
-    global.JWT_SECRET = functions.MakeID();
+    global.JWT_SECRET = id.MakeID();
 };
 
 const cleanExpiredTokens = () => {

@@ -5,7 +5,9 @@ const Friends = require("../model/friends");
 const Profile = require("../model/profiles.js");
 const profileManager = require("../structs/profile.js");
 const error = require("../structs/errorModule.js");
-const functions = require("../structs/functions.js");
+const Xmpp = require("../structs/XmppMessage.js");
+const Version = require("../structs/Versioninfo.js");
+const id = require("../structs/uuid.js");
 const items = require("../structs/shop.js");
 const fs = require("fs");
 const path = require("path");
@@ -31,7 +33,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/SetReceiveGiftsEnabled", verify
         ["SetReceiveGiftsEnabled",req.query.profileId], 12801, undefined, 400, res
     );
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     let ApplyProfileChanges = [];
     let BaseRevision = profile.rvn;
@@ -91,7 +93,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/GiftCatalogEntry", verifyToken,
         ["GiftCatalogEntry",req.query.profileId], 12801, undefined, 400, res
     );
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     let Notifications = [];
     let ApplyProfileChanges = [];
@@ -234,7 +236,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/GiftCatalogEntry", verifyToken,
                 let athena = receiverProfiles.profiles["athena"];
                 let common_core = ((receiverId == req.user.accountId) ? profile : receiverProfiles.profiles["common_core"]);
 
-                let giftBoxItemID = functions.MakeID();
+                let giftBoxItemID = id.MakeID();
                 let giftBoxItem = {
                     "templateId": req.body.giftWrapTemplateId,
                     "attributes": {
@@ -253,7 +255,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/GiftCatalogEntry", verifyToken,
                 if (!common_core.items) common_core.items = {};
 
                 for (let value of findOfferId.offerId.itemGrants) {
-                    const ID = functions.MakeID();
+                    const ID = id.MakeID();
 
                     const Item = {
                         "templateId": value.templateId,
@@ -294,7 +296,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/GiftCatalogEntry", verifyToken,
 
                 global.giftReceived[receiverId] = true;
 
-                functions.sendXmppMessageToId({
+                Xmpp.sendXmppMessageToId({
                     type: "com.epicgames.gift.received",
                     payload: {},
                     timestamp: new Date().toISOString()
@@ -347,7 +349,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/RemoveGiftBox", verifyToken, as
         ["RemoveGiftBox",req.query.profileId], 12801, undefined, 400, res
     );
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     let ApplyProfileChanges = [];
     let BaseRevision = profile.rvn;
@@ -421,7 +423,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/RefundMtxPurchase", verifyToken
     let profile = profiles.profiles[req.query.profileId];
     const ItemProfile = profiles.profiles.athena;
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     var ApplyProfileChanges = [];
     var MultiUpdate = [];
@@ -548,7 +550,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
         "profileCommandRevision": athena.commandRevision || 0,
     }];
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     let Notifications = [];
     let ApplyProfileChanges = [];
@@ -707,7 +709,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                         }
 
                         if (ItemExists == false) {
-                            var ItemID = functions.MakeID();
+                            var ItemID = id.MakeID();
                             var Item = { "templateId": item, "attributes": { "item_seen": false }, "quantity": 1 };
 
                             profile.items[ItemID] = Item;
@@ -738,7 +740,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                         }
 
                         if (ItemExists == false) {
-                            var ItemID = functions.MakeID();
+                            var ItemID = id.MakeID();
                             const Item = { "templateId": item, "attributes": { "max_level_bonus": 0, "level": 1, "item_seen": false, "xp": 0, "variants": [], "favorite": false }, "quantity": FreeTier[item] }
 
                             athena.items[ItemID] = Item;
@@ -808,7 +810,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                         }
 
                         if (ItemExists == false) {
-                            var ItemID = functions.MakeID();
+                            var ItemID = id.MakeID();
                             var Item = { "templateId": item, "attributes": { "item_seen": false }, "quantity": 1 };
 
                             profile.items[ItemID] = Item;
@@ -838,7 +840,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                         }
 
                         if (ItemExists == false) {
-                            var ItemID = functions.MakeID();
+                            var ItemID = id.MakeID();
                             const Item = { "templateId": item, "attributes": { "max_level_bonus": 0, "level": 1, "item_seen": false, "xp": 0, "variants": [], "favorite": false }, "quantity": PaidTier[item] }
 
                             athena.items[ItemID] = Item;
@@ -861,7 +863,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                 }
             }
 
-            var GiftBoxID = functions.MakeID();
+            var GiftBoxID = id.MakeID();
             var GiftBox = { "templateId": 8 <= 4 ? "GiftBox:gb_battlepass" : "GiftBox:gb_battlepasspurchased", "attributes": { "max_level_bonus": 0, "fromAccountId": "", "lootList": lootList } }
 
             if (8 > 2) {
@@ -959,7 +961,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                         }
 
                         if (ItemExists == false) {
-                            var ItemID = functions.MakeID();
+                            var ItemID = id.MakeID();
                             var Item = { "templateId": item, "attributes": { "item_seen": false }, "quantity": 1 };
 
                             profile.items[ItemID] = Item;
@@ -990,7 +992,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                         }
 
                         if (ItemExists == false) {
-                            var ItemID = functions.MakeID();
+                            var ItemID = id.MakeID();
                             const Item = { "templateId": item, "attributes": { "max_level_bonus": 0, "level": 1, "item_seen": false, "xp": 0, "variants": [], "favorite": false }, "quantity": FreeTier[item] }
 
                             athena.items[ItemID] = Item;
@@ -1060,7 +1062,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                         }
 
                         if (ItemExists == false) {
-                            var ItemID = functions.MakeID();
+                            var ItemID = id.MakeID();
                             var Item = { "templateId": item, "attributes": { "item_seen": false }, "quantity": 1 };
 
                             profile.items[ItemID] = Item;
@@ -1091,7 +1093,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                         }
 
                         if (ItemExists == false) {
-                            var ItemID = functions.MakeID();
+                            var ItemID = id.MakeID();
                             const Item = { "templateId": item, "attributes": { "max_level_bonus": 0, "level": 1, "item_seen": false, "xp": 0, "variants": [], "favorite": false }, "quantity": PaidTier[item] }
 
                             athena.items[ItemID] = Item;
@@ -1114,7 +1116,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
                 }
             }
 
-            var GiftBoxID = functions.MakeID();
+            var GiftBoxID = id.MakeID();
             var GiftBox = { "templateId": "GiftBox:gb_battlepass", "attributes": { "max_level_bonus": 0, "fromAccountId": "", "lootList": lootList } }
 
             if (8 > 2) {
@@ -1175,7 +1177,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
             });
 
             for (let value of findOfferId.offerId.itemGrants) {
-                const ID = functions.MakeID();
+                const ID = id.MakeID();
 
                 for (let itemId in athena.items) {
                     if (value.templateId.toLowerCase() == athena.items[itemId].templateId.toLowerCase()) return error.createError(
@@ -1246,7 +1248,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
 
                 if (findOfferId.offerId.itemGrants.length != 0) {
 
-                    var purchaseId = functions.MakeID();
+                    var purchaseId = id.MakeID();
                     profile.stats.attributes.mtx_purchase_history.purchases.push({"purchaseId":purchaseId,"offerId":`v2:/${purchaseId}`,"purchaseDate":new Date().toISOString(),"freeRefundEligible":false,"fulfillments":[],"lootResult":Notifications[0].lootResult.items,"totalMtxPaid":findOfferId.offerId.prices[0].finalPrice,"metadata":{},"gameContext":""})
 
                     ApplyProfileChanges.push({
@@ -1309,7 +1311,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/MarkItemSeen", verifyToken, asy
 
     let profile = profiles.profiles[req.query.profileId];
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (req.query.profileId == "athena") profile.stats.attributes.season_num = memory.season;
 
@@ -1386,7 +1388,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/SetItemFavoriteStatusBatch", ve
 
     let profile = profiles.profiles[req.query.profileId];
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (req.query.profileId == "athena") profile.stats.attributes.season_num = memory.season;
 
@@ -1465,7 +1467,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/SetBattleRoyaleBanner", verifyT
 
     let profile = profiles.profiles[req.query.profileId];
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (req.query.profileId == "athena") profile.stats.attributes.season_num = memory.season;
 
@@ -1578,7 +1580,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/EquipBattleRoyaleCustomization"
 
     let profile = profiles.profiles[req.query.profileId];
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (req.query.profileId == "athena") profile.stats.attributes.season_num = memory.season;
 
@@ -1781,7 +1783,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/SetCosmeticLockerBanner", verif
 
     let profile = profiles.profiles[req.query.profileId];
 
-    const memory = functions.GetVersionInfo(req);
+    const memory =  Version.GetVersionInfo(req);
 
     if (req.query.profileId == "athena") profile.stats.attributes.season_num = memory.season;
 
@@ -1907,7 +1909,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/SetCosmeticLockerSlot", verifyT
 
     let profile = profiles.profiles[req.query.profileId];
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (req.query.profileId == "athena") profile.stats.attributes.season_num = memory.season;
 
@@ -2130,7 +2132,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/:operation", verifyToken, async
         await profiles.updateOne({ $set: { [`profiles.${req.query.profileId}`]: profile } });
     }
 
-    const memory = functions.GetVersionInfo(req);
+    const memory = Version.GetVersionInfo(req);
 
     if (req.query.profileId == "athena") profile.stats.attributes.season_num = memory.season;
 

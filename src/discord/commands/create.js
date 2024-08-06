@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const functions = require("../../structs/functions.js");
+const register = require("../../structs/register.js");
 
 module.exports = {
     commandInfo: {
@@ -36,7 +36,7 @@ module.exports = {
         const username = options.get("username").value;
         const password = options.get("password").value;
 
-        await functions.registerUser(discordId, username, email, password).then(resp => {
+        await register.registerUser(discordId, username, email, password).then(resp => {
             let embed = new MessageEmbed()
             .setColor(resp.status >= 400 ? "#EE4B2B" : "#FF00FF")
             .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
