@@ -7,6 +7,21 @@ const itemshopFilePath = path.join(__dirname, '..', 'shop', 'itemshop', 'itemsho
 const rawData = fs.readFileSync(itemsFilePath);
 const items = JSON.parse(rawData);
 
+const getNewItemshopTime = () => {
+    const now = new Date();
+    now.setUTCDate(now.getUTCDate() + 1);
+    now.setUTCHours(0, 0, 0, 0); 
+    return now.toISOString();
+};
+
+const ItemshopTime = getNewItemshopTime();
+async function sleep(ms) {
+    await new Promise((resolve, reject) => {
+        setTimeout(resolve, ms);
+    })
+}
+
+
 const excludedItemIds = [ //remove s12 bp stuff going into itemshop also somestuff that where added in 12.61 or random TBD items
     "lsid_213_skulldude",
     "trails_id_084_briefcase",
@@ -14,9 +29,114 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop also somestu
     "wrap_203_henchman",
     "Pickaxe_ID_368_BananaAgent",
     "MusicPack_042_BunnyHop",
+    "EID_TnTina",
+    "EID_Photographer",
+    "EID_BuffCat",
     "Wrap_240_PlasmaSpectrum",
     "Glider_ID_197_HenchmanMale",
+    "CID_695_Athena_Commando_F_DesertOpsCamo",
+    "CID_701_Athena_Commando_M_BananaAgent",
+   "AthenaLoadingScreen:lsid_213_skulldude",
+   "AthenaSkyDiveContrail:trails_id_084_briefcase",
+   "AthenaBackpack:bid_485_bananaagent",
+   "AthenaItemWrap:wrap_203_henchman",
+  "AthenaMusicPack:musicpack_044_s12cine",
+  "AthenaPickaxe:pickaxe_id_361_henchmanmale1h",
+  "BannerToken:bannertoken_033_s12_skull",
+  "Currency:mtxgiveaway",
+   "AthenaBackpack:bid_478_henchmantough",
+"AthenaDance:spid_199_bananaagent",
+"AthenaGlider:glider_id_197_henchmanmale",
+"Currency:mtxgiveaway",
+"AthenaLoadingScreen:lsid_229_mountainbase",
+"AthenaCharacter:cid_692_athena_commando_m_henchmantough",
+"AthenaLoadingScreen:lsid_216_tntina",
+"Currency:mtxgiveaway",
+"BannerToken:bannertoken_030_s12_grenade",
+"AthenaDance:emoji_s12_tntina",
+"AthenaGlider:glider_id_201_tntinafemale",
+"AthenaLoadingScreen:lsid_227_llamastormcenter",
+"Currency:mtxgiveaway",
+"AthenaPickaxe:pickaxe_id_336_tntinafemale",
+"AthenaSkyDiveContrail:trails_id_087_tntina",
+"AthenaGlider:glider_id_198_kaboom",
+"CosmeticVariantToken:vtid_560_bananaagent_styleb",
+"Currency:mtxgiveaway",
+"AthenaBackpack:bid_437_tntina",
+"AthenaDance:spid_190_tntina",
+"AthenaDance:eid_stepbreakdance",
+"AthenaCharacter:cid_691_athena_commando_f_tntina",
+"AthenaLoadingScreen:lsid_217_meowscles",
+"AthenaItemWrap:wrap_200_buffcat",
+"Currency:mtxgiveaway",
+"AthenaBackpack:bid_477_buffcat",
+"AthenaDance:emoji_s12_meowscles",
+"AthenaDance:eid_bangthepan",
+"AthenaLoadingScreen:lsid_228_bananaagent",
+"AthenaPickaxe:pickaxe_id_355_buffcatmale1h",
+"Currency:mtxgiveaway",
+"AthenaDance:spid_191_meowscles",
+"AthenaDance:emoji_s12_ego",
+"AthenaSkyDiveContrail:trails_id_083_alphabetsoup",
+"BannerToken:bannertoken_031_s12_kitty",
+"Currency:mtxgiveaway",
+"AthenaDance:eid_paws",
+"AthenaCharacter:cid_693_athena_commando_m_buffcat",
+"AthenaLoadingScreen:lsid_220_adventuregirl",
+"AthenaItemWrap:wrap_216_bananaagent",
+"AthenaGlider:glider_id_200_photographerfemale",
+"AthenaLoadingScreen:lsid_222_frenzyfarms",
+"AthenaBackpack:bid_473_photographer",
+"BannerToken:bannertoken_034_s12_wingedcritter",
+"AthenaDance:emoji_s12_alter",
+"AthenaPickaxe:pickaxe_id_364_photographerfemale1h",
+"Currency:mtxgiveaway",
+"AthenaSkyDiveContrail:trails_id_085_candy",
+"AthenaGlider:glider_id_199_llamahero",
+"AthenaDance:emoji_s12_adventuregirl",
+"Currency:mtxgiveaway",
+"CosmeticVariantToken:vtid_561_bananaagent_stylec",
+"AthenaDance:spid_192_adventuregirl",
+"AthenaCharacter:cid_690_athena_commando_f_photographer",
+"AthenaLoadingScreen:lsid_221_midas",
+"AthenaDance:eid_cointoss",
+"AthenaDance:spid_193_midas",
+"AthenaGlider:glider_id_202_bananaagent",
+"Currency:mtxgiveaway",
+"AthenaPickaxe:pickaxe_id_360_desertopscamofemale",
+"AthenaLoadingScreen:lsid_218_teamup",
+"BannerToken:bannertoken_032_s12_roses",
+"AthenaPickaxe:pickaxe_id_357_catburglarmale",
+"AthenaMusicPack:musicpack_043_overdrive",
+"Currency:mtxgiveaway",
+"AthenaBackpack:bid_479_catburglar",
+"BannerToken:bannertoken_040_s12_midas",
+"AthenaDance:emoji_s12_midas",
+"AthenaItemWrap:wrap_201_catburglar",
+"AthenaDance:eid_jumpstyledance",
+"AthenaCharacter:cid_694_athena_commando_m_catburglar",
+"AthenaDance:eid_callme",
+"Currency:mtxgiveaway",
+"AthenaDance:emoji_s12_skulldude",
+"AthenaLoadingScreen:lsid_219_alterego",
+"AthenaDance:spid_189_skulldude",
+"AthenaBackpack:bid_472_desertopscamo",
+"AthenaItemWrap:wrap_211_tntina",
+"BannerToken:bannertoken_029_s12_cowboy",
+"AthenaMusicPack:musicpack_042_bunnyhop",
+"AthenaPickaxe:pickaxe_id_368_bananaagent",
+"AthenaDance:spid_194_dumpsterfire",
+"AthenaGlider:glider_id_195_buffcatmale",
+"AthenaLoadingScreen:lsid_226_threemeowscles",
+"Currency:mtxgiveaway",
+"AthenaDance:eid_truckerhorn",
+"AthenaLoadingScreen:lsid_223_sharkisland",
+"Token:athena_s12_nobattlebundleoption_token",
+"AthenaItemWrap:wrap_206_photographer",
+"AthenaSkyDiveContrail:trails_id_086_snowstorm",
+"BannerToken:bannertoken_044_s12_bananaagent",
     "CID_VIP_Athena_Commando_M_GalileoFerry_SG",
+    "Trails_ID_083_AlphabetSoup",
     "CID_712_Athena_Commando_M_Spy",
     "CID_760_Athena_Commando_F_NeonTightSuit",
     "CID_758_Athena_Commando_M_TechExplorer",
@@ -126,7 +246,7 @@ const itemWraps = filterExcludedItems(items.filter(item => item.type === 'Athena
 const musicPacks = filterExcludedItems(items.filter(item => item.type === 'AthenaMusicPack'));
 const dances = filterExcludedItems(items.filter(item => item.type === 'AthenaDance'));
 const gliders = filterExcludedItems(items.filter(item => item.type === 'AthenaGlider'));
-
+const contrails = filterExcludedItems(items.filter(item => item.type === 'AthenaSkyDiveContrail'));
 
 const usedItemIds = new Set();
 
@@ -213,6 +333,22 @@ const getPrice = (item) => {
             starwars: 800,
             lava: 800
         },
+        contrails: {
+            uncommon: 300,
+            rare: 500,
+            starwars: 750,
+            epic: 500,
+            legendary: 750,
+            icon: 750,
+            dc: 1000,
+            dark: 750,
+            shadow: 750,
+            frozen: 1000,
+            starwars: 1000,
+            slurp: 750,
+            marvel: 1000, 
+            lava: 750
+        },
         backpacks: {
             uncommon: 400,
             rare: 600,
@@ -256,6 +392,8 @@ const getPrice = (item) => {
             return prices.dances[item.rarity] || 0;
         case 'AthenaBackpack':
             return prices.backpacks[item.rarity] || 0;
+        case 'AthenaSkyDiveContrail':
+            return prices.contrails[item.rarity] || 0;
         case 'AthenaMusicPack':
             return prices.musicPacks[item.rarity] || 0;
         default:
@@ -273,17 +411,17 @@ const config = {
         } : null;
     })(),
     "daily2": (() => {
-        const isBackpack = Math.random() < 0.3;
-        const item = isBackpack ? getUniqueItem(backpacks) : getUniqueItem(pickaxes);     
+        const iscontrail = Math.random() < 0.3;
+        const item = iscontrail ? getUniqueItem(backpacks) : getUniqueItem(contrails);     
         if (item) {
             if (item.type === 'AthenaPickaxe') {
                 return {
                     "itemGrants": [`AthenaPickaxe:${item.id}`],
                     "price": getPrice(item)
                 };
-            } else if (item.type === 'AthenaBackpack') {
+            } else if (item.type === 'AthenaSkyDiveContrail') {
                 return {
-                    "itemGrants": [`AthenaBackpack:${item.id}`],
+                    "itemGrants": [`AthenaSkyDiveContrail:${item.id}`],
                     "price": getPrice(item)
                 };
             }

@@ -32,7 +32,7 @@ const initializeApp = async () => {
 
   const generateItemshopConfig = async () => {
     return new Promise((resolve, reject) => {
-        const scriptPath = path.join(__dirname, 'src' , "structs" ,'Itemshopgenerator.js');
+        const scriptPath = path.join(__dirname, 'src' , "structs" ,'Itemshop.js');
         const child = spawn('node', [scriptPath]);
 
         child.stdout.on('data', (data) => {
