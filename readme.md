@@ -17,7 +17,6 @@
 - [x] Purchasing from item shop
 - [x] support a creator
 - [x] Refunding
-- [ ] Tournaments
 - [ ] Proper Gamesessions
 - [ ] Seasonal Rewards
 - [x] match maker (need to be improved)
