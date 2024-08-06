@@ -2,7 +2,8 @@ const WebSocket = require("ws").Server;
 const XMLBuilder = require("xmlbuilder");
 const XMLParser = require("xml-parser");
 const express = require("express");
-const functions = require("../structs/functions.js");
+const id = require("../structs/uuid.js");
+const Decode = require("../structs/DecodeBase.js");
 const User = require("../model/user.js");
 const Friends = require("../model/friends.js");
 const matchmaker = require("./matchmaker.js");
@@ -103,7 +104,7 @@ wss.on('connection', async (ws) => {
 });
 
 function handleOpen(ws, clientData) {
-    if (!clientData.ID) clientData.ID = functions.MakeID();
+    if (!clientData.ID) clientData.ID =  id.MakeID();
     ws.send(XMLBuilder.create("open")
         .attribute("xmlns", "urn:ietf:params:xml:ns:xmpp-framing")
         .attribute("from", global.xmppDomain)
@@ -125,9 +126,9 @@ function handleOpen(ws, clientData) {
 async function handleAuth(ws, msg, clientData) {
     if (!clientData.ID || clientData.accountId) return handleError(ws);
     if (!msg.root.content) return handleError(ws);
-    if (!functions.DecodeBase64(msg.root.content).includes("\u0000")) return handleError(ws);
+    if (!Decode.DecodeBase64(msg.root.content).includes("\u0000")) return handleError(ws);
 
-    const decodedBase64 = functions.DecodeBase64(msg.root.content).split("\u0000");
+    const decodedBase64 = Decode.DecodeBase64(msg.root.content).split("\u0000");
     const object = global.accessTokens.find(token => token.token === decodedBase64[2]);
     if (!object) return handleError(ws);
 
