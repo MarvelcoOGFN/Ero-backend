@@ -7,11 +7,12 @@ const itemshopFilePath = path.join(__dirname, '..', 'shop', 'itemshop', 'itemsho
 const rawData = fs.readFileSync(itemsFilePath);
 const items = JSON.parse(rawData);
 
-const excludedItemIds = [ //remove s12 bp stuff going into itemshop
+const excludedItemIds = [ //remove s12 bp stuff going into itemshop also somestuff that where added in 12.61 or random TBD items
     "lsid_213_skulldude",
     "trails_id_084_briefcase",
     "bid_485_bananaagent",
     "wrap_203_henchman",
+    "Pickaxe_ID_368_BananaAgent",
     "MusicPack_042_BunnyHop",
     "Wrap_240_PlasmaSpectrum",
     "Glider_ID_197_HenchmanMale",
@@ -20,6 +21,9 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop
     "CID_760_Athena_Commando_F_NeonTightSuit",
     "CID_758_Athena_Commando_M_TechExplorer",
     'CID_759_Athena_Commando_F_RapVillainess',
+    "CID_001_Athena_Commando_F_Default",
+    "CID_693_Athena_Commando_M_BuffCat",
+    "Wrap_203_Henchman",
     "AthenaCharacter:CID_002_Athena_Commando_F_Default",
     'CID_754_Athena_Commando_F_RaveNinja',
     "CID_756_Athena_Commando_M_JonesyAgent",
@@ -48,6 +52,7 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop
     "spid_199_bananaagent",
     "glider_id_197_henchmanmale",
     "lsid_229_mountainbase",
+    "CID_561_Athena_Commando_M_RebirthDefaultB",
     "cid_692_athena_commando_m_henchmantough",
     "lsid_216_tntina",
     "bannertoken_030_s12_grenade",
@@ -160,6 +165,8 @@ const getPrice = (item) => {
             frozen: 1000,
             slurp: 1500,
             starwars: 1000,
+            shadow: 1000,
+            marvel: 1500,
             dc: 1800 
         },
         gliders: {
@@ -172,6 +179,7 @@ const getPrice = (item) => {
             dc: 1200,
             dark: 500,
             frozen: 1000,
+            shadow: 1000,
             starwars: 1000,
             marvel: 1000, 
             lava: 1200
@@ -185,6 +193,7 @@ const getPrice = (item) => {
             icon: 750,
             dc: 1000,
             dark: 750,
+            shadow: 750,
             frozen: 1000,
             starwars: 1000,
             marvel: 1000, 
@@ -200,6 +209,7 @@ const getPrice = (item) => {
             dc: 300,
             dark: 800,
             frozen: 800,
+            shadow: 500,
             starwars: 800,
             lava: 800
         },
@@ -213,6 +223,7 @@ const getPrice = (item) => {
             starwars: 500,
             dc: 1200,
             dark: 800,
+            shadow: 1000,
             frozen: 1200,
             lava: 800
         },
@@ -262,11 +273,22 @@ const config = {
         } : null;
     })(),
     "daily2": (() => {
-        const item = getUniqueItem(pickaxes);
-        return item ? {
-            "itemGrants": [`AthenaPickaxe:${item.id}`],
-            "price": getPrice(item)
-        } : null;
+        const isBackpack = Math.random() < 0.3;
+        const item = isBackpack ? getUniqueItem(backpacks) : getUniqueItem(pickaxes);     
+        if (item) {
+            if (item.type === 'AthenaPickaxe') {
+                return {
+                    "itemGrants": [`AthenaPickaxe:${item.id}`],
+                    "price": getPrice(item)
+                };
+            } else if (item.type === 'AthenaBackpack') {
+                return {
+                    "itemGrants": [`AthenaBackpack:${item.id}`],
+                    "price": getPrice(item)
+                };
+            }
+        }
+        return null;
     })(),
     "daily3": (() => {
         const item = getUniqueItem(itemWraps);
@@ -283,11 +305,22 @@ const config = {
         } : null;
     })(),
     "daily5": (() => {
-        const item = getUniqueItem(pickaxes);
-        return item ? {
-            "itemGrants": [`AthenaPickaxe:${item.id}`],
-            "price": getPrice(item)
-        } : null;
+        const isBackpack = Math.random() < 0.5;
+        const item = isBackpack ? getUniqueItem(backpacks) : getUniqueItem(pickaxes);     
+        if (item) {
+            if (item.type === 'AthenaPickaxe') {
+                return {
+                    "itemGrants": [`AthenaPickaxe:${item.id}`],
+                    "price": getPrice(item)
+                };
+            } else if (item.type === 'AthenaBackpack') {
+                return {
+                    "itemGrants": [`AthenaBackpack:${item.id}`],
+                    "price": getPrice(item)
+                };
+            }
+        }
+        return null;
     })(),
     "daily6": (() => {
         const isDance = Math.random() < 0.5;
