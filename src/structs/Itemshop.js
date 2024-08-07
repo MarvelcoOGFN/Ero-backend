@@ -31,6 +31,8 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop also somestu
   "BannerToken:bannertoken_033_s12_skull",
   "Currency:mtxgiveaway",
    "AthenaBackpack:bid_478_henchmantough",
+   "BID_483_Spy",
+   "CID_558_Athena_Commando_F_RebirthDefaultC",
 "AthenaDance:spid_199_bananaagent",
 "AthenaGlider:glider_id_197_henchmanmale",
 "Currency:mtxgiveaway",
@@ -403,8 +405,8 @@ const config = {
         } : null;
     })(),
     "daily2": (() => {
-        const iscontrail = Math.random() < 0.3;
-        const item = iscontrail ? getUniqueItem(backpacks) : getUniqueItem(contrails);     
+        const iscontrail = Math.random() < 0.6;
+        const item = iscontrail ? getUniqueItem(pickaxes) : getUniqueItem(contrails);     
         if (item) {
             if (item.type === 'AthenaPickaxe') {
                 return {
