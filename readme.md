@@ -22,3 +22,4 @@
 - [x] match maker (need to be improved)
 - [x] Vbucks command
 - [ ] Implement API for launcher login
+- [ ] Proper Matchmaker
