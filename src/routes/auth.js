@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 const error = require("../structs/errorModule.js");
 const id = require("../structs/uuid.js");
-const Decode = require("../structs/Decodebase.js");
+const Decode = require("../structs/DecodeBase.js");
 const Token = require("../structs/Tokenupdater.js");
 
 const tokenCreation = require("../token/tokenCreation.js");

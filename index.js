@@ -112,11 +112,12 @@ const loadRoutes = () => {
     });
 };
 app.use(require("./src/api/vbucksapi.js"));
+app.use(require("./src/api/launcherapi.js"));
 const startServer = () => {
     app.listen(PORT, () => {
         console.log('\x1b[33m%s\x1b[0m',"ClimbFn started on port", PORT);
         require("./src/connections/xmpp.js");
-        require("./src/Discord");
+        require("./src/discord");
     }).on("error", async (err) => {
         if (err.code == "EADDRINUSE") {
             console.log(`Port ${PORT} is already in use!\nClosing in 3 seconds...`);
