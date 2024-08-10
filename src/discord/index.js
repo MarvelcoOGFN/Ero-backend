@@ -25,11 +25,15 @@ client.once("ready", () => {
             if (lastMessage) {
                 lastMessage.delete()
                     .then(() => {
+                        // Get the current timestamp
+                        const timestamp = new Date().toLocaleString();
+
                         // Send the embed after deleting the last message
                         const embed = new MessageEmbed()
                             .setTitle("Backend Status")
                             .setDescription("The ClimbFN Backend has restarted! Please restart your games to continue playing as usual.")
-                            .setColor("ORANGE");
+                            .setColor("ORANGE")
+                            .setFooter(`Timestamp: ${timestamp}`); // Add timestamp to the footer
 
                         channel.send({ embeds: [embed] });
                     })

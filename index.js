@@ -111,7 +111,6 @@ const loadRoutes = () => {
         }
     });
 };
-app.use(require("./src/api/vbucksapi.js"));
 app.use(require("./src/api/launcherapi.js"));
 const startServer = () => {
     app.listen(PORT, () => {
