@@ -16,6 +16,7 @@ const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
 
 global.giftReceived = {};
 
+
 app.post("/fortnite/api/game/v2/profile/*/client/SetReceiveGiftsEnabled", verifyToken, async (req, res) => {
     const profiles = await Profile.findOne({ accountId: req.user.accountId });
 
