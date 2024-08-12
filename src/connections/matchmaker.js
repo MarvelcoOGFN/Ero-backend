@@ -1,5 +1,10 @@
 const id = require("../structs/uuid.js");
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 module.exports = async (ws) => {
     // create hashes
     const ticketId = id.MakeID().replace(/-/ig, "");
@@ -7,13 +12,13 @@ module.exports = async (ws) => {
     const sessionId = id.MakeID().replace(/-/ig, "");
 
     Connecting();
-    await functions.sleep(800);
+    await sleep(800);
     Waiting();
-    await functions.sleep(1000);
+    await sleep(1000);
     Queued();
-    await functions.sleep(4000);
+    await sleep(4000);
     SessionAssignment();
-    await functions.sleep(2000);
+    await sleep(2000);
     Join();
 
     function Connecting() {
