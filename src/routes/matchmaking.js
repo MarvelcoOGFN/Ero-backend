@@ -55,7 +55,7 @@ app.get("/fortnite/api/matchmaking/session/:sessionId", verifyToken, (req, res) 
 
     res.json({
         "id": req.params.sessionId,
-        "ownerId": uuid.MakeID().replace(/-/ig, "").toUpperCase(),
+        "ownerId": id.MakeID().replace(/-/ig, "").toUpperCase(),
         "ownerName": "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
         "serverName": "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
         "serverAddress": gameServerInfo.serverAddress,
@@ -75,7 +75,7 @@ app.get("/fortnite/api/matchmaking/session/:sessionId", verifyToken, (req, res) 
           "STORMSHIELDDEFENSETYPE_i": 0,
           "HOTFIXVERSION_i": 0,
           "PLAYLISTNAME_s": "Playlist_DefaultSolo",
-          "SESSIONKEY_s": uuid.MakeID().replace(/-/ig, "").toUpperCase(),
+          "SESSIONKEY_s": id.MakeID().replace(/-/ig, "").toUpperCase(),
           "TENANT_s": "Fortnite",
           "BEACONPORT_i": 15009
         },
