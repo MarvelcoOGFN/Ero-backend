@@ -1,4 +1,4 @@
-﻿const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const express = require('express');
 const User = require('../model/user.js');
 const Profile = require('../model/profiles.js');
@@ -26,22 +26,40 @@ function sendData(handler) {
     };
 }
 
-// Route to handle user login
+// Login
 app.post('/launcher/login', sendData(async (req, res) => {
     const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(404).json({ error: "Invalid Credentials" });
+    }
+
+    if (user.isBanned) { // Assuming 'isBanned' is a field in the user model
+        return res.status(403).json({ error: "User is banned" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        return res.status(401).json({ error: "Invalid Credentials" });
+    }
+
+
+    await User.updateOne({ email }, { isLoggedIn: true });
+
+    return { message: "Welcome", username: user.username };
+}));
+
+// Username
+app.get('/launcher/username', sendData(async (req, res) => {
+    const { email } = req.query;
 
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(404).json({ error: "User not found" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.status(401).json({ error: "Invalid password" });
-    }
-
-    // Return the username along with the login success message
-    return { message: "Login successful", username: user.username };
+    return { username: user.username };
 }));
 
 app.get('/eon/vbucks/:accountId/:value', sendData(async (req, res) => {
