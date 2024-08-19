@@ -36,10 +36,10 @@ app.get("/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId
 });
 
 app.get("/fortnite/api/matchmaking/session/:sessionId", verifyToken, (req, res) => {
-    const gameServerIP = process.env.GAME_SERVER_IP || "194.164.193.82:7777";
+    const gameServerIP = process.env.GAME_SERVER_IP || "45.145.41.189:7777";
 
     let gameServerInfo = {
-        serverAddress: "194.164.193.82",
+        serverAddress: "45.145.41.189",
         serverPort: 7777
     }
 
