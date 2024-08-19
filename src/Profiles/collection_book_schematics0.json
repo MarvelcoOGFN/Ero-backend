@@ -7,7 +7,7 @@
   "profileId": "collection_book_schematics0",
   "version": "no_version",
   "items": {
-    "Token:climb": {
+    "Token:luna": {
       "templateId": "Token:luna",
       "attributes": {
         "item_seen": true
