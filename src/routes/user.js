@@ -105,7 +105,7 @@ app.get("/account/api/public/account/:accountId", verifyToken, (req, res) => {
     res.json({
         id: req.user.accountId,
         displayName: req.user.username,
-        name: "climb",
+        name: "luna",
         email: `[hidden]@${req.user.email.split("@")[1]}`,
         failedLoginAttempts: 0,
         lastLogin: new Date().toISOString(),

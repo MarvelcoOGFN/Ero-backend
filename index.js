@@ -84,7 +84,7 @@ const cleanExpiredTokens = () => {
 
 const connectToMongoDB = () => {
     mongoose.connect(process.env.MONGODB_DATABASE, () => {
-        console.log('\x1b[33m%s\x1b[0m',"ClimbFn connected to MongoDB");
+        console.log('\x1b[33m%s\x1b[0m',"Luna Multiplayer connected to MongoDB");
     });
 
     mongoose.connection.on("error", err => {
