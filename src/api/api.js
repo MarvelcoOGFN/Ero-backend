@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = 3551;
+const PORT = 6666;
 const IP = '185.202.236.205';
 
 function sendData(handler) {
