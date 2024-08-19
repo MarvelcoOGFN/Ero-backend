@@ -17,16 +17,16 @@ router.get('/content/api/pages/*', async (req, res) => {
                     image: "https://i.imgur.com/qeCaTCn.png",
                     tileImage: "https://i.imgur.com/mjC9PgY.jpg",
                     hidden: false,
-                    tabTitleOverride: "Climb Fn",
+                    tabTitleOverride: "Luna Multiplayer",
                     _type: "CommonUI Simple Message MOTD",
-                    title: "Welcome To Climb Fn",
-                    body: "Play Chapter 2 Season 2 again with Climb Fn",
+                    title: "Welcome To Luna Multiplayer",
+                    body: "Play Chapter 2 Season 2 again with Luna Multiplayer",
                     videoStreamingEnabled: false,
                     sortingPriority: 20,
                     id: "News",
                     videoFullscreen: false,
                     spotlight: false,
-                    websiteURL: "https://discord.gg/ggKCZhsBqg",
+                    websiteURL: "https://discord.gg/2Namxjthf3",
                     websiteButtonText: "Join our discord"
                 }
             ]
@@ -69,8 +69,8 @@ router.get('/content/api/pages/*', async (req, res) => {
                     hidden: false,
                     _type: 'CommonUI Simple Message Base',
                     subgame: 'br',
-                    title: "Welcome To Climb Fn !",
-                    body: "Enjoy Climb Fn by Marvelco and Mxrc3l\nif you run into bugs please report them\nin the discord!                                            ",
+                    title: "Welcome To Luna Multiplayer !",
+                    body: "Enjoy Luna Multiplayer by Pongo_x86, OptixYT, Marvelco & Mxrc3l\nif you run into bugs please report them\nin the discord!                                            ",
                     spotlight: true
                 }
             ]
