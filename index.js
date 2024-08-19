@@ -114,7 +114,7 @@ const loadRoutes = () => {
 app.use(require("./src/api/api.js"));
 const startServer = () => {
     app.listen(PORT, () => {
-        console.log('\x1b[33m%s\x1b[0m',"ClimbFn started on port", PORT);
+        console.log('\x1b[33m%s\x1b[0m',"Luna Mutilplayer started on port", PORT);
         require("./src/connections/xmpp.js");
         require("./src/discord");
     }).on("error", async (err) => {

@@ -1,8 +1,8 @@
-# Climb backend
+# Luna backend
 
 ![Capture](https://d1lss44hh2trtw.cloudfront.net/assets/editorial/2020/02/fortnite-hideout.jpg)
 
-### This backend is made for Project climb 12.41 (what ever happens never open source this)
+### This backend is made for Luna Multiplayer 12.41 (what ever happens never open source this)
 
 # road map:
 

@@ -4,7 +4,7 @@ const register = require("../../structs/register.js");
 module.exports = {
     commandInfo: {
         name: "create",
-        description: "Creates an account on Climb.",
+        description: "Creates an account on Luna.",
         options: [
             {
                 name: "email",

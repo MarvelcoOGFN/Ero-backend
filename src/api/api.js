@@ -7,8 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = 6666;
-const IP = '213.165.82.202';
+const PORT = 3551;
+const IP = '185.202.236.205';
 
 function sendData(handler) {
     return async function (req, res) {
@@ -27,7 +27,7 @@ function sendData(handler) {
 }
 
 // Login
-app.post('/launcher/login', sendData(async (req, res) => {
+app.post('/luna/login', sendData(async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -51,7 +51,7 @@ app.post('/launcher/login', sendData(async (req, res) => {
 }));
 
 // Username
-app.get('/launcher/username', sendData(async (req, res) => {
+app.get('/luna/username', sendData(async (req, res) => {
     const { email } = req.query;
 
     const user = await User.findOne({ email });
