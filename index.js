@@ -12,7 +12,7 @@ const { spawn } = require('child_process');
 
 dotenv.config();
 
-const PORT = 3551;
+const PORT = 8080;
 
 const initializeApp = async () => {
     try {
