@@ -220,7 +220,8 @@ const excludedItemIds = [ //remove s12 bp stuff going into itemshop also somestu
     "wrap_201_catburglar",
     "eid_jumpstyledance",
     "CID_762_Athena_Commando_M_BrightGunnerSpy",
-    "cid_694_athena_commando_m_catburglar"
+    "cid_694_athena_commando_m_catburglar",
+    "AthenaCharacter:CID_008_Athena_Commando_M_Default"
 ];
 
 const filterExcludedItems = (itemsList) => {
