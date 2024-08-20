@@ -2,7 +2,7 @@ const Friends = require("../model/friends.js");
 const Xmpp = require("../structs/XmppMessage.js");
 
 async function getFriends(accountId) {
-    return await Friends.findOne({ accountId: accountId }).lean();
+    return await Friends.findOne({ accountId: accountId });
 }
 
 async function validateFriendAdd(accountId, friendId) {
@@ -210,7 +210,7 @@ function createFriendRemovalPayload(accountId, reason) {
 
 async function updateFriendsLists(...friends) {
     for (const friend of friends) {
-        await friend.updateOne({ $set: { list: friend.list } });
+        await Friends.updateOne({ accountId: friend.accountId }, { $set: { list: friend.list } });
     }
 }
 
