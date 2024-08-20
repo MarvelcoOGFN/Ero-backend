@@ -240,28 +240,13 @@ const contrails = filterExcludedItems(items.filter(item => item.type === 'Athena
 const usedItemIds = new Set();
 
 const getUniqueItem = (itemsList) => {
-    // Ensure that itemsList is an array
-    if (!Array.isArray(itemsList) || itemsList.length === 0) {
-        console.error('getUniqueItem: itemsList is not a valid array or is empty', itemsList);
-        return null;
-    }
-
-    // Filter out items that have already been used
     const availableItems = itemsList.filter(item => !usedItemIds.has(item.id));
-
-    // If no items are available, return null
     if (availableItems.length === 0) return null;
-
-    // Select a random item from the available items
     const randomIndex = Math.floor(Math.random() * availableItems.length);
     const item = availableItems[randomIndex];
-
-    // Mark the item as used
     usedItemIds.add(item.id);
-
     return item;
 };
-
 
 const getPrice = (item) => {
     const prices = {
