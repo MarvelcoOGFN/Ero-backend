@@ -106,7 +106,8 @@ app.post("/friends/api/*/friends*/:receiverId", verifyToken, async (req, res) =>
     if (!sender || !receiver) return res.status(403).end();
 
     if (sender.list.incoming.find(i => i.accountId == receiver.accountId)) {
-        if (!await friendManager.acceptFriendReq(sender.accountId, receiver.accountId)) return res.status(403).end();
+        if (!await friendManager.acceptFriendRequest(sender.accountId, receiver.accountId)) return res.status(403).end();
+
 
         Presence.getPresenceFromUser(sender.accountId, receiver.accountId, false);
         Presence.getPresenceFromUser(receiver.accountId, sender.accountId, false);
