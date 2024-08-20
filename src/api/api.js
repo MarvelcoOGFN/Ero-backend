@@ -52,14 +52,14 @@ async function getSkinInfo(skinName) {
 
 async function getItemShopData() {
     const shopItems = {
-        backpacks: (itemshop.backpacks || []).map(itemshop.getUniqueItem),
-        pickaxes: (itemshop.pickaxes || []).map(itemshop.getUniqueItem),
-        characters: (itemshop.characters || []).map(itemshop.getUniqueItem),
-        itemWraps: (itemshop.itemWraps || []).map(itemshop.getUniqueItem),
-        musicPacks: (itemshop.musicPacks || []).map(itemshop.getUniqueItem),
-        dances: (itemshop.dances || []).map(itemshop.getUniqueItem),
-        gliders: (itemshop.gliders || []).map(itemshop.getUniqueItem),
-        contrails: (itemshop.contrails || []).map(itemshop.getUniqueItem),
+        backpacks: Array.isArray(itemshop.backpacks) ? itemshop.backpacks.map(itemshop.getUniqueItem) : [],
+        pickaxes: Array.isArray(itemshop.pickaxes) ? itemshop.pickaxes.map(itemshop.getUniqueItem) : [],
+        characters: Array.isArray(itemshop.characters) ? itemshop.characters.map(itemshop.getUniqueItem) : [],
+        itemWraps: Array.isArray(itemshop.itemWraps) ? itemshop.itemWraps.map(itemshop.getUniqueItem) : [],
+        musicPacks: Array.isArray(itemshop.musicPacks) ? itemshop.musicPacks.map(itemshop.getUniqueItem) : [],
+        dances: Array.isArray(itemshop.dances) ? itemshop.dances.map(itemshop.getUniqueItem) : [],
+        gliders: Array.isArray(itemshop.gliders) ? itemshop.gliders.map(itemshop.getUniqueItem) : [],
+        contrails: Array.isArray(itemshop.contrails) ? itemshop.contrails.map(itemshop.getUniqueItem) : [],
     };
 
     // Fetch additional info from Fortnite.gg for each character (skin)
