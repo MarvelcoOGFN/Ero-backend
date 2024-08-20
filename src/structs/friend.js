@@ -2,7 +2,7 @@ const Friends = require("../model/friends.js");
 const Xmpp = require("../structs/XmppMessage.js");
 
 async function getFriends(accountId) {
-    return await Friends.findOne({ accountId: accountId }); 
+    return await Friends.findOne({ accountId: accountId });
 }
 
 async function validateFriendAdd(accountId, friendId) {
