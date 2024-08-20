@@ -2,6 +2,9 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const User = require('../model/user.js');
 const Profile = require('../model/profiles.js');
+const axios = require('axios');
+const cheerio = require('cheerio');
+const itemshop = require('../structs/itemshop.js')
 const app = express();
 
 app.use(express.json());
@@ -25,6 +28,61 @@ function sendData(handler) {
         }
     };
 }
+
+async function getSkinInfo(skinName) {
+    const searchUrl = `https://fortnite.gg/cosmetics?type=outfit&search=${encodeURIComponent(skinName)}`;
+    try {
+        const { data } = await axios.get(searchUrl);
+        const $ = cheerio.load(data);
+        const skinElement = $('.outfit');
+
+        // Assuming the first result is the most relevant one
+        const skin = skinElement.first();
+        const name = skin.find('.cosmetic-name').text().trim();
+        const vbucks = skin.find('.vbucks').text().trim();
+        const image = skin.find('img').attr('src');
+
+        return { name, vbucks, image };
+    } catch (error) {
+        console.error(`Error fetching skin info for ${skinName}:`, error);
+        return null;
+    }
+}
+
+
+async function getItemShopData() {
+    const shopItems = {
+        backpacks: itemshop.backpacks.map(itemshop.getUniqueItem),
+        pickaxes: itemshop.pickaxes.map(itemshop.getUniqueItem),
+        characters: itemshop.characters.map(itemshop.getUniqueItem),
+        itemWraps: itemshop.itemWraps.map(itemshop.getUniqueItem),
+        musicPacks: itemshop.musicPacks.map(itemshop.getUniqueItem),
+        dances: itemshop.dances.map(itemshop.getUniqueItem),
+        gliders: itemshop.gliders.map(itemshop.getUniqueItem),
+        contrails: itemshop.contrails.map(itemshop.getUniqueItem),
+    };
+
+    // Fetch additional info from Fortnite.gg for each character (skin)
+    const charactersWithInfo = await Promise.all(shopItems.characters.map(async (character) => {
+        const skinInfo = await getSkinInfo(character);
+        return skinInfo ? { ...character, ...skinInfo } : { name: character, vbucks: 'Unknown', image: null };
+    }));
+
+    shopItems.characters = charactersWithInfo;
+
+    return shopItems;
+}
+
+// item shop
+app.get('/luna/itemshop', async (req, res) => {
+    try {
+        const shopItems = await getItemShopData();
+        res.status(200).json(shopItems);
+    } catch (error) {
+        console.error('Internal Server Error:', error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 // Login
 app.post('/luna/login', sendData(async (req, res) => {
