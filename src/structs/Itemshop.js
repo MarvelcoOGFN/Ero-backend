@@ -497,3 +497,15 @@ const config = {
 };
 
 fs.writeFileSync(itemshopFilePath, JSON.stringify(config, null, 2));
+
+module.exports = {
+    getUniqueItem,
+    backpacks,
+    pickaxes,
+    characters,
+    itemWraps,
+    musicPacks,
+    dances,
+    gliders,
+    contrails
+};

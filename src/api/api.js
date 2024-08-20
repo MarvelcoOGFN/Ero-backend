@@ -52,14 +52,14 @@ async function getSkinInfo(skinName) {
 
 async function getItemShopData() {
     const shopItems = {
-        backpacks: itemshop.backpacks.map(itemshop.getUniqueItem),
-        pickaxes: itemshop.pickaxes.map(itemshop.getUniqueItem),
-        characters: itemshop.characters.map(itemshop.getUniqueItem),
-        itemWraps: itemshop.itemWraps.map(itemshop.getUniqueItem),
-        musicPacks: itemshop.musicPacks.map(itemshop.getUniqueItem),
-        dances: itemshop.dances.map(itemshop.getUniqueItem),
-        gliders: itemshop.gliders.map(itemshop.getUniqueItem),
-        contrails: itemshop.contrails.map(itemshop.getUniqueItem),
+        backpacks: (itemshop.backpacks || []).map(itemshop.getUniqueItem),
+        pickaxes: (itemshop.pickaxes || []).map(itemshop.getUniqueItem),
+        characters: (itemshop.characters || []).map(itemshop.getUniqueItem),
+        itemWraps: (itemshop.itemWraps || []).map(itemshop.getUniqueItem),
+        musicPacks: (itemshop.musicPacks || []).map(itemshop.getUniqueItem),
+        dances: (itemshop.dances || []).map(itemshop.getUniqueItem),
+        gliders: (itemshop.gliders || []).map(itemshop.getUniqueItem),
+        contrails: (itemshop.contrails || []).map(itemshop.getUniqueItem),
     };
 
     // Fetch additional info from Fortnite.gg for each character (skin)
