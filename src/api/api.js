@@ -29,20 +29,25 @@ function sendData(handler) {
     };
 }
 
-// battlepass
 app.get('/luna/battlepass', sendData(async (req, res) => {
     const { email } = req.query;
 
-    const user = await User.findOne({ email });
-    if (!user) {
-        return res.status(404).json({ error: "User not found" });
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Check if user.profile and user.profile.stats are defined
+        const battlepassTier = (user.profile && user.profile.stats) ? user.profile.stats.battlepassTier : 0;
+
+        return { battlepassTier }; // No need to default to 0 explicitly here as it's already handled
+    } catch (error) {
+        console.error('Error fetching battlepass data:', error);
+        return res.status(500).json({ error: "Internal Server Error" });
     }
-
-    
-    const battlepassTier = user.profile.stats.battlepassTier;
-
-    return { battlepassTier: battlepassTier || 0 }; // Default to 0 if not found
 }));
+
 
 
 // Login
