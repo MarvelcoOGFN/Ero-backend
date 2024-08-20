@@ -29,60 +29,21 @@ function sendData(handler) {
     };
 }
 
-async function getSkinInfo(skinName) {
-    const searchUrl = `https://fortnite.gg/cosmetics?type=outfit&search=${encodeURIComponent(skinName)}`;
-    try {
-        const { data } = await axios.get(searchUrl);
-        const $ = cheerio.load(data);
-        const skinElement = $('.outfit');
+// battlepass
+app.get('/luna/battlepass', sendData(async (req, res) => {
+    const { email } = req.query;
 
-        // Assuming the first result is the most relevant one
-        const skin = skinElement.first();
-        const name = skin.find('.cosmetic-name').text().trim();
-        const vbucks = skin.find('.vbucks').text().trim();
-        const image = skin.find('img').attr('src');
-
-        return { name, vbucks, image };
-    } catch (error) {
-        console.error(`Error fetching skin info for ${skinName}:`, error);
-        return null;
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
     }
-}
 
+    
+    const battlepassTier = user.profile.stats.battlepassTier;
 
-async function getItemShopData() {
-    const shopItems = {
-        backpacks: Array.isArray(itemshop.backpacks) ? itemshop.backpacks.map(itemshop.getUniqueItem) : [],
-        pickaxes: Array.isArray(itemshop.pickaxes) ? itemshop.pickaxes.map(itemshop.getUniqueItem) : [],
-        characters: Array.isArray(itemshop.characters) ? itemshop.characters.map(itemshop.getUniqueItem) : [],
-        itemWraps: Array.isArray(itemshop.itemWraps) ? itemshop.itemWraps.map(itemshop.getUniqueItem) : [],
-        musicPacks: Array.isArray(itemshop.musicPacks) ? itemshop.musicPacks.map(itemshop.getUniqueItem) : [],
-        dances: Array.isArray(itemshop.dances) ? itemshop.dances.map(itemshop.getUniqueItem) : [],
-        gliders: Array.isArray(itemshop.gliders) ? itemshop.gliders.map(itemshop.getUniqueItem) : [],
-        contrails: Array.isArray(itemshop.contrails) ? itemshop.contrails.map(itemshop.getUniqueItem) : [],
-    };
+    return { battlepassTier: battlepassTier || 0 }; // Default to 0 if not found
+}));
 
-    // Fetch additional info from Fortnite.gg for each character (skin)
-    const charactersWithInfo = await Promise.all(shopItems.characters.map(async (character) => {
-        const skinInfo = await getSkinInfo(character);
-        return skinInfo ? { ...character, ...skinInfo } : { name: character, vbucks: 'Unknown', image: null };
-    }));
-
-    shopItems.characters = charactersWithInfo;
-
-    return shopItems;
-}
-
-// item shop
-app.get('/luna/itemshop', async (req, res) => {
-    try {
-        const shopItems = await getItemShopData();
-        res.status(200).json(shopItems);
-    } catch (error) {
-        console.error('Internal Server Error:', error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
 
 // Login
 app.post('/luna/login', sendData(async (req, res) => {
