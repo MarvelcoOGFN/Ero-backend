@@ -29,31 +29,12 @@ function sendData(handler) {
     };
 }
 
-app.get('/luna/battlepass', sendData(async (req, res) => {
-    const { email } = req.query;
-
-    try {
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
-        // Check if user.profile and user.profile.stats are defined
-        const battlepassTier = (user.profile && user.profile.stats) ? user.profile.stats.battlepassTier : 0;
-
-        return { battlepassTier }; // No need to default to 0 explicitly here as it's already handled
-    } catch (error) {
-        console.error('Error fetching battlepass data:', error);
-        return res.status(500).json({ error: "Internal Server Error" });
-    }
-}));
-
 
 // Launcher Version
 
 app.get("/luna/version", (req, res) => {
     res.status(200).json({
-        version: "0.1"
+        version: "1.0"
     });
 });
 
@@ -61,13 +42,13 @@ app.get("/luna/version", (req, res) => {
 // Skin
 
 app.get("/luna/skin", sendData(async (req, res) => {
-    const { email } = req.query;
+    const { discordId  } = req.query;
     // this took about an hour to figure out :sob:
-    if (!email) {
-        return res.status(400).send("email is required");
+    if (!discordId ) {
+        return res.status(400).send("discordId  is required");
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ discordId  });
 
     if (!user) {
         return res.status(404).json({ error: "user not found" });
@@ -85,17 +66,17 @@ app.get("/luna/skin", sendData(async (req, res) => {
         return res.status(404).json({ error: "profile not found" });
     }
 
-    const playercidthingy = profile.profiles.athena.stats.attributes.favorite_character;
+    const playercid = profiles.athena.items.LunaMP.attributes.locker_slots_data.slots.Character.items;
 
-    let cidthingy;
-    if (!playercidthingy) {
-        cidthingy = "CID_001_Athena_Commando_F_Default";
+    let cid;
+    if (!playercid) {
+        cid = "CID_088_Athena_Commando_M_SpaceBlack";
     } else {
-        cidthingy = playercidthingy.replace('AthenaCharacter:', '');
+        cid = playercid.replace('AthenaCharacter:', '');
     }
 
     try {
-        const response = await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${cidthingy}`);
+        const response = await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${cid}`);
         const iconUrl = response.data.data.images.icon;
         log.launcher(`Icon url thingy: ${iconUrl}`)
         if (!iconUrl) {
@@ -145,45 +126,22 @@ app.get("/luna/avatar", async (req, res) => {
 
 
 // Login
-app.post('/luna/login', sendData(async (req, res) => {
-    const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-    if (!user) {
-        return res.status(404).json({ error: "Invalid Credentials" });
+app.get('/luna/Login', async (req, res) => {
+    const { token } = req.query;
+
+    try {
+        const user = await User.findOne({ token });
+
+        if (!user) {
+            return res.status(500).json({ error: "Its an invalid token lmao" });
+        }
+
+        return res.status(200).send();
+    } catch (error) {
+        return res.status(500).json({ error: "Server error" });
     }
-
-    if (user.isBanned) { // Assuming 'isBanned' is a field in the user model
-        return res.status(403).json({ error: "User is banned" });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.status(401).json({ error: "Invalid Credentials" });
-    }
-
-
-    await User.updateOne({ email }, { isLoggedIn: true });
-
-    return { message: "Welcome", username: user.username };
-}));
-
-// Username
-app.get("/luna/username", sendData(async (req, res) => {
-    const { email } = req.query;
-
-    if (!email) {
-        return res.status(400).send("email is required");
-    }
-
-    const user = await User.findOne({ email });
-
-    if (!user) {
-        return res.status(404).json({ error: "User not found" });
-    }
-
-    return user.username;
-}));
+});
 
 
 app.get('/eon/vbucks/:accountId/:value', sendData(async (req, res) => {
@@ -219,6 +177,74 @@ app.get('/eon/vbucks/:accountId/:value', sendData(async (req, res) => {
     }
 }));
 
+// vBucks might not work lmao
+
+app.get("/luna/vbucks", sendData(async (req, res) => {
+    const { discordId } = req.query;
+
+    if (!discordId) {
+        return res.status(400).send("id is required");
+    }
+
+    const user = await User.findOne({ discordId });
+
+    if (!user) {
+        return res.status(404).json({ error: "user not found" });
+    }
+
+    const profile = await Profiles.findOne({ accountId: user.accountId });
+
+    if (!profile) {
+        return res.status(404).json({ error: "cannot find profile" });
+    }
+
+    const items = profile && profile.profiles && profile.profiles.common_core && profile.profiles.common_core.athena && profile.profiles.common_core.athena.items;
+    const vbucksBalance = items && items["Currency:MtxPurchased"] && items["Currency:MtxPurchased"].quantity || 0;
+
+    console.log(`grrrr: ${vbucksBalance}`);
+
+    res.json(vbucksBalance);
+}));
+
+// Exchange Code
+
+app.get("/luna/fetch/exchange_code", async (req, res) => {
+    const { discordId } = req.query;
+
+    console.log(`trying to authenticate this discordid ${discordId}`);
+
+    try {
+
+        const user = await User.findOne({ discordId }).lean();
+
+        if (!user) {
+            console.log(`Cannot find user.`);
+            return res.status(404).send;
+        }
+
+
+        console.log(`auth seems to have worked for ${discordId}`);
+
+        let exchange_code = functions.MakeID().replace(/-/ig, "");
+
+        global.exchangeCodes.push({
+            accountId: user.accountId,
+            exchange_code: exchange_code,
+            creatingClientId: ""
+        });
+
+        setTimeout(() => {
+            let exchangeCodeIndex = global.exchangeCodes.findIndex(i => i.exchange_code == exchange_code);
+            if (exchangeCodeIndex != -1) global.exchangeCodes.splice(exchangeCodeIndex, 1);
+        }, 300000);
+
+        res.status(200).send(exchange_code);
+    } catch (error) {
+        console.error(`issues with discordid: ${discordId}`, error);
+        res.status(500).send("skrrrrr pow");
+    }
+});
+
 // News (HOLY MOLY)
 
 app.get("/luna/testing/news1", sendData(async (req, res) => {
@@ -233,7 +259,7 @@ app.get("/luna/testing/news1", sendData(async (req, res) => {
 
 app.get("/luna/testing/news2", sendData(async (req, res) => {
     const newsContent = {
-        header: "Version 0.1",
+        header: "Version 1.0",
         date: "2024-08-21",
         desc: "Please note that we are still in the testing Phase and didnt release a stable version yet!"
     };
@@ -250,6 +276,45 @@ app.get("/luna/testing/news3", sendData(async (req, res) => {
 // this is taking 15 years
     return newsContent;
 }));
+
+// Some Discord Shit
+
+app.get('/luna/getDCID', async (req, res) => {
+    const { token } = req.query;
+
+    try {
+        const user = await User.findOne({ token });
+
+        if (!user) {
+            return res.status(404).json({ error: "error lol" });
+        }
+
+        return res.status(200).json(user.discordId);
+    } catch (error) {
+        return res.status(500).json({ error: "server error" });
+    }
+});
+
+
+// Username
+
+app.get("/luna/username", sendData(async (req, res) => {
+    const { discordId } = req.query;
+// Thats a medium rare stake btw
+    if (!discordId) {
+        return res.status(400).send("Discord ID is required");
+    }
+
+    const user = await User.findOne({ discordId });
+
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    return user.username;
+}));
+
+
 
 app.listen(PORT, IP, () => {
     console.log('\x1b[33m%s\x1b[0m', `API is running on http://${IP}:${PORT}`);

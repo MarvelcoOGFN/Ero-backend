@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-
+const { v4: uuidv4 } = require('uuid');  // Import uuid for token generation
 
 const User = require('../model/user.js');
 const Profile = require('../model/profiles.js');
@@ -25,37 +25,36 @@ async function registerUser(discordId, username, email, plainPassword) {
     if (plainPassword.length < 8) return { message: "Your password must be at least 8 characters long.", status: 400 };
 
     const allowedCharacters = (" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~").split("");
-    
+
     for (let character of username) {
         if (!allowedCharacters.includes(character)) return { message: "Your username has special characters, please remove them and try again.", status: 400 };
     }
 
     const hashedPassword = await bcrypt.hash(plainPassword, 10);
+    const token = uuidv4();  // Generate a unique token
 
     try {
-        await User.create({ created: new Date().toISOString(), discordId, accountId, username, username_lower: username.toLowerCase(), email, password: hashedPassword }).then(async (i) => {
-            try {
-                await Profile.create({ created: i.created, accountId: i.accountId, profiles: profileManager.createProfiles(i.accountId) });
-            } catch (profileErr) {
-                console.error("Profile creation error:", profileErr);
-                throw profileErr;
-            }
-
-            try {
-                await Friends.create({ created: i.created, accountId: i.accountId });
-            } catch (friendsErr) {
-                console.error("Friends creation error:", friendsErr);
-                throw friendsErr;
-            }
+        const user = await User.create({
+            created: new Date().toISOString(),
+            discordId,
+            accountId,
+            username,
+            username_lower: username.toLowerCase(),
+            email,
+            password: hashedPassword,
+            token
         });
+
+        await Profile.create({ created: user.created, accountId: user.accountId, profiles: profileManager.createProfiles(user.accountId) });
+        await Friends.create({ created: user.created, accountId: user.accountId });
+
+        return { message: `Successfully created an account with the username ${username}`, status: 200, token };  // Include the token in the response
     } catch (err) {
         if (err.code == 11000) return { message: "Username or email is already in use.", status: 400 };
 
         console.error("Registration error:", err);
         return { message: "An unknown error has occurred, please try again later.", status: 400 };
     };
-
-    return { message: `Successfully created an account with the username ${username}`, status: 200 };
 }
 
 module.exports = {
