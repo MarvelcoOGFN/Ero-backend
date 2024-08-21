@@ -49,6 +49,100 @@ app.get('/luna/battlepass', sendData(async (req, res) => {
 }));
 
 
+// Launcher Version
+
+app.get("/luna/version", (req, res) => {
+    res.status(200).json({
+        version: "0.1"
+    });
+});
+
+
+// Skin
+
+app.get("/luna/skin", sendData(async (req, res) => {
+    const { email } = req.query;
+    // this took about an hour to figure out :sob:
+    if (!email) {
+        return res.status(400).send("email is required");
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        return res.status(404).json({ error: "user not found" });
+    }
+
+    const accountId = user.accountId;
+
+    if (!accountId) {
+        return res.status(400).json({ error: "id not found for user" });
+    }
+
+    const profile = await Profiles.findOne({ accountId });
+
+    if (!profile) {
+        return res.status(404).json({ error: "profile not found" });
+    }
+
+    const playercidthingy = profile.profiles.athena.stats.attributes.favorite_character;
+
+    let cidthingy;
+    if (!playercidthingy) {
+        cidthingy = "CID_001_Athena_Commando_F_Default";
+    } else {
+        cidthingy = playercidthingy.replace('AthenaCharacter:', '');
+    }
+
+    try {
+        const response = await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${cidthingy}`);
+        const iconUrl = response.data.data.images.icon;
+        log.launcher(`Icon url thingy: ${iconUrl}`)
+        if (!iconUrl) {
+            console.error("icon not found");
+            return res.status(404).json({ error: "icon aint found" });
+        }
+
+        return res.json(iconUrl);
+    } catch (error) {
+        log.launcher(`failed: ${error.message}`);
+        return res.status(500).json({ error: "Fortnite" });
+    }
+}));
+
+// Discord Avatar
+
+app.get("/luna/avatar", async (req, res) => {
+    try {
+        const { email } = req.query;
+
+        if (!email) {
+            return res.status(400).send("Email is required");
+        }
+
+        // Find user by email
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Extract discordId and avatar URL
+        const { discordId, avatar } = user;
+
+        if (!avatar) {
+            return res.status(404).json({ error: "Avatar not found" });
+        }
+
+        log.launcher(`Getting avatar ${avatar} for ${discordId}`);
+
+        return res.json({ discordId, avatar });
+    } catch (error) {
+        console.error(`Exception: ${error.message}`);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
 
 // Login
 app.post('/luna/login', sendData(async (req, res) => {
@@ -75,15 +169,20 @@ app.post('/luna/login', sendData(async (req, res) => {
 }));
 
 // Username
-app.get('/luna/username', sendData(async (req, res) => {
+app.get("/luna/username", sendData(async (req, res) => {
     const { email } = req.query;
 
+    if (!email) {
+        return res.status(400).send("email is required");
+    }
+
     const user = await User.findOne({ email });
+
     if (!user) {
         return res.status(404).json({ error: "User not found" });
     }
 
-    return { username: user.username };
+    return user.username;
 }));
 
 
@@ -118,6 +217,38 @@ app.get('/eon/vbucks/:accountId/:value', sendData(async (req, res) => {
         console.error('Internal Server Error:', error);
         throw error;
     }
+}));
+
+// News (HOLY MOLY)
+
+app.get("/luna/testing/news1", sendData(async (req, res) => {
+    const newsContent = {
+        header: "Luna Multiplayer",
+        date: "2024-08-21",
+        desc: "Hi there and welcome to Luna Multiplayer! We host Chapter 2 Season 2 (Build 12.41). we are currently in a testing phase."
+    };
+
+    return newsContent;
+}));
+
+app.get("/luna/testing/news2", sendData(async (req, res) => {
+    const newsContent = {
+        header: "Version 0.1",
+        date: "2024-08-21",
+        desc: "Please note that we are still in the testing Phase and didnt release a stable version yet!"
+    };
+
+    return newsContent;
+}));
+
+app.get("/luna/testing/news3", sendData(async (req, res) => {
+    const newsContent = {
+        header: "BattlePass",
+        date: "2024-08-21",
+        desc: "Do you want the BattlePass? then get it for 950vBucks!"
+    };
+// this is taking 15 years
+    return newsContent;
 }));
 
 app.listen(PORT, IP, () => {
