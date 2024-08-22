@@ -70,7 +70,7 @@ router.get('/content/api/pages/*', async (req, res) => {
                     _type: 'CommonUI Simple Message Base',
                     subgame: 'br',
                     title: "Welcome To Luna Multiplayer !",
-                    body: "Enjoy Luna Multiplayer by Pongo_x86, OptixYT, Marvelco & Mxrc3l\nif you run into bugs please report them\nin the discord!                                            ",
+                    body: "Enjoy Luna Multiplayer by Pongo_x86, OptixYT, Marvelco & Mxrc3l\nif you run into bugs please report them\nin the discord!",
                     spotlight: true
                 }
             ]
