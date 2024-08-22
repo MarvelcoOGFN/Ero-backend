@@ -9,7 +9,7 @@
 - [x] Auto shop
 - [x] Battle Pass & Leveling Up
 - [ ] Leveling Up (backend side so you can complete quests on gs)
-- [ ] Challenges (Quests)
+- [x] Challenges (Quests)
 - [x] Friends (broken not working)
 - [x] XMPP
 - [x] Parties (V1 & V2) (broken not working)
