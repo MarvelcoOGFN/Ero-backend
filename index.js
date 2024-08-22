@@ -23,6 +23,7 @@ const initializeApp = async () => {
         connectToMongoDB();
         setupMiddleware();
         loadRoutes();
+        scheduleRestart(); 
         startServer();
     } catch (err) {
         console.error('Error initializing app:', err);
@@ -111,6 +112,29 @@ const loadRoutes = () => {
         }
     });
 };
+
+const getTime = () => {
+    const now = new Date();
+    let next = new Date(now);
+
+    next.setHours(2, 0, 0, 0); 
+
+    if (next <= now) {
+        next.setDate(now.getDate() + 1);
+    }
+
+    return next - now;
+};
+
+const scheduleRestart = () => {
+    const time = getTime();
+
+    setTimeout(() => {
+        console.log('\x1b[33m%s\x1b[0m',"Restarting");
+        process.exit(0);
+    }, time);
+};
+
 app.use(require("./src/api/api.js"));
 const startServer = () => {
     app.listen(PORT, () => {
