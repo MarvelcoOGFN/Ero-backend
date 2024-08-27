@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const PORT = 6666;
-const IP = '45.145.41.189';
+const IP = '127.0.0.1';
 
 function sendData(handler) {
     return async function (req, res) {
