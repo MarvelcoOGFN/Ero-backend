@@ -2,56 +2,56 @@
   "//": "BR Item Shop Config",
   "daily1": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_133_BandageNinja"
-    ],
-    "price": 1500
-  },
-  "daily2": {
-    "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_309_Storm"
+      "AthenaGlider:Glider_ID_183_TacticalFisherman"
     ],
     "price": 800
   },
+  "daily2": {
+    "itemGrants": [
+      "AthenaSkyDiveContrail:Trails_ID_020_RavenQuill"
+    ],
+    "price": 500
+  },
   "daily3": {
     "itemGrants": [
-      "AthenaItemWrap:Wrap_179_HolidayPJs"
+      "AthenaItemWrap:Wrap_048_Bunny2"
     ],
     "price": 300
   },
   "daily4": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_120_IceCream"
+      "AthenaGlider:Glider_ID_209_DonutPlate"
     ],
-    "price": 800
+    "price": 1000
   },
   "daily5": {
     "itemGrants": [
-      "AthenaBackpack:BID_238_Pirate02Male"
+      "AthenaPickaxe:Pickaxe_ID_131_NeonCat"
     ],
-    "price": 600
+    "price": 1200
   },
   "daily6": {
     "itemGrants": [
-      "AthenaMusicPack:MusicPack_046_Paws"
+      "AthenaMusicPack:MusicPack_002_Spooky"
     ],
     "price": 300
   },
   "featured1": {
     "itemGrants": [
-      "AthenaCharacter:CID_027_Athena_Commando_F"
+      "AthenaCharacter:CID_260_Athena_Commando_F_StreetOps"
     ],
     "price": 1200
   },
   "featured2": {
     "itemGrants": [
-      "AthenaCharacter:CID_446_Athena_Commando_M_BannerA"
+      "AthenaCharacter:CID_065_Athena_Commando_F_SkiGirl_FRA"
     ],
-    "price": 800
+    "price": 1500
   },
   "featured3": {
     "itemGrants": [
-      "AthenaCharacter:CID_415_Athena_Commando_F_AssassinSuit"
+      "AthenaCharacter:CID_237_Athena_Commando_F_Cowgirl"
     ],
-    "price": 1500
+    "price": 2000
   }
 }

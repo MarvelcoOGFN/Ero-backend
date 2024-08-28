@@ -9,39 +9,6 @@ router.get('/content/api/pages/*', async (req, res) => {
     _activeDate: date.toISOString(),
     lastModified: date.toISOString(),
     _locale: 'en-US',
-    battleroyalenews: {
-        news: {
-            motds: [
-                {
-                    entryType: "Website",
-                    image: "https://i.imgur.com/qeCaTCn.png",
-                    tileImage: "https://i.imgur.com/mjC9PgY.jpg",
-                    hidden: false,
-                    tabTitleOverride: "Luna Multiplayer",
-                    _type: "CommonUI Simple Message MOTD",
-                    title: "Welcome To Luna Multiplayer",
-                    body: "Play Chapter 2 Season 2 again with Luna Multiplayer",
-                    videoStreamingEnabled: false,
-                    sortingPriority: 20,
-                    id: "News",
-                    videoFullscreen: false,
-                    spotlight: false,
-                    websiteURL: "https://discord.gg/2Namxjthf3",
-                    websiteButtonText: "Join our discord"
-                }
-            ]
-        },
-        "jcr:isCheckedOut": true,
-        _title: "battleroyalenews",
-        header: "",
-        style: "None",
-        _noIndex: false,
-        alwaysShow: false,
-        "jcr:baseVersion": "a7ca237317f1e74e4b8154-226a-4450-a3cd-c77af841e798",
-        _activeDate: date.toISOString(),
-        lastModified: date.toISOString(),
-        _locale: "en-US"
-    },
     dynamicbackgrounds: {
       backgrounds: {
         backgrounds: [
@@ -69,8 +36,8 @@ router.get('/content/api/pages/*', async (req, res) => {
                     hidden: false,
                     _type: 'CommonUI Simple Message Base',
                     subgame: 'br',
-                    title: "Welcome To Luna Multiplayer !",
-                    body: "Enjoy Luna Multiplayer by Pongo_x86, OptixYT, Marvelco & Mxrc3l\nif you run into bugs please report them\nin the discord!",
+                    title: "Ero Backend!",
+                    body: "Enjoy Ero backend created by marvelco and lawin.",
                     spotlight: true
                 }
             ]

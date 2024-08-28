@@ -4,7 +4,7 @@ const register = require("../../structs/register.js");
 module.exports = {
     commandInfo: {
         name: "create",
-        description: "Creates an account on Luna.",
+        description: "Creates an account on Ero backend.",
         options: [
             {
                 name: "email",
