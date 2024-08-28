@@ -24,7 +24,7 @@
 ## How to use ?
 1) Install [NodeJS](https://nodejs.org/en/) and [MongoDB](https://www.mongodb.com/try/download/community).
 2) Download and Extract.
-3) Go to .env open it and set your discord bot token and save it. The discord bot will be used for creating accounts,etc.
+3) Go to .env open it and set your discord bot token and save it. The discord bot will be used for creating accounts.
 4) Run "start.bat".
 5) Use something to redirect the Fortnite servers to the backend (Which could be fiddler, or cobalt, etc).
 6)Then your done enjoy!
