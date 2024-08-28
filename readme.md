@@ -1,6 +1,6 @@
 # Ero backend
 
-![Capture](https://d1lss44hh2trtw.cloudfront.net/assets/editorial/2020/02/fortnite-hideout.jpg)
+![image](https://github.com/user-attachments/assets/f5701c7b-7138-4e14-aff0-9417990c21c0)
 
 ### This backend is made from lawin v2 as a base so credits to lawin (i learnt from my mistake)
 
