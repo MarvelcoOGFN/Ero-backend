@@ -38,7 +38,7 @@ module.exports = {
 
         await register.registerUser(discordId, username, email, password).then(resp => {
             let embed = new MessageEmbed()
-            .setColor(resp.status >= 400 ? "#EE4B2B" : "#FF00FF")
+            .setColor("#2b2d31")
             .setAuthor({ name: interaction.user.tag, iconURL: interaction.user.avatarURL() })
             .setFields(
                 { name: 'Message', value: resp.message },

@@ -12,7 +12,7 @@ const { spawn } = require('child_process');
 
 dotenv.config();
 
-const PORT = 8080;
+const PORT = 3551;
 
 const initializeApp = async () => {
     try {
@@ -85,7 +85,7 @@ const cleanExpiredTokens = () => {
 
 const connectToMongoDB = () => {
     mongoose.connect(process.env.MONGODB_DATABASE, () => {
-        console.log('\x1b[33m%s\x1b[0m',"Luna Multiplayer connected to MongoDB");
+        console.log('\x1b[33m%s\x1b[0m',"Ero Backend connected to MongoDB");
     });
 
     mongoose.connection.on("error", err => {
@@ -138,7 +138,7 @@ const scheduleRestart = () => {
 app.use(require("./src/api/api.js"));
 const startServer = () => {
     app.listen(PORT, () => {
-        console.log('\x1b[33m%s\x1b[0m',"Luna Mutilplayer started on port", PORT);
+        console.log('\x1b[33m%s\x1b[0m',"Ero Backend started on port", PORT);
         require("./src/connections/xmpp.js");
         require("./src/discord");
     }).on("error", async (err) => {

@@ -208,11 +208,11 @@
         {
           "currencyType": "MtxCurrency",
           "currencySubType": "",
-          "regularPrice": 0,
+          "regularPrice": 950,
           "dynamicRegularPrice": -1,
-          "finalPrice": 0,
+          "finalPrice": 950,
           "saleExpiration": "9999-12-31T23:59:59.999Z",
-          "basePrice": 0
+          "basePrice": 950
         }
       ],
       "categories": [],
@@ -288,12 +288,12 @@
         {
           "currencyType": "MtxCurrency",
           "currencySubType": "",
-          "regularPrice": 2800,
+          "regularPrice": 4700,
           "dynamicRegularPrice": -1,
-          "finalPrice": 950,
+          "finalPrice": 2800,
           "saleType": "PercentOff",
           "saleExpiration": "9999-12-31T23:59:59.999Z",
-          "basePrice": 950
+          "basePrice": 2800
         }
       ],
       "categories": [],

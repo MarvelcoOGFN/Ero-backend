@@ -108,7 +108,7 @@
       },
       "quantity": 1
     },
-    "EroMP": {
+    "Ero_Backend": {
       "templateId": "CosmeticLocker:cosmeticlocker_athena",
       "attributes": {
         "locker_slots_data": {
@@ -202,7 +202,7 @@
         },
         "use_count": 1,
         "banner_icon_template": "",
-        "locker_name": "Ero",
+        "locker_name": "Ero Backend",
         "banner_color_template": "",
         "item_seen": false,
         "favorite": false
@@ -1013,7 +1013,7 @@
       "season_match_boost": 0,
       "loadouts": [
         "sandbox_loadout",
-        "Ero"
+        "Ero_Backend"
       ],
       "rested_xp_overflow": 0,
       "mfa_reward_claimed": true,

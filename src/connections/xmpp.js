@@ -12,7 +12,7 @@ const Presence = require("../structs/Presence.js");
 const User = require("../model/user.js");
 const Friends = require("../model/friends.js");
 
-const port = 8081;
+const port = 80;
 const wss = new WebSocket({ server: app.listen(port) });
 const matchmaker = require("./matchmaker.js");
 
