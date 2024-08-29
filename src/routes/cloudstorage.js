@@ -7,7 +7,7 @@ const path = require("path");
 const { verifyToken } = require("../token/tokenVerify.js");
 const Version = require("../structs/Versioninfo.js");
 
-let seasons = [12];
+let seasons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 router.get("/fortnite/api/cloudstorage/system", handleCloudStorageSystem);
 router.get("/fortnite/api/cloudstorage/system/:file", handleCloudStorageFile);
