@@ -6,7 +6,7 @@
 
 # road map:
 - [x] Auto shop
-- [x] Battle Pass & Leveling Up
+- [x] Battle Pass & Leveling Up (s2~s13)
 - [ ] Leveling Up (backend side so you can complete quests on gs)
 - [x] Challenges (Quests)
 - [x] Friends (broken not working)
