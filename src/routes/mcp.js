@@ -584,8 +584,9 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
         `Offer ID (id: '${req.body.offerId}') not found`, 
         [req.body.offerId], 16027, undefined, 400, res
     );
-
-    let BattlePass = JSON.parse(fs.readFileSync(path.join(__dirname, "../shop/BattlePass/", `season12.json`), "utf8"));
+    
+    let season = memory.season
+    let BattlePass = JSON.parse(fs.readFileSync(path.join(__dirname, "../shop/BattlePass/", `season${season}.json`), "utf8"));
     let ItemExists = false
 
     if(!BattlePass) return error.createError(
