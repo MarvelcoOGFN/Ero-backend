@@ -6,12 +6,6 @@ const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
 
 const enableGlobalChat = process.env.ENABLE_GLOBAL_CHAT === 'true';
 
-app.get("/api/v1/events/Fortnite/download/:accountId", async (req, res) => {
-    const events = JSON.parse(fs.readFileSync(path.join(__dirname, "../shop/eventlistactive.json"), "utf8"));
-    res.json(events)
-
-});
-
 app.post("/fortnite/api/game/v2/chat/*/*/*/pc", (req, res) => {
     let resp = enableGlobalChat ? { "GlobalChatRooms": [{ "roomName": "Agencyglobalchat" }] } : {};
     res.json(resp);
