@@ -2,6 +2,12 @@
 
 ![image](https://github.com/user-attachments/assets/f5701c7b-7138-4e14-aff0-9417990c21c0)
 
+![image](https://github.com/user-attachments/assets/819e8198-b95e-4f44-b836-8bc738d3823b)
+
+![image](https://github.com/user-attachments/assets/e6036793-76ab-4645-a709-77ac4467740d)
+
+### i couldnt care less bro 
+
 ### This backend is made from lawin v2 as a base so credits to Lawin
 
 # road map:
