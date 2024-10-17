@@ -10,8 +10,6 @@
 
 ### The public version of this backend has been discontinued so it is "as is"
 
-### This backend is made from lawin v2 as a base so credits to Lawin
-
 # road map:
 - [x] Auto shop
 - [x] Battle Pass & Leveling Up (s2~s13)
