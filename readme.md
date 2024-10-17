@@ -13,7 +13,6 @@
 # road map:
 - [x] Auto shop
 - [x] Battle Pass & Leveling Up (s2~s13)
-- [ ] Leveling Up (backend side so you can complete quests on gs)
 - [x] Challenges (Quests)
 - [x] Friends (broken not working)
 - [x] XMPP
@@ -22,7 +21,6 @@
 - [x] Purchasing from item shop
 - [x] support a creator
 - [x] Refunding
-- [ ] Seasonal Rewards
 - [x] match maker (need to be improved)
 - [x] Vbucks command
 - [x] Implement API for launcher login
