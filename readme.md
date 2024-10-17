@@ -24,6 +24,7 @@
 - [x] match maker (need to be improved)
 - [x] Vbucks command
 - [x] Implement API for launcher login
+### This backend will not be fixed or updated anymore
 
 ## How to use ?
 1) Install [NodeJS](https://nodejs.org/en/) and [MongoDB](https://www.mongodb.com/try/download/community).
@@ -34,4 +35,4 @@
 6)Then your done enjoy!
 
 ## Hosting
-You are allowed to host for others however please credit me (Marvelco) and (lawin) and don't remove any of the credits.
+You are allowed to host for others however please credit me (Marvelco) and don't remove any of the credits.
