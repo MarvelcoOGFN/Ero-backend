@@ -5,18 +5,37 @@
 # road map:
 - [x] Auto shop
 - [x] Battle Pass & Leveling Up (s2~s13)
-- [x] Challenges (Quests)
+- [x] Challenges (Quests) (Not done)
 - [x] Friends (broken not working)
-- [x] XMPP
-- [x] Parties (V1 & V2) (broken not working)
+- [x] XMPP (doesnt work properly)
+- [ ] Parties (V1 & V2)
 - [x] Gifting
 - [x] Purchasing from item shop
-- [x] support a creator
+- [x] Support a creator (Needs to be improved)
 - [x] Refunding
-- [x] match maker (need to be improved)
-- [x] Vbucks command
+- [ ] Match maker
 - [x] Implement API for launcher login
-### This backend will not be fixed or updated anymore
+- [ ] Winter feast gift opening
+- [ ] Multi version item shop generator
+- [ ] Fix major bugs
+- [ ] Add more usefull Bot commands
+
+ # List of Bot commands:
+- [x] Create An Account
+- [x] Add Vbucks to a user
+- [X] Create a Support A Creator code
+- [X] Get details about your acc
+- [X] Change Username
+- [X] Change Password
+- [x] Look up a user
+- [X] Ban a user
+- [X] Unban a user
+- [ ] Change Email
+- [ ] Get a user's id
+- [ ] Delete an account
+- [ ] Give full locker to a user
+
+### Note: about the multi shop i would make it for every major version of a build (it will still work for all versions but you might find missing items on non major builds)
 
 ## How to use ?
 1) Install [NodeJS](https://nodejs.org/en/) and [MongoDB](https://www.mongodb.com/try/download/community).
