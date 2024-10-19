@@ -15,8 +15,10 @@
 - [x] Refunding
 - [ ] Match maker
 - [x] Implement API for launcher login
-- [ ] Winter feast gift opening
+- [x] Winter feast gift opening (11.31 and 19.01)
+- [x] Timeline from S2 to S19
 - [ ] Multi version item shop generator
+- [ ] Multi version image backround
 - [ ] Fix major bugs
 - [ ] Add more usefull Bot commands
 

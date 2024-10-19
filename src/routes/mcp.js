@@ -343,8 +343,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/RemoveGiftBox", verifyToken, as
     );
 
     let profile = profiles.profiles[req.query.profileId];
-
-    if (req.query.profileId != "common_core" && req.query.profileId != "profile0") return error.createError(
+    if (req.query.profileId != "athena" && req.query.profileId != "common_core" && req.query.profileId != "profile0") return error.createError(
         "errors.com.epicgames.modules.profiles.invalid_command",
         `RemoveGiftBox is not valid on ${req.query.profileId} profile`, 
         ["RemoveGiftBox",req.query.profileId], 12801, undefined, 400, res
@@ -1299,6 +1298,197 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
         multiUpdate: MultiUpdate,
         responseVersion: 1
     });
+});
+
+app.post("/fortnite/api/game/v2/profile/:accountId/client/UnlockRewardNode", async (req, res) => {
+    const profiles = await Profile.findOne({ accountId: req.params.accountId });
+    let profile = profiles.profiles[req.query.profileId];
+    let common_core = profiles.profiles["common_core"];
+    const WinterFestIDS = require("../shop/WinterFestRewards.json");
+    const memory = Version.GetVersionInfo(req);
+
+    var ApplyProfileChanges = [];
+    var MultiUpdate = [];
+    var BaseRevision = profile.rvn;
+    var ProfileRevisionCheck = (memory.build >= 12.20) ? profile.commandRevision : profile.rvn; 
+    var QueryRevision = req.query.rvn || -1;
+    var StatChanged = false;
+    var CommonCoreChanged = false;
+    var ItemExists = false;
+    var Season = memory.season;
+
+    const GiftID = id.MakeID();
+    profile.items[GiftID] = {"templateId":"GiftBox:gb_winterfestreward","attributes":{"max_level_bonus":0,"fromAccountId":"","lootList":[],"level":1,"item_seen":false,"xp":0,"giftedOn":new Date().toISOString(),"params":{"SubGame":"Athena","winterfestGift":"true"},"favorite":false},"quantity":1};
+
+    if (req.body.nodeId && req.body.rewardGraphId) {
+        for (var i = 0; i < WinterFestIDS[Season][req.body.nodeId].length; i++) {
+            var ID = id.MakeID();
+            Reward = WinterFestIDS[Season][req.body.nodeId][i]
+
+            if (Reward.toLowerCase().startsWith("homebasebannericon:")) {
+                if (CommonCoreChanged == false) {
+                    MultiUpdate.push({
+                        "profileRevision": common_core.rvn || 0,
+                        "profileId": "common_core",
+                        "profileChangesBaseRevision": common_core.rvn || 0,
+                        "profileChanges": [],
+                        "profileCommandRevision": common_core.commandRevision || 0,
+                    })
+
+                    CommonCoreChanged = true;
+                }
+
+                for (var key in common_core.items) {
+                    if (common_core.items[key].templateId.toLowerCase() == Reward.toLowerCase()) {
+                        common_core.items[key].attributes.item_seen = false;
+                        ID = key;
+                        ItemExists = true;
+
+                        MultiUpdate[0].profileChanges.push({
+                            "changeType": "itemAttrChanged",
+                            "itemId": key,
+                            "attributeName": "item_seen",
+                            "attributeValue": common_core.items[key].attributes.item_seen
+                        })
+                    }
+                }
+
+                if (ItemExists == false) {
+                    common_core.items[ID] = {
+                        "templateId": Reward,
+                        "attributes": {
+                            "max_level_bonus": 0,
+                            "level": 1,
+                            "item_seen": false,
+                            "xp": 0,
+                            "variants": [],
+                            "favorite": false
+                        },
+                        "quantity": 1
+                    };
+        
+                    MultiUpdate[0].profileChanges.push({
+                        "changeType": "itemAdded",
+                        "itemId": ID,
+                        "item": common_core.items[ID]
+                    })
+                }
+
+                ItemExists = false;
+
+                common_core.rvn += 1;
+                common_core.commandRevision += 1;
+        
+                MultiUpdate[0].profileRevision = common_core.rvn || 0;
+                MultiUpdate[0].profileCommandRevision = common_core.commandRevision || 0;
+
+                profile.items[GiftID].attributes.lootList.push({"itemType":Reward,"itemGuid":ID,"itemProfile":"common_core","attributes":{"creation_time":new Date().toISOString()},"quantity":1})
+            }
+
+            if (!Reward.toLowerCase().startsWith("homebasebannericon:")) {
+                for (var key in profile.items) {
+                    if (profile.items[key].templateId.toLowerCase() == Reward.toLowerCase()) {
+                        profile.items[key].attributes.item_seen = false;
+                        ID = key;
+                        ItemExists = true;
+
+                        ApplyProfileChanges.push({
+                            "changeType": "itemAttrChanged",
+                            "itemId": key,
+                            "attributeName": "item_seen",
+                            "attributeValue": profile.items[key].attributes.item_seen
+                        })
+                    }
+                }
+
+                if (ItemExists == false) {
+                    profile.items[ID] = {
+                        "templateId": Reward,
+                        "attributes": {
+                            "max_level_bonus": 0,
+                            "level": 1,
+                            "item_seen": false,
+                            "xp": 0,
+                            "variants": [],
+                            "favorite": false
+                        },
+                        "quantity": 1
+                    };
+        
+                    ApplyProfileChanges.push({
+                        "changeType": "itemAdded",
+                        "itemId": ID,
+                        "item": profile.items[ID]
+                    })
+                }
+
+                ItemExists = false;
+
+                profile.items[GiftID].attributes.lootList.push({"itemType":Reward,"itemGuid":ID,"itemProfile":"athena","attributes":{"creation_time":new Date().toISOString()},"quantity":1})
+            }
+        }
+        profile.items[req.body.rewardGraphId].attributes.reward_keys[0].unlock_keys_used += 1;
+        profile.items[req.body.rewardGraphId].attributes.reward_nodes_claimed.push(req.body.nodeId);
+
+        StatChanged = true;
+    }
+
+    if (StatChanged == true) {
+        profile.rvn += 1;
+        profile.commandRevision += 1;
+
+        ApplyProfileChanges.push({
+            "changeType": "itemAdded",
+            "itemId": GiftID,
+            "item": profile.items[GiftID]
+        })
+
+        ApplyProfileChanges.push({
+            "changeType": "itemAttrChanged",
+            "itemId": req.body.rewardGraphId,
+            "attributeName": "reward_keys",
+            "attributeValue": profile.items[req.body.rewardGraphId].attributes.reward_keys
+        })
+
+        ApplyProfileChanges.push({
+            "changeType": "itemAttrChanged",
+            "itemId": req.body.rewardGraphId,
+            "attributeName": "reward_nodes_claimed",
+            "attributeValue": profile.items[req.body.rewardGraphId].attributes.reward_nodes_claimed
+        })
+
+        if (memory.season == 11) {
+            profile.items.S11_GIFT_KEY.quantity -= 1;
+
+            ApplyProfileChanges.push({
+                "changeType": "itemQuantityChanged",
+                "itemId": "S11_GIFT_KEY",
+                "quantity": profile.items.S11_GIFT_KEY.quantity
+            })
+        }
+
+    }
+
+    await profiles.updateOne({ $set: { [`profiles.${req.query.profileId}`]: profile } });
+
+    if (QueryRevision != ProfileRevisionCheck) {
+        ApplyProfileChanges = [{
+            "changeType": "fullProfileUpdate",
+            "profile": profile
+        }];
+    }
+
+    res.json({
+        "profileRevision": profile.rvn || 0,
+        "profileId": req.query.profileId || "athena",
+        "profileChangesBaseRevision": BaseRevision,
+        "profileChanges": ApplyProfileChanges,
+        "profileCommandRevision": profile.commandRevision || 0,
+        "serverTime": new Date().toISOString(),
+        "multiUpdate": MultiUpdate,
+        "responseVersion": 1
+    })
+    res.end();
 });
 
 app.post("/fortnite/api/game/v2/profile/*/client/FortRerollDailyQuest", async (req, res) => {
