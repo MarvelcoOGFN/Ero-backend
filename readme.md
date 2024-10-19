@@ -32,8 +32,8 @@
 - [x] Look up a user
 - [X] Ban a user
 - [X] Unban a user
-- [ ] Change Email
-- [ ] Get a user's id
+- [x] Change Email
+- [x] Get a user's id
 - [ ] Delete an account
 - [ ] Give full locker to a user
 
