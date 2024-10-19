@@ -590,7 +590,7 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
 
     if(!BattlePass) return error.createError(
         "errors.com.epicgames.fortnite.id_invalid",
-        `Bruh you maybe on the wrong season.`,
+        `There is no battlepass support for this season yet.`,
         [req.body.offerId], 16027, undefined, 400, res
     );
 

@@ -18,7 +18,7 @@
 - [x] Winter feast gift opening (11.31 and 19.01)
 - [x] Timeline from S2 to S19
 - [ ] Multi version item shop generator
-- [ ] Multi version image backround
+- [x] Multi version content pages
 - [ ] Fix major bugs
 - [ ] Add more usefull Bot commands
 

@@ -1,0 +1,107 @@
+{
+    "_title": "Fortnite Game",
+    "_activeDate": "2024-10-19T12:00:00.000Z",
+    "lastModified": "2024-10-19T12:00:00.000Z",
+    "_locale": "en-US",
+    "battleroyalenews": {
+      "news": {
+        "motds": [
+          {
+            "entryType": "Website",
+            "image": "https://i.imgur.com/TgWQS8X.png",
+            "tileImage": "https://i.imgur.com/E2EyzOD.png", 
+            "hidden": false,
+            "tabTitleOverride": "Ero Backend",
+            "_type": "CommonUI Simple Message MOTD",
+            "title": "Welcome To Ero Backend",
+            "body": "Enjoy using Ero backend Made by Marvelco",
+            "videoStreamingEnabled": false,
+            "sortingPriority": 20,
+            "id": "News",
+            "videoFullscreen": false,
+            "spotlight": false,
+            "websiteURL": "https://discord.gg/KdVw8MrR5g",
+            "websiteButtonText": "Join our discord"
+          }
+        ]
+      },
+      "jcr:isCheckedOut": true,
+      "_title": "battleroyalenews",
+      "header": "",
+      "style": "None",
+      "_noIndex": false,
+      "alwaysShow": false,
+      "jcr:baseVersion": "a7ca237317f1e74e4b8154-226a-4450-a3cd-c77af841e798",
+      "_activeDate": "2024-10-19T12:00:00.000Z",
+      "lastModified": "2024-10-19T12:00:00.000Z",
+      "_locale": "en-US"
+    },
+    "dynamicbackgrounds": {
+      "backgrounds": {
+        "backgrounds": [
+          {
+            "stage": "season7",
+            "_type": "DynamicBackground",
+            "key": "lobby"
+          }
+        ],
+        "_type": "DynamicBackgroundList"
+      },
+      "_title": "dynamicbackgrounds",
+      "_noIndex": false,
+      "_activeDate": "2024-10-19T12:00:00.000Z",
+      "lastModified": "2024-10-19T12:00:00.000Z",
+      "_locale": "en-US",
+      "_templateName": "FortniteGameDynamicBackgrounds"
+    },
+    "playlistinformation": {
+      "frontend_matchmaking_header_style": "None",
+      "_title": "playlistinformation",
+      "frontend_matchmaking_header_text": "",
+      "playlist_info": {
+        "_type": "Playlist Information",
+        "playlists": [
+          {
+            "image": "https://raw.githubusercontent.com/MarvelcoOGFN/Playlist-fn-images/refs/heads/main/Season7/solo.png",
+            "playlist_name": "Playlist_DefaultSolo",
+            "hidden": false,
+            "special_border": "None",
+            "_type": "FortPlaylistInfo"
+          },
+          {
+            "image": "https://raw.githubusercontent.com/MarvelcoOGFN/Playlist-fn-images/refs/heads/main/Season7/duos.png",
+            "playlist_name": "Playlist_DefaultDuo",
+            "hidden": false,
+            "special_border": "None",
+            "_type": "FortPlaylistInfo"
+          },
+          {
+            "image": "https://raw.githubusercontent.com/MarvelcoOGFN/Playlist-fn-images/refs/heads/main/team%20rumble/team%20rumble.jpg",
+            "playlist_name": "Playlist_Respawn_24",
+            "hidden": false,
+            "special_border": "None",
+            "_type": "FortPlaylistInfo"
+          },
+          {
+            "image": "https://raw.githubusercontent.com/MarvelcoOGFN/Playlist-fn-images/refs/heads/main/creative/creative.png",
+            "playlist_name": "Playlist_PlaygroundV2",
+            "hidden": false,
+            "special_border": "None",
+            "_type": "FortPlaylistInfo"
+          },
+          {
+            "image": "https://raw.githubusercontent.com/MarvelcoOGFN/Playlist-fn-images/refs/heads/main/Season7/squads.png",
+            "playlist_name": "Playlist_DefaultSquad",
+            "hidden": false,
+            "special_border": "None",
+            "_type": "FortPlaylistInfo"
+          }
+        ]
+      },
+      "_noIndex": false,
+      "_activeDate": "2018-04-25T15:05:39.956Z",
+      "lastModified": "2019-10-29T14:05:17.030Z",
+      "_locale": "en-US"
+    }
+  }
+  

@@ -135,7 +135,6 @@ const scheduleRestart = () => {
     }, time);
 };
 
-app.use(require("./src/api/api.js"));
 const startServer = () => {
     app.listen(PORT, () => {
         console.log('\x1b[33m%s\x1b[0m',"Ero Backend started on port", PORT);
