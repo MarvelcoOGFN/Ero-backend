@@ -8,7 +8,7 @@ const destr = require("destr");
 
 module.exports = {
     commandInfo: {
-        name: "addall",
+        name: "give-fl",
         description: "Allows you to give a user all cosmetics. Note: This will reset all your lockers to default",
         options: [
             {

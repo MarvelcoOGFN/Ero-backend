@@ -35,7 +35,7 @@ module.exports = {
                 const embed = new MessageEmbed()
                     .setTitle('User Account ID')
                     .setDescription(`Username: ${foundUser.username}\nAccount ID: ${foundUser.accountId}`)
-                    .setColor('#FF00FF');
+                    .setColor('#2b2d31');
                 await interaction.editReply({ embeds: [embed], ephemeral: true });
             } else {
                 await interaction.editReply({ content: 'User not found in the database.', ephemeral: true });

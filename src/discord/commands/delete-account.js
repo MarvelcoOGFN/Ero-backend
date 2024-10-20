@@ -5,7 +5,7 @@ const SACCodes = require('../../model/saccodes.js');
 
 module.exports = {
     commandInfo: {
-        name: "delete",
+        name: "delete-account",
         description: "Deletes your account",
     },
     execute: async (interaction) => {
