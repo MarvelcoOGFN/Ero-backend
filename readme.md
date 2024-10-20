@@ -4,7 +4,7 @@
 
 # road map:
 - [x] Auto shop
-- [x] Battle Pass & Leveling Up (s2~s13)
+- [x] Battle Pass & Leveling Up (s2~s14)
 - [x] Challenges (Quests) (Not done)
 - [x] Friends (broken not working)
 - [x] XMPP (doesnt work properly)
