@@ -34,7 +34,7 @@
 - [X] Unban a user
 - [x] Change Email
 - [x] Get a user's id
-- [ ] Delete an account
+- [x] Delete an account
 - [ ] Give full locker to a user
 
 ### Note: about the multi shop i would make it for every major version of a build (it will still work for all versions but you might find missing items on non major builds)
