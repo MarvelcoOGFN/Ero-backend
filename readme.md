@@ -16,11 +16,11 @@
 - [ ] Match maker
 - [x] Implement API for launcher login
 - [x] Winter feast gift opening (11.31)
-- [x] Timeline from S2 to S19
+- [x] Timeline from S2 to S16
 - [ ] Multi version item shop generator
 - [x] Multi version content pages
 - [ ] Fix major bugs
-- [ ] Add more usefull Bot commands
+- [x] Add more usefull Bot commands
 
  # List of Bot commands:
 - [x] Create An Account
@@ -35,7 +35,7 @@
 - [x] Change Email
 - [x] Get a user's id
 - [x] Delete an account
-- [ ] Give full locker to a user
+- [x] Give full locker to a user
 
 ### Note: about the multi shop i would make it for every major version of a build (it will still work for all versions but you might find missing items on non major builds)
 
