@@ -39,6 +39,8 @@
 
 ### Note: about the multi shop i would make it for every major version of a build (it will still work for all versions but you might find missing items on non major builds)
 
+### if you want to report bugs please join the [Ero Discord server](https://discord.gg/KdVw8MrR5g)
+
 ## How to use ?
 1) Install [NodeJS](https://nodejs.org/en/) and [MongoDB](https://www.mongodb.com/try/download/community).
 2) Download and Extract.
