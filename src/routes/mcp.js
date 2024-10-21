@@ -648,6 +648,27 @@ app.post("/fortnite/api/game/v2/profile/*/client/PurchaseCatalogEntry", verifyTo
             var EndingTier = athena.stats.attributes.book_level;
             athena.stats.attributes.book_purchased = true;
 
+            const tokenKey = `Token:Athena_S${season}_NoBattleBundleOption_Token`;
+            const tokenData = {
+                "templateId": `Token:athena_s${season}_nobattlebundleoption_token`,
+                "attributes": {
+                    "max_level_bonus": 0,
+                    "level": 1,
+                    "item_seen": true,
+                    "xp": 0,
+                    "favorite": false
+                },
+                "quantity": 1
+            };
+
+            profiles.profiles["common_core"].items[tokenKey] = tokenData;
+        
+            ApplyProfileChanges.push({
+                "changeType": "itemAdded",
+                "itemId": tokenKey,
+                "item": tokenData
+            });
+            
             if (BattlePass.battleBundleOfferId == offerId) {
 
                 athena.stats.attributes.book_level += 25;

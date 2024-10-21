@@ -41,7 +41,7 @@ module.exports = {
                 return interaction.editReply({ content: "That user does not have a profile" });
             }
 
-            const allItems = destr(fs.readFileSync(path.join(__dirname, "../../Profiles/fulllocker.json"), 'utf8'));
+            const allItems = destr(fs.readFileSync(path.join(__dirname, "../../shop/fulllocker.json"), 'utf8'));
 
             Profiles.findOneAndUpdate({ accountId: targetUser.accountId }, { $set: { "profiles.athena.items": allItems.items } }, { new: true }, (err, doc) => {
             });
