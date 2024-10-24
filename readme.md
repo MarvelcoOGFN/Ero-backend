@@ -13,6 +13,9 @@
 - [x] Purchasing from item shop
 - [x] Support a creator (Needs to be improved)
 - [x] Refunding
+- [x] Copy Cosmetic Loadout
+- [x] Set Cosmetic Locker Name
+- [x] Delete Cosmetic Loadout
 - [ ] Match maker
 - [x] Implement API for launcher login
 - [x] Winter feast gift opening (11.31)
