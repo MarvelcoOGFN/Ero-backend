@@ -1749,6 +1749,245 @@ app.post("/fortnite/api/game/v2/profile/:accountId/client/UnlockRewardNode", asy
     res.end();
 });
 
+app.post("/fortnite/api/game/v2/profile/*/client/RequestRestedStateIncrease", async (req, res) => {
+    const profiles = await Profile.findOne({ accountId: req.params[0] });
+    let profile = profiles.profiles[req.query.profileId];
+
+    const memory = Version.GetVersionInfo(req);
+
+    let ApplyProfileChanges = [];
+    let BaseRevision = profile.rvn;
+    let ProfileRevisionCheck = (memory.build >= 12.20) ? profile.commandRevision : profile.rvn;
+    let QueryRevision = req.query.rvn || -1;
+    let StatChanged = false;
+
+    let xp = profile.stats.attributes["book_xp"] + req.body.restedXpGenAccumulated;
+
+    if (xp !== profile.stats.attributes["book_xp"]) {
+        StatChanged = true;
+        profile.stats.attributes["book_xp"] = xp;
+        profile.stats.attributes["xp"] = xp;
+    }
+
+    if (StatChanged == true) {
+        profile.rvn += 1;
+        profile.commandRevision += 1;
+
+        ApplyProfileChanges.push({
+            "changeType": "statModified",
+            "name": "book_xp",
+            "value": profile.stats.attributes.book_xp
+        },
+        {
+            "changeType": "statModified",
+            "name": "xp",
+            "value": profile.stats.attributes.xp
+        });
+
+        await profiles.updateOne({ $set: { [`profiles.${req.query.profileId}`]: profile } });
+    }
+
+    if (QueryRevision != ProfileRevisionCheck) {
+        ApplyProfileChanges = [{
+            "changeType": "fullProfileUpdate",
+            "profile": profile
+        }];
+    }
+
+    res.json({
+        profileRevision: profile.rvn || 0,
+        profileId: req.query.profileId,
+        profileChangesBaseRevision: BaseRevision,
+        profileChanges: ApplyProfileChanges,
+        profileCommandRevision: profile.commandRevision || 0,
+        serverTime: new Date().toISOString(),
+        responseVersion: 1
+    });
+});
+
+
+app.post("/fortnite/api/game/v2/profile/*/client/SetPartyAssistQuest", async (req, res) => {
+    const profiles = await Profile.findOne({ accountId: req.params[0] });
+    let profile = profiles.profiles[req.query.profileId];
+    const memory = Version.GetVersionInfo(req);
+
+    var ApplyProfileChanges = [];
+    let BaseRevision = profile.rvn;
+    let ProfileRevisionCheck = (memory.build >= 12.20) ? profile.commandRevision : profile.rvn;
+    var QueryRevision = req.query.rvn || -1;
+    var StatChanged = false;
+
+    if (profile.stats.attributes.hasOwnProperty("party_assist_quest")) {
+        profile.stats.attributes.party_assist_quest = req.body.questToPinAsPartyAssist || "";
+        StatChanged = true;
+    }
+
+    if (StatChanged == true) {
+        profile.rvn += 1;
+        profile.commandRevision += 1;
+
+        ApplyProfileChanges.push({
+            "changeType": "statModified",
+            "name": "party_assist_quest",
+            "value": profile.stats.attributes.party_assist_quest
+        })
+
+        await profiles.updateOne({ $set: { [`profiles.${req.query.profileId}`]: profile } });
+    }
+
+    if (QueryRevision != ProfileRevisionCheck) {
+        ApplyProfileChanges = [{
+            "changeType": "fullProfileUpdate",
+            "profile": profile
+        }];
+    }
+    res.json({
+        profileRevision: profile.rvn || 0,
+        profileId: req.query.profileId,
+        profileChangesBaseRevision: BaseRevision,
+        profileChanges: ApplyProfileChanges,
+        profileCommandRevision: profile.commandRevision || 0,
+        serverTime: new Date().toISOString(),
+        responseVersion: 1
+    });
+})
+
+app.post("/fortnite/api/game/v2/profile/*/client/AthenaPinQuest", async (req, res) => {
+    const profiles = await Profile.findOne({ accountId: req.user.accountId });
+    let profile = profiles.profiles[req.query.profileId];
+
+    const memory = Version.GetVersionInfo(req);
+
+    let ApplyProfileChanges = [];
+    let BaseRevision = profile.rvn;
+    let ProfileRevisionCheck = (memory.build >= 12.20) ? profile.commandRevision : profile.rvn;
+    let QueryRevision = req.query.rvn || -1;
+    let StatChanged = false;
+
+    if (profile.stats.attributes.hasOwnProperty("pinned_quest")) {
+        profile.stats.attributes.pinned_quest = req.body.pinnedQuest || "";
+        StatChanged = true;
+    }
+
+    if (StatChanged == true) {
+        profile.rvn += 1;
+        profile.commandRevision += 1;
+
+        ApplyProfileChanges.push({
+            "changeType": "statModified",
+            "name": "pinned_quest",
+            "value": profile.stats.attributes.pinned_quest
+        })
+
+        await profiles.updateOne({ $set: { [`profiles.${req.query.profileId}`]: profile } });
+    }
+
+    if (QueryRevision != ProfileRevisionCheck) {
+        ApplyProfileChanges = [{
+            "changeType": "fullProfileUpdate",
+            "profile": profile
+        }];
+    }
+    res.json({
+        profileRevision: profile.rvn || 0,
+        profileId: req.query.profileId,
+        profileChangesBaseRevision: BaseRevision,
+        profileChanges: ApplyProfileChanges,
+        profileCommandRevision: profile.commandRevision || 0,
+        serverTime: new Date().toISOString(),
+        responseVersion: 1
+    });
+})
+
+app.post("/fortnite/api/game/v2/profile/*/client/UpdateQuestClientObjectives", verifyToken, async (req, res) => {
+    const profiles = await Profile.findOne({ accountId: req.user.accountId });
+    let profile = profiles.profiles[req.query.profileId];
+
+    const memory = Version.GetVersionInfo(req);
+
+    let ApplyProfileChanges = [];
+    let BaseRevision = profile.rvn;
+    let ProfileRevisionCheck = (memory.build >= 12.20) ? profile.commandRevision : profile.rvn;
+    let QueryRevision = req.query.rvn || -1;
+    let StatChanged = false;
+
+    if (req.body.advance) {
+        for (var i in req.body.advance) {
+            var QuestsToUpdate = [];
+
+            for (var x in profile.items) {
+                if (profile.items[x].templateId.toLowerCase().startsWith("quest:")) {
+                    for (var y in profile.items[x].attributes) {
+                        if (y.toLowerCase() == `completion_${req.body.advance[i].statName}`) {
+                            QuestsToUpdate.push(x)
+                        }
+                    }
+                }
+            }
+
+            for (var i = 0; i < QuestsToUpdate.length; i++) {
+                var bIncomplete = false;
+                
+                profile.items[QuestsToUpdate[i]].attributes[`completion_${req.body.advance[i].statName}`] = req.body.advance[i].count;
+
+                ApplyProfileChanges.push({
+                    "changeType": "itemAttrChanged",
+                    "itemId": QuestsToUpdate[i],
+                    "attributeName": `completion_${req.body.advance[i].statName}`,
+                    "attributeValue": req.body.advance[i].count
+                })
+
+                if (profile.items[QuestsToUpdate[i]].attributes.quest_state.toLowerCase() != "claimed") {
+                    for (var x in profile.items[QuestsToUpdate[i]].attributes) {
+                        if (x.toLowerCase().startsWith("completion_")) {
+                            if (profile.items[QuestsToUpdate[i]].attributes[x] == 0) {
+                                bIncomplete = true;
+                            }
+                        }
+                    }
+    
+                    if (bIncomplete == false) {
+                        profile.items[QuestsToUpdate[i]].attributes.quest_state = "Claimed";
+    
+                        ApplyProfileChanges.push({
+                            "changeType": "itemAttrChanged",
+                            "itemId": QuestsToUpdate[i],
+                            "attributeName": "quest_state",
+                            "attributeValue": profile.items[QuestsToUpdate[i]].attributes.quest_state
+                        })
+                    }
+                }
+
+                StatChanged = true;
+            }
+        }
+    }
+
+    if (StatChanged == true) {
+        profile.rvn += 1;
+        profile.commandRevision += 1;
+        
+        await profiles.updateOne({ $set: { [`profiles.${req.query.profileId}`]: profile } });
+    }
+	
+    if (QueryRevision != ProfileRevisionCheck) {
+        ApplyProfileChanges = [{
+            "changeType": "fullProfileUpdate",
+            "profile": profile
+        }];
+    }
+
+    res.json({
+        profileRevision: profile.rvn || 0,
+        profileId: req.query.profileId,
+        profileChangesBaseRevision: BaseRevision,
+        profileChanges: ApplyProfileChanges,
+        profileCommandRevision: profile.commandRevision || 0,
+        serverTime: new Date().toISOString(),
+        responseVersion: 1
+    })
+});
+
 app.post("/fortnite/api/game/v2/profile/*/client/FortRerollDailyQuest", async (req, res) => {
     const profiles = await Profile.findOne({ accountId: req.params[0] });
 
