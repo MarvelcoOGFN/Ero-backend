@@ -1,3 +1,4 @@
+
 {
   "created": "2022-01-08T22:58:06.983Z",
   "updated": "2022-01-08T22:58:57.261Z",
@@ -108,6 +109,107 @@
       },
       "quantity": 1
     },
+    "Ero_Backend": {
+      "templateId": "CosmeticLocker:cosmeticlocker_athena",
+      "attributes": {
+        "locker_slots_data": {
+          "slots": {
+            "Pickaxe": {
+              "items": [
+                ""
+              ],
+              "activeVariants": []
+            },
+            "Dance": {
+              "items": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+              ]
+            },
+            "Glider": {
+              "items": [
+                ""
+              ]
+            },
+            "Character": {
+              "items": [
+                ""
+              ],
+              "activeVariants": [
+                {
+                  "variants": []
+                }
+              ]
+            },
+            "Backpack": {
+              "items": [
+                ""
+              ],
+              "activeVariants": [
+                {
+                  "variants": []
+                }
+              ]
+            },
+            "ItemWrap": {
+              "items": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+              ],
+              "activeVariants": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ]
+            },
+            "LoadingScreen": {
+              "items": [
+                ""
+              ],
+              "activeVariants": [
+                null
+              ]
+            },
+            "MusicPack": {
+              "items": [
+                ""
+              ],
+              "activeVariants": [
+                null
+              ]
+            },
+            "SkyDiveContrail": {
+              "items": [
+                ""
+              ],
+              "activeVariants": [
+                null
+              ]
+            }
+          }
+        },
+        "use_count": 1,
+        "banner_icon_template": "",
+        "locker_name": "Ero Backend",
+        "banner_color_template": "",
+        "item_seen": false,
+        "favorite": false
+      },
+      "quantity": 1
+   },
     "AthenaCharacter:cid_a_272_athena_commando_f_prime": {
       "attributes": {
         "favorite": false,
@@ -1035,7 +1137,8 @@
     "attributes": {
       "season_match_boost": 0,
       "loadouts": [
-        "sandbox_loadout"
+        "sandbox_loadout",
+        "Ero_Backend"
       ],
       "rested_xp_overflow": 0,
       "mfa_reward_claimed": true,
@@ -1082,4 +1185,3 @@
   },
   "commandRevision": 0
 }
-
