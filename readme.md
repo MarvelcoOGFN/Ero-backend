@@ -7,6 +7,7 @@
 - [x] Battle Pass & Leveling Up (s2~s14)
 - [x] Challenges (Quests)
 - [ ] Xp
+- [ ] leveling thro xp
 - [x] Ability to gain xp using the camp fire in 11.31
 - [x] Friends (broken not working)
 - [x] XMPP (doesnt work properly)
