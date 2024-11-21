@@ -9,9 +9,9 @@
 - [ ] Xp
 - [ ] leveling thro xp
 - [x] Ability to gain xp using the camp fire in 11.31
-- [x] Friends (broken not working)
-- [x] XMPP (doesnt work properly)
-- [ ] Parties (V1 & V2)
+- [x] Friends
+- [x] XMPP
+- [X] Parties (V1 & V2)
 - [x] Gifting
 - [x] Purchasing from item shop
 - [x] Support a creator (Needs to be improved)
@@ -20,12 +20,11 @@
 - [x] Set Cosmetic Locker Name
 - [x] Delete Cosmetic Loadout
 - [ ] Match maker
-- [x] Implement API for launcher login
 - [x] Winter feast gift opening (11.31)
 - [x] Timeline from S2 to S16
 - [ ] Multi version item shop generator
 - [x] Multi version content pages
-- [ ] Fix major bugs
+- [X] Fix major bugs
 - [x] Add more usefull Bot commands
 
  # List of Bot commands:
