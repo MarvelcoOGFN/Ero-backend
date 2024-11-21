@@ -26,6 +26,7 @@
 - [x] Multi version content pages
 - [X] Fix major bugs
 - [x] Add more usefull Bot commands
+- [x] Arena (By Waslyl(: )
 
  # List of Bot commands:
 - [x] Create An Account

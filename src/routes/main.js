@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express.Router();
 require("dotenv").config();
-
+const Arena = require("../model/arena.js");
+const path = require("path");
+const fs = require("fs");
 const { verifyToken, verifyClient } = require("../token/tokenVerify.js");
 
 const enableGlobalChat = process.env.ENABLE_GLOBAL_CHAT === 'true';
@@ -93,8 +95,33 @@ app.get("/fortnite/api/game/v2/enabled_features", (req, res) => {
     res.json([]);
 });
 
-app.get("/api/v1/events/Fortnite/download/*", (req, res) => {
-    res.json({});
+app.get("/api/v1/events/Fortnite/download/*", async (req, res) => {
+    const accountId = req.params.account_id; // Get account id of the player
+
+    try {
+        const playerData = await Arena.findOne({ accountId }); // Get the player data from his account in a new MongoDB model
+        const hypePoints = playerData ? playerData.hype : 0; // Get the points of the user
+        const division = playerData ? playerData.division : 0; // Get the division of the user
+
+        const eventsDataPath = path.join(__dirname, "./../Profiles/eventlistactive.json");
+        const events = JSON.parse(fs.readFileSync(eventsDataPath, 'utf-8'));
+
+        // Get from eventlistactive the information for Arena
+        events.player = {
+            accountId: accountId,
+            gameId: "Fortnite",
+            persistentScores: {
+                Hype: hypePoints
+            },
+            tokens: [`ARENA_S8_Division${division + 1}`]
+        };
+
+        res.json(events);
+
+    } catch (error) {
+        console.error("Error fetching Arena data:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
 });
 
 app.get("/fortnite/api/game/v2/twitch/*", (req, res) => {

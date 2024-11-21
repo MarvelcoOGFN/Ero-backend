@@ -102,6 +102,44 @@
       "_activeDate": "2018-04-25T15:05:39.956Z",
       "lastModified": "2019-10-29T14:05:17.030Z",
       "_locale": "en-US"
+    },
+    "tournamentinformation": {
+        "tournament_info": {
+            "tournaments": [
+                {
+                    "title_color": "FFFFFF",
+                    "loading_screen_image": "https://cdn2.unrealengine.com/Fortnite%2Ffortnite-game%2Ftournaments%2FArena_ModeSelect_Generic_Solo4-1024x512-8a00c8b712843e0af102a7a43629f50c8987d927.png",
+                    "background_text_color": "1B1B1B",
+                    "background_right_color": "DD091A",
+                    "poster_back_image": "https://cdn2.unrealengine.com/Fortnite%2Ffortnite-game%2Ftournaments%2FArena_ModeSelect_Generic_Solo4-1024x512-8a00c8b712843e0af102a7a43629f50c8987d927.png",
+                    "_type": "Tournament Display Info",
+                    "pin_earned_text": "",
+                    "tournament_display_id": "ArenaSolo",
+                    "highlight_color": "FFFFFF",
+                    "schedule_info": "Waslyl on top!",
+                    "primary_color": "FFFFFF",
+                    "flavor_description": "",
+                    "poster_front_image": "",
+                    "short_format_title": "Event Sessions",
+                    "title_line_2": "",
+                    "title_line_1": "Arena",
+                    "shadow_color": "1B1B1B",
+                    "details_description": "",
+                    "background_left_color": "F81B2D",
+                    "long_format_title": "",
+                    "poster_fade_color": "DD091A",
+                    "secondary_color": "1B1B1B",
+                    "playlist_tile_image": "https://cdn2.unrealengine.com/Fortnite%2Ffortnite-game%2Ftournaments%2FArena_ModeSelect_Generic_Solo4-1024x512-8a00c8b712843e0af102a7a43629f50c8987d927.png",
+                    "base_color": "FFFFFF"
+                }
+            ],
+            "_type": "Tournaments Info"
+        },
+        "_title": "tournamentinformation",
+        "_noIndex": false,
+        "_activeDate": "2018-11-13T22:32:47.734Z",
+        "lastModified": "2019-11-01T17:33:35.346Z",
+        "_locale": "en-US"
     }
   }
   

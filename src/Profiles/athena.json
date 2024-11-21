@@ -1157,7 +1157,7 @@
       "xp_overflow": 0,
       "rested_xp": 0,
       "rested_xp_mult": 0,
-      "accountLevel": 0,
+      "accountLevel": 100,
       "competitive_identity": {},
       "inventory_limit_bonus": 0,
       "last_applied_loadout": "sandbox_loadout",
