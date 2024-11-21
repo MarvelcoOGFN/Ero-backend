@@ -4,7 +4,7 @@
 
 # road map:
 - [x] Auto shop
-- [x] Battle Pass & Leveling Up (s2~s14)
+- [x] Battle Pass & Leveling Up (s2~s16)
 - [x] Challenges (Quests)
 - [ ] Xp
 - [ ] leveling thro xp
