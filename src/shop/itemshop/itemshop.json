@@ -1,57 +1,56 @@
 {
-  "//": "BR Item Shop Config",
   "daily1": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_138_BomberPlane"
+      "AthenaGlider:Glider_ID_081_CowboyGunslinger"
     ],
     "price": 500
   },
   "daily2": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_361_HenchmanMale1H"
+      "AthenaPickaxe:Pickaxe_ID_198_BountyBunny"
     ],
-    "price": 800
+    "price": 500
   },
   "daily3": {
     "itemGrants": [
-      "AthenaItemWrap:Wrap_167_Mastermind"
+      "AthenaItemWrap:Wrap_027_Lucky"
     ],
-    "price": 500
+    "price": 300
   },
   "daily4": {
     "itemGrants": [
-      "AthenaGlider:Glider_ID_180_NeonGraffiti"
+      "AthenaGlider:Glider_ID_009_CandyCoat"
     ],
-    "price": 500
+    "price": 800
   },
   "daily5": {
     "itemGrants": [
-      "AthenaPickaxe:Pickaxe_ID_100_DieselPunk"
+      "AthenaBackpack:BID_398_Palespooky"
     ],
     "price": 800
   },
   "daily6": {
     "itemGrants": [
-      "AthenaMusicPack:MusicPack_038_Crackdown"
+      "AthenaDance:EID_MindBlown"
     ],
-    "price": 300
+    "price": 200
   },
   "featured1": {
     "itemGrants": [
-      "AthenaCharacter:CID_219_Athena_Commando_M_Hacivat"
+      "AthenaCharacter:CID_315_Athena_Commando_M_TeriyakiFish"
     ],
-    "price": 1500
+    "price": 1200
   },
   "featured2": {
     "itemGrants": [
-      "AthenaCharacter:CID_598_Athena_Commando_M_Mastermind"
+      "AthenaCharacter:CID_096_Athena_Commando_F_Founder"
     ],
-    "price": 1500
+    "price": 2000
   },
   "featured3": {
     "itemGrants": [
-      "AthenaCharacter:CID_160_Athena_Commando_M_SpeedyRed"
+      "AthenaCharacter:CID_443_Athena_Commando_F_BannerB"
     ],
-    "price": 2000
+    "price": 800
   }
 }

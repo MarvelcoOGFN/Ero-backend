@@ -22,7 +22,7 @@
 - [ ] Match maker (The current one is lawin and i want to change that)
 - [x] Winter feast gift opening (11.31)
 - [x] Timeline from S2 to S16
-- [ ] Multi version item shop generator
+- [X] Multi version item shop generator
 - [x] Multi version content pages
 - [X] Fix major bugs
 - [x] Add more usefull Bot commands
@@ -42,8 +42,6 @@
 - [x] Get a user's id
 - [x] Delete an account
 - [x] Give full locker to a user
-
-### Note: about the multi shop i would make it for every major version of a build (it will still work for all versions but you might find missing items on non major builds)
 
 ### if you want to report bugs please join the [Ero Discord server](https://discord.gg/KdVw8MrR5g)
 

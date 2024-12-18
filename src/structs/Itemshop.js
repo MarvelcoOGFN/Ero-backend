@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const itemsFilePath = path.join(__dirname, '..', 'shop', 'items.json');
 const itemshopFilePath = path.join(__dirname, '..', 'shop', 'itemshop', 'itemshop.json');
@@ -7,225 +9,82 @@ const itemshopFilePath = path.join(__dirname, '..', 'shop', 'itemshop', 'itemsho
 const rawData = fs.readFileSync(itemsFilePath);
 const items = JSON.parse(rawData);
 
+const chapter = parseInt(process.env.CHAPTER, 10);
+const season = parseInt(process.env.SEASON, 10);
 
-const excludedItemIds = [ //remove s12 bp stuff going into itemshop also somestuff that where added in 12.61 or random TBD items
-    "lsid_213_skulldude",
- "trails_id_084_briefcase",
- "bid_485_bananaagent",
- "wrap_203_henchman",
- "Pickaxe_ID_368_BananaAgent",
- "MusicPack_042_BunnyHop",
- "EID_TnTina",
- "EID_Photographer",
- "EID_BuffCat",
- "Wrap_240_PlasmaSpectrum",
- "Glider_ID_197_HenchmanMale",
- "CID_695_Athena_Commando_F_DesertOpsCamo",
- "CID_701_Athena_Commando_M_BananaAgent",
-"AthenaLoadingScreen:lsid_213_skulldude",
-"AthenaSkyDiveContrail:trails_id_084_briefcase",
-"AthenaBackpack:bid_485_bananaagent",
-"AthenaItemWrap:wrap_203_henchman",
-"AthenaMusicPack:musicpack_044_s12cine",
-"AthenaPickaxe:pickaxe_id_361_henchmanmale1h",
-"BannerToken:bannertoken_033_s12_skull",
-"Currency:mtxgiveaway",
-"AthenaBackpack:bid_478_henchmantough",
-"BID_483_Spy",
-"CID_558_Athena_Commando_F_RebirthDefaultC",
-"spid_199_bananaagent",
-"glider_id_197_henchmanmale",
-"lsid_229_mountainbase",
-"cid_692_athena_commando_m_henchmantough",
-"lsid_216_tntina",
-"bannertoken_030_s12_grenade",
-"emoji_s12_tntina",
-"glider_id_201_tntinafemale",
-"lsid_227_llamastormcenter",
-"pickaxe_id_336_tntinafemale",
-"trails_id_087_tntina",
-"glider_id_198_kaboom",
-"vtid_560_bananaagent_styleb",
-"bid_437_tntina",
-"spid_190_tntina",
-"eid_stepbreakdance",
-"cid_691_athena_commando_f_tntina",
-"lsid_217_meowscles",
-"wrap_200_buffcat",
-"bid_477_buffcat",
-"emoji_s12_meowscles",
-"eid_bangthepan",
-"lsid_228_bananaagent",
-"pickaxe_id_355_buffcatmale1h",
-"spid_191_meowscles",
-"emoji_s12_ego",
-"trails_id_083_alphabetsoup",
-"bannertoken_031_s12_kitty",
-"eid_paws",
-"cid_693_athena_commando_m_buffcat",
-"lsid_220_adventuregirl",
-"wrap_216_bananaagent",
-"glider_id_200_photographerfemale",
-"lsid_222_frenzyfarms",
-"bid_473_photographer",
-"bannertoken_034_s12_wingedcritter",
-"emoji_s12_alter",
-"pickaxe_id_364_photographerfemale1h",
-"trails_id_085_candy",
-"glider_id_199_llamahero",
-"emoji_s12_adventuregirl",
-"spid_192_adventuregirl",
-"cid_690_athena_commando_f_photographer",
-"lsid_221_midas",
-"eid_cointoss",
-"spid_193_midas",
-"glider_id_202_bananaagent",
-"pickaxe_id_360_desertopscamofemale",
-"lsid_218_teamup",
-"bannertoken_032_s12_roses",
-"pickaxe_id_357_catburglarmale",
-"musicpack_043_overdrive",
-"bid_479_catburglar",
-"bannertoken_040_s12_midas",
-"emoji_s12_midas",
-"wrap_201_catburglar",
-"eid_jumpstyledance",
-"cid_694_athena_commando_m_catburglar",
-"eid_callme",
-"emoji_s12_skulldude",
-"lsid_219_alterego",
-"spid_189_skulldude",
-"bid_472_desertopscamo",
-"wrap_211_tntina",
-"bannertoken_029_s12_cowboy",
-"musicpack_042_bunnyhop",
-"pickaxe_id_368_bananaagent",
-"spid_194_dumpsterfire",
-"glider_id_195_buffcatmale",
-"lsid_226_threemeowscles",
-"eid_truckerhorn",
-"lsid_223_sharkisland",
-"wrap_206_photographer",
-"trails_id_086_snowstorm",
-"bannertoken_044_s12_bananaagent",
- "CID_VIP_Athena_Commando_M_GalileoFerry_SG",
- "Trails_ID_083_AlphabetSoup",
- "CID_712_Athena_Commando_M_Spy",
- "CID_760_Athena_Commando_F_NeonTightSuit",
- "CID_758_Athena_Commando_M_TechExplorer",
- 'CID_759_Athena_Commando_F_RapVillainess',
- "CID_001_Athena_Commando_F_Default",
- "CID_693_Athena_Commando_M_BuffCat",
- "Wrap_203_Henchman",
- "AthenaCharacter:CID_002_Athena_Commando_F_Default",
- 'CID_754_Athena_Commando_F_RaveNinja',
- "CID_756_Athena_Commando_M_JonesyAgent",
- "CID_751_Athena_Commando_F_NeonCatSpy",
- "CID_751_Athena_Commando_F_NeonCatSpy",
- "Pickaxe_ID_366_SpyMale1H",
- "Glider_ID_195_BuffCatMale",
- "Pickaxe_ID_396_RapVillainessFemale1H",
- "Pickaxe_ID_397_TechExplorerMale1H",
- "Wrap_239_GlowCamo",
- "CID_750_Athena_Commando_M_Hurricane",
- "EID_ArtGiant",
- "Wrap_232_BadEgg",
- "Wrap_238_RainbowGlitter",
- "Wrap_234_GlowVortex",
- "Wrap_237_NeonPulse",
- "Wrap_236_Moo",
- "BID_469_Wings",
- "CID_747_Athena_Commando_M_BadEgg",
- "CID_763_Athena_Commando_F_ShinyJacket",
- "Pickaxe_ID_385_BadEggMale",
- "musicpack_044_s12cine",
- "pickaxe_id_361_henchmanmale1h",
- "bannertoken_033_s12_skull",
- "bid_478_henchmantough",
- "spid_199_bananaagent",
- "glider_id_197_henchmanmale",
- "lsid_229_mountainbase",
- "CID_561_Athena_Commando_M_RebirthDefaultB",
- "cid_692_athena_commando_m_henchmantough",
- "lsid_216_tntina",
- "bannertoken_030_s12_grenade",
- "emoji_s12_tntina",
- "glider_id_201_tntinafemale",
- "lsid_227_llamastormcenter",
- "pickaxe_id_336_tntinafemale",
- "trails_id_087_tntina",
- "glider_id_198_kaboom",
- "vtid_560_bananaagent_styleb",
- "bid_437_tntina",
- "CID_701_Athena_Commando_M_BananaAgent",
- "spid_190_tntina",
- "eid_stepbreakdance",
- "cid_691_athena_commando_f_tntina",
- "lsid_217_meowscles",
- "wrap_200_buffcat",
- "bid_477_buffcat",
- "emoji_s12_meowscles",
- "eid_bangthepan",
- "lsid_228_bananaagent",
- "pickaxe_id_355_buffcatmale1h",
- "spid_191_meowscles",
- "emoji_s12_ego",
- "trails_id_083_alphabetsoup",
- "bannertoken_031_s12_kitty",
- "eid_paws",
- "cid_693_athena_commando_m_buffcat",
- "lsid_220_adventuregirl",
- "wrap_216_bananaagent",
- "glider_id_200_photographerfemale",
- "lsid_222_frenzyfarms",
- "bid_473_photographer",
- "bannertoken_034_s12_wingedcritter",
- "emoji_s12_alter",
- "pickaxe_id_364_photographerfemale1h",
- "trails_id_085_candy",
- "glider_id_199_llamahero",
- "emoji_s12_adventuregirl",
- "vtid_561_bananaagent_stylec",
- "spid_192_adventuregirl",
- "cid_690_athena_commando_f_photographer",
- "lsid_221_midas",
- "eid_cointoss",
- "spid_193_midas",
- "glider_id_202_bananaagent",
- "Glider_ID_208_BadEggMale",
- "pickaxe_id_360_desertopscamofemale",
- "lsid_218_teamup",
- "bannertoken_032_s12_roses",
- "pickaxe_id_357_catburglarmale",
- "MusicPack_000_Default",
- "musicpack_043_overdrive",
- "bid_479_catburglar",
- "bannertoken_040_s12_midas",
- "emoji_s12_midas",
- "wrap_201_catburglar",
- "eid_jumpstyledance",
- "CID_762_Athena_Commando_M_BrightGunnerSpy",
- "cid_694_athena_commando_m_catburglar",
- "AthenaCharacter:CID_008_Athena_Commando_M_Default"
-];
+const isItemEligible = (item) => {
+    const itemChapter = item.introduction?.chapter; 
+    const itemSeason = item.introduction?.season;
+    
+    if (itemChapter === undefined || itemSeason === undefined) {
+        console.warn(`Item ${item.id} does not have valid chapter or season.`); // if this happens i am cooked
+        return false;
+    }
 
-const filterExcludedItems = (itemsList) => {
-    return itemsList.filter(item => !excludedItemIds.includes(item.id));
+    const parsedItemChapter = parseInt(itemChapter, 10);
+    const parsedItemSeason = parseInt(itemSeason, 10);
+
+    if (parsedItemChapter < chapter) {
+        return true;
+    } else if (parsedItemChapter === chapter && parsedItemSeason <= season) {
+        return true;
+    }
+    return false;
 };
 
-const backpacks = filterExcludedItems(items.filter(item => item.type === 'AthenaBackpack'));
-const pickaxes = filterExcludedItems(items.filter(item => item.type === 'AthenaPickaxe'));
-const characters = filterExcludedItems(items.filter(item => item.type === 'AthenaCharacter'));
-const itemWraps = filterExcludedItems(items.filter(item => item.type === 'AthenaItemWrap'));
-const musicPacks = filterExcludedItems(items.filter(item => item.type === 'AthenaMusicPack'));
-const dances = filterExcludedItems(items.filter(item => item.type === 'AthenaDance'));
-const gliders = filterExcludedItems(items.filter(item => item.type === 'AthenaGlider'));
-const contrails = filterExcludedItems(items.filter(item => item.type === 'AthenaSkyDiveContrail'));
+
+const filterItemsByChapterAndSeason = (itemsList) => {
+    return itemsList.filter(isItemEligible);
+};
+
+const excludedItemIds = [ // add the ones you dont want in the generator (the ones added are the defualt ones that should be removed) also might add it in its own json or smth
+	"CID_563_Athena_Commando_M_RebirthDefaultD",
+	"CID_562_Athena_Commando_M_RebirthDefaultC",
+	"CID_561_Athena_Commando_M_RebirthDefaultB",
+	"CID_560_Athena_Commando_M_RebirthDefaultA",
+	"CID_559_Athena_Commando_F_RebirthDefaultD",
+	"CID_558_Athena_Commando_F_RebirthDefaultC",
+	"CID_557_Athena_Commando_F_RebirthDefaultB",
+	"CID_556_Athena_Commando_F_RebirthDefaultA",
+	"CID_TBD_Athena_Commando_M_Nutcracker_CINE",
+	"CID_TBD_Athena_Commando_M_ConstructorTest",
+	"CID_TBD_Athena_Commando_M_Banana_CINE",
+	"CID_TBD_Athena_Commando_F_ConstructorTest",
+	"CID_NPC_Athena_Commando_M_TacticalFishermanOil",
+	"CID_NPC_Athena_Commando_M_PaddedArmorArctic",
+    "CID_NPC_Athena_Commando_M_HenchmanGood",
+	"CID_NPC_Athena_Commando_M_HenchmanBad",
+	"CID_NPC_Athena_Commando_M_PaddedArmorArctic",
+	"CID_636_Athena_Commando_M_GalileoGondola_78MFZ",
+	"CID_637_Athena_Commando_M_GalileoOutrigger_7Q0YU",
+	"CID_707_Athena_Commando_M_HenchmanGood",
+	"CID_706_Athena_Commando_M_HenchmanBad",
+    "CID_001_Athena_Commando_F_Default",
+    "cid_a_272_athena_commando_f_prime",
+    "EID_DanceMoves",
+    "EID_BoogieDown"
+]; 
+
+const filterExcludedItems = (itemsList) => {
+    const filteredItems = itemsList.filter(item => !excludedItemIds.includes(item.id));
+    //console.log(`Filtered items: ${filteredItems.length}`); //Debugging
+    return filteredItems;
+};
+
+const backpacks = filterExcludedItems(filterItemsByChapterAndSeason(items.filter(item => item.type === 'AthenaBackpack')));
+const pickaxes = filterExcludedItems(filterItemsByChapterAndSeason(items.filter(item => item.type === 'AthenaPickaxe')));
+const characters = filterExcludedItems(filterItemsByChapterAndSeason(items.filter(item => item.type === 'AthenaCharacter')));
+const itemWraps = filterExcludedItems(filterItemsByChapterAndSeason(items.filter(item => item.type === 'AthenaItemWrap')));
+const musicPacks = filterExcludedItems(filterItemsByChapterAndSeason(items.filter(item => item.type === 'AthenaMusicPack')));
+const dances = filterExcludedItems(filterItemsByChapterAndSeason(items.filter(item => item.type === 'AthenaDance')));
+const gliders = filterExcludedItems(filterItemsByChapterAndSeason(items.filter(item => item.type === 'AthenaGlider')));
+const contrails = filterExcludedItems(filterItemsByChapterAndSeason(items.filter(item => item.type === 'AthenaSkyDiveContrail')));
 
 const usedItemIds = new Set();
 
 const getUniqueItem = (itemsList) => {
     const availableItems = itemsList.filter(item => !usedItemIds.has(item.id));
+   // console.log(`Available items: ${availableItems.length}`); // Debugging
     if (availableItems.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * availableItems.length);
     const item = availableItems[randomIndex];
@@ -259,13 +118,13 @@ const getPrice = (item) => {
             dark: 1200,
             frozen: 1000,
             slurp: 1500,
-            starwars: 1000,
+            starwars: 800,
             shadow: 1000,
-            marvel: 1500,
-            dc: 1800 
+            marvel: 800,
+            dc: 800 
         },
         gliders: {
-            common: 100,
+            common: 100, // this is for the victory gliders
             uncommon: 500,
             rare: 800,
             epic: 1200,
@@ -382,7 +241,6 @@ const getPrice = (item) => {
 };
 
 const config = {
-    "//": "BR Item Shop Config",
     "daily1": (() => {
         const item = getUniqueItem(gliders);
         return item ? {
