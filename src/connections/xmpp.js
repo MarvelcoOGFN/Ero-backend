@@ -444,8 +444,6 @@ function RemoveClient(ws, joinedMUCs) {
             })).up().toString());
         });
     }
-
-    log.xmpp(`An xmpp client with the displayName ${client.displayName} has logged out.`);
 }
 
 async function getPresenceFromFriends(ws, accountId, jid) {

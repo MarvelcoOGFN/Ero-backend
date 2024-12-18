@@ -14,12 +14,12 @@
 - [X] Parties (V1 & V2)
 - [x] Gifting
 - [x] Purchasing from item shop
-- [x] Support a creator (Needs to be improved)
+- [x] Support a creator
 - [x] Refunding
 - [x] Copy Cosmetic Loadout
 - [x] Set Cosmetic Locker Name
 - [x] Delete Cosmetic Loadout
-- [ ] Match maker
+- [ ] Match maker (The current one is lawin and i want to change that)
 - [x] Winter feast gift opening (11.31)
 - [x] Timeline from S2 to S16
 - [ ] Multi version item shop generator
