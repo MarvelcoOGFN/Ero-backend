@@ -8,8 +8,8 @@
         "motds": [
           {
             "entryType": "Website",
-            "image": "https://i.imgur.com/TgWQS8X.png",
-            "tileImage": "https://i.imgur.com/E2EyzOD.png", 
+            "image": "https://i.imgur.com/heHwaJk.png",
+            "tileImage": "https://i.imgur.com/rF0maDa.png", 
             "hidden": false,
             "tabTitleOverride": "Ero Backend",
             "_type": "CommonUI Simple Message MOTD",
