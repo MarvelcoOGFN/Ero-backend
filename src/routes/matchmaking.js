@@ -35,6 +35,24 @@ app.get("/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId
     });
 });
 
+app.post('/fortnite/api/matchmaking/session', (req, res) => {
+    if (typeof req.body !== 'object' || req.body === null) {
+        return res.status(400).json({ error: 'Request body must be JSON' });
+    }
+
+    const body = req.body;
+
+    const additionalData = {
+        sessionId: id.MakeID(),
+        serverAddress: "127.0.0.1",
+        serverPort: "7777"
+    };
+
+    const combinedData = { ...additionalData, ...body };
+
+    res.json(combinedData);
+});
+
 app.get("/fortnite/api/matchmaking/session/:sessionId", verifyToken, (req, res) => {
     const gameServerIP = process.env.GAME_SERVER_IP;
 
