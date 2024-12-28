@@ -6,8 +6,6 @@
 - [x] Auto shop
 - [x] Battle Pass & Leveling Up (s2~s16)
 - [x] Challenges (Quests)
-- [ ] Xp
-- [ ] leveling thro xp
 - [x] Ability to gain xp using the camp fire in 11.31
 - [x] Friends
 - [x] XMPP
