@@ -7,7 +7,7 @@ const path = require("path");
 const { verifyToken } = require("../token/tokenVerify.js");
 const Version = require("../structs/Versioninfo.js");
 
-let seasons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+let seasons = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
 router.get("/fortnite/api/cloudstorage/system", handleCloudStorageSystem);
 router.get("/fortnite/api/cloudstorage/system/:file", handleCloudStorageFile);
@@ -21,26 +21,28 @@ function handleCloudStorageSystem(req, res) {
 }
 
 function handleCloudStorageFile(req, res) {
-    const file = path.join(__dirname, "..", "CloudStorage", req.params.file);
+    const File = path.basename(req.params.file);
+    const file = path.join(__dirname, "..", "CloudStorage", File);
 
     if (fs.existsSync(file)) {
         res.status(200).send(fs.readFileSync(file));
     } else {
-        res.status(200).end();
+        res.status(404).json({ error: "File not found." });
     }
 }
 
 function handleUserFile(req, res) {
     const clientSettingsPath = getClientSettingsPath(req);
+    const File = path.basename(req.params.file).toLowerCase();
 
-    if (req.params.file.toLowerCase() !== "clientsettings.sav") {
-        return res.status(200).end();
+    if (File !== "clientsettings.sav") {
+        return res.status(400).json({ error: "Invalid file requested." });
     }
 
     const memory = Version.GetVersionInfo(req);
 
     if (!seasons.includes(memory.season)) {
-        return res.status(200).end();
+        return res.status(400).json({ error: "Invalid season." });
     }
 
     const file = getUserFilePath(clientSettingsPath, memory.season);
@@ -65,27 +67,28 @@ function handlePutUserFile(req, res) {
     }
 
     const clientSettingsPath = getClientSettingsPath(req);
+    const File = path.basename(req.params.file).toLowerCase();
 
-    if (req.params.file.toLowerCase() !== "clientsettings.sav") {
-        return res.status(204).end();
+    if (File !== "clientsettings.sav") {
+        return res.status(400).json({ error: "Invalid file name." });
     }
 
     const memory = Version.GetVersionInfo(req);
 
     if (!seasons.includes(memory.season)) {
-        return res.status(204).end();
+        return res.status(400).json({ error: "Invalid season." });
     }
 
     const file = getUserFilePath(clientSettingsPath, memory.season);
-    writeFileSync(file, req.rawBody, 'latin1');
+    writeFileSync(file, req.rawBody, "latin1");
 
     res.status(204).end();
 }
 
 function getCloudFiles() {
     return fs.readdirSync(path.join(__dirname, "..", "CloudStorage"))
-        .filter(name => name.toLowerCase().endsWith(".ini"))
-        .map(name => parseCloudFile(name));
+        .filter((name) => name.toLowerCase().endsWith(".ini"))
+        .map((name) => parseCloudFile(name));
 }
 
 function parseCloudFile(name) {
@@ -95,23 +98,24 @@ function parseCloudFile(name) {
     return {
         uniqueFilename: name,
         filename: name,
-        hash: crypto.createHash('sha1').update(parsedFile).digest('hex'),
-        hash256: crypto.createHash('sha256').update(parsedFile).digest('hex'),
+        hash: crypto.createHash("sha1").update(parsedFile).digest("hex"),
+        hash256: crypto.createHash("sha256").update(parsedFile).digest("hex"),
         length: parsedFile.length,
         contentType: "application/octet-stream",
         uploaded: parsedStats.mtime,
         storageType: "S3",
         storageIds: {},
-        doNotCache: true
+        doNotCache: true,
     };
 }
 
 function getClientSettingsPath(req) {
     const accountId = req.user.accountId;
-    const clientSettingsPath = path.join(__dirname, "..", "ClientSettings", accountId);
+    const VerifyAccountId = accountId.replace(/[^a-zA-Z0-9_-]/g, "");
+    const clientSettingsPath = path.join(__dirname, "..", "ClientSettings", VerifyAccountId);
 
     if (!fs.existsSync(clientSettingsPath)) {
-        fs.mkdirSync(clientSettingsPath);
+        fs.mkdirSync(clientSettingsPath, { recursive: true });
     }
 
     return clientSettingsPath;
@@ -125,28 +129,30 @@ function sendFileIfExists(file, res) {
     if (fs.existsSync(file)) {
         res.status(200).send(fs.readFileSync(file));
     } else {
-        res.status(200).end();
+        res.status(404).json({ error: "File not found." });
     }
 }
 
 function sendFileDetailsIfExists(file, res, accountId) {
     if (fs.existsSync(file)) {
-        const parsedFile = fs.readFileSync(file, 'latin1');
+        const parsedFile = fs.readFileSync(file, "latin1");
         const parsedStats = fs.statSync(file);
 
-        const response = [{
-            uniqueFilename: "ClientSettings.Sav",
-            filename: "ClientSettings.Sav",
-            hash: crypto.createHash('sha1').update(parsedFile).digest('hex'),
-            hash256: crypto.createHash('sha256').update(parsedFile).digest('hex'),
-            length: Buffer.byteLength(parsedFile),
-            contentType: "application/octet-stream",
-            uploaded: parsedStats.mtime,
-            storageType: "S3",
-            storageIds: {},
-            accountId: accountId,
-            doNotCache: false
-        }];
+        const response = [
+            {
+                uniqueFilename: "ClientSettings.Sav",
+                filename: "ClientSettings.Sav",
+                hash: crypto.createHash("sha1").update(parsedFile).digest("hex"),
+                hash256: crypto.createHash("sha256").update(parsedFile).digest("hex"),
+                length: Buffer.byteLength(parsedFile),
+                contentType: "application/octet-stream",
+                uploaded: parsedStats.mtime,
+                storageType: "S3",
+                storageIds: {},
+                accountId: accountId,
+                doNotCache: false,
+            },
+        ];
 
         res.json(response);
     } else {
@@ -167,7 +173,7 @@ function getRawBody(req, res, next) {
         req.rawBody = "";
         req.setEncoding("latin1");
 
-        req.on("data", (chunk) => req.rawBody += chunk);
+        req.on("data", (chunk) => (req.rawBody += chunk));
         req.on("end", () => next());
     } catch {
         res.status(400).json({ error: "Something went wrong while trying to access the request body." });

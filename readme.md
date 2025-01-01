@@ -24,7 +24,8 @@
 - [x] Multi version content pages
 - [X] Fix major bugs
 - [x] Add more usefull Bot commands
-- [x] Arena (By Waslyl(: )
+- [x] Arena (By Waslyl)
+- [x] Fixed Cloud Storage exploit
 
  # List of Bot commands:
 - [x] Create An Account
