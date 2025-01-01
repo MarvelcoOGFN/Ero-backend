@@ -54,6 +54,36 @@
       "_locale": "en-US",
       "_templateName": "FortniteGameDynamicBackgrounds"
     },
+    "shopSections": {
+      "_title": "shop-sections",
+      "sectionList": {
+        "_type": "ShopSectionList",
+        "sections": [
+          {
+            "bSortOffersByOwnership": false,
+            "bShowIneligibleOffersIfGiftable": false,
+            "bEnableToastNotification": true,
+            "background": {
+              "stage": "default",
+              "_type": "DynamicBackground",
+              "key": "vault"
+            },
+            "_type": "ShopSection",
+            "landingPriority": 70,
+            "bHidden": false,
+            "sectionId": "Featured",
+            "bShowTimer": true,
+            "sectionDisplayName": "Featured",
+            "bShowIneligibleOffers": true
+          }
+        ]
+      },
+      "_noIndex": false,
+      "_activeDate": "2022-12-01T23:45:00.000Z",
+      "lastModified": "2022-12-01T21:50:44.089Z",
+      "_locale": "en-US",
+      "_templateName": "FortniteGameShopSections"
+    },
     "playlistinformation": {
       "frontend_matchmaking_header_style": "None",
       "_title": "playlistinformation",
