@@ -108,7 +108,7 @@
             "tournaments": [
                 {
                     "title_color": "FFFFFF",
-                    "loading_screen_image": "https://cdn2.unrealengine.com/Fortnite%2Ffortnite-game%2Ftournaments%2FArena_ModeSelect_Generic_Solo4-1024x512-8a00c8b712843e0af102a7a43629f50c8987d927.png",
+                    "loading_screen_image": "https://raw.githubusercontent.com/MarvelcoOGFN/Playlist-fn-images/refs/heads/main/arena/arena%20solo.jpg",
                     "background_text_color": "1B1B1B",
                     "background_right_color": "DD091A",
                     "poster_back_image": "https://cdn2.unrealengine.com/Fortnite%2Ffortnite-game%2Ftournaments%2FArena_ModeSelect_Generic_Solo4-1024x512-8a00c8b712843e0af102a7a43629f50c8987d927.png",
@@ -129,7 +129,7 @@
                     "long_format_title": "",
                     "poster_fade_color": "DD091A",
                     "secondary_color": "1B1B1B",
-                    "playlist_tile_image": "https://cdn2.unrealengine.com/Fortnite%2Ffortnite-game%2Ftournaments%2FArena_ModeSelect_Generic_Solo4-1024x512-8a00c8b712843e0af102a7a43629f50c8987d927.png",
+                    "playlist_tile_image": "https://raw.githubusercontent.com/MarvelcoOGFN/Playlist-fn-images/refs/heads/main/arena/arena%20solo.jpg",
                     "base_color": "FFFFFF"
                 }
             ],

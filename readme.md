@@ -25,6 +25,7 @@
 - [X] Fix major bugs
 - [x] Add more usefull Bot commands
 - [x] Arena (By Waslyl)
+- [x] Multi version Arena
 - [x] Fixed Cloud Storage exploit
 
  # List of Bot commands:
