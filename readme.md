@@ -2,10 +2,12 @@
 
 ![image](https://github.com/user-attachments/assets/f5701c7b-7138-4e14-aff0-9417990c21c0)
 
+### first backend i ever made and it stayed the only one i ever really updated and cared about after this backend i never did any and lost intreast in backends
+
 # road map:
 - [x] Auto shop
 - [x] Battle Pass & Leveling Up (s2~s16)
-- [x] Challenges (Quests)
+- [x] Challenges (Quests) (no xp progression and no daily challenges above s11)
 - [x] Ability to gain xp using the camp fire in 11.31
 - [x] Friends
 - [x] XMPP
@@ -17,7 +19,7 @@
 - [x] Copy Cosmetic Loadout
 - [x] Set Cosmetic Locker Name
 - [x] Delete Cosmetic Loadout
-- [ ] Match maker (The current one is lawin and i want to change that)
+- [x] Match maker very basic and obv skidded
 - [x] Winter feast gift opening (11.31)
 - [x] Timeline from S2 to S16
 - [X] Multi version item shop generator
