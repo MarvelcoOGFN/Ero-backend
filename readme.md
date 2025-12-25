@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/f5701c7b-7138-4e14-aff0-9417990c21c0)
 
-### first backend i ever made and it stayed the only one i ever really updated and cared about after this backend i never did any and lost intreast in backends
+### really really old backend
 
 # road map:
 - [x] Auto shop
